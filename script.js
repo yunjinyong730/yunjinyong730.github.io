@@ -1,23 +1,3 @@
-const typingTarget = document.querySelector("#typingText");
-const typingText = typingTarget?.dataset.text ?? "";
-let typingIndex = 0;
-
-function typePrompt() {
-  if (!typingTarget) return;
-
-  if (typingIndex <= typingText.length) {
-    typingTarget.textContent = typingText.slice(0, typingIndex);
-    typingIndex += 1;
-    window.setTimeout(typePrompt, typingIndex < 5 ? 180 : 70);
-  } else {
-    window.setTimeout(() => {
-      typingIndex = 0;
-      typingTarget.textContent = "";
-      typePrompt();
-    }, 3200);
-  }
-}
-
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -27,7 +7,7 @@ const revealObserver = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.12 }
+  { threshold: 0.1 }
 );
 
 document.querySelectorAll(".reveal").forEach((element) => {
@@ -52,13 +32,42 @@ const navObserver = new IntersectionObserver(
     });
   },
   {
-    rootMargin: "-30% 0px -50% 0px",
+    rootMargin: "-28% 0px -52% 0px",
     threshold: [0.05, 0.2, 0.5],
   }
 );
 
 sections.forEach((section) => navObserver.observe(section));
 
-document.querySelector("#year").textContent = new Date().getFullYear();
+const year = document.querySelector("#year");
+if (year) year.textContent = new Date().getFullYear();
 
-typePrompt();
+const splineRobot = document.querySelector("#splineRobot");
+const heroVisual = document.querySelector(".hero-visual");
+
+if (splineRobot && heroVisual) {
+  splineRobot.setAttribute("background", "transparent");
+
+  customElements.whenDefined("spline-viewer").then(() => {
+    heroVisual.classList.add("spline-mounted");
+  });
+
+  splineRobot.addEventListener("load", () => {
+    heroVisual.classList.add("spline-loaded");
+  });
+}
+
+const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+if (finePointer) {
+  document.querySelectorAll(".project-card, .research-card").forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+      card.style.setProperty("--pointer-x", `${50 + x * 18}%`);
+      card.style.setProperty("--pointer-y", `${50 + y * 18}%`);
+    });
+  });
+}
