@@ -15,17 +15,12 @@
 </head>
 <body>
   <main id="app" class="portfolio-shell is-landing">
-    <div class="aurora-field" aria-hidden="true">
-      <i></i><i></i><i></i>
-    </div>
+    <div class="aurora-field" aria-hidden="true"><i></i><i></i><i></i></div>
 
     <header class="site-header">
       <button class="brand" type="button" data-action="home" aria-label="첫 화면으로 이동">
         <span>YJ</span>
-        <div>
-          <strong>Yun Jinyong</strong>
-          <small>AI/ML ENGINEER · EDGE AI</small>
-        </div>
+        <div><strong>Yun Jinyong</strong><small>AI/ML ENGINEER · EDGE AI</small></div>
       </button>
       <nav aria-label="외부 링크">
         <a href="https://github.com/yunjinyong730" target="_blank" rel="noreferrer">GitHub ↗</a>
@@ -40,34 +35,34 @@
           <h1 id="hero-title">연구를 넘어<br /><em>실제로 동작하는 AI를 만듭니다.</em></h1>
         </div>
 
-        <div id="mascotStage" class="mascot-stage" aria-label="마우스를 따라 움직이는 윤진용 포트폴리오 AI 마스코트">
+        <button id="mascotStage" class="mascot-stage" type="button" aria-label="AI 마스코트에게 윤진용 개발자에 대해 질문하기">
           <span class="orbit orbit-a" aria-hidden="true">AI</span>
           <span class="orbit orbit-b" aria-hidden="true">EDGE</span>
-          <span class="orbit orbit-c" aria-hidden="true">01</span>
+          <span class="orbit orbit-c" aria-hidden="true">YJ</span>
+          <span class="bot-shadow" aria-hidden="true"></span>
 
-          <div class="bot-shadow" aria-hidden="true"></div>
-          <div id="aiBot" class="ai-bot" aria-hidden="true">
-            <div class="bot-antenna"><i></i></div>
-            <div class="bot-ear bot-ear-left"></div>
-            <div class="bot-ear bot-ear-right"></div>
-            <div class="bot-head">
-              <div class="bot-face">
-                <div class="bot-eye"><i class="pupil"></i></div>
-                <div class="bot-eye"><i class="pupil"></i></div>
-                <div class="bot-mouth"></div>
+          <span id="aiBot" class="soft-bot" aria-hidden="true">
+            <span class="bot-antenna"><i></i></span>
+            <span class="bot-head">
+              <span class="bot-face">
+                <span class="bot-eye"><i class="pupil"></i></span>
+                <span class="bot-eye"><i class="pupil"></i></span>
+                <span class="bot-mouth"></span>
                 <span class="blush blush-left"></span>
                 <span class="blush blush-right"></span>
-              </div>
-            </div>
-            <div class="bot-neck"></div>
-            <div class="bot-body">
-              <span class="bot-core">✦</span>
-              <span class="bot-label">YJ · AI</span>
-            </div>
-            <div class="bot-arm bot-arm-left"><i></i></div>
-            <div class="bot-arm bot-arm-right"><i></i></div>
-          </div>
-        </div>
+              </span>
+            </span>
+            <span class="bot-neck"></span>
+            <span class="bot-body">
+              <span class="bot-belly"><i>✦</i><b>YJ</b></span>
+              <span class="bot-arm bot-arm-left"><i></i></span>
+              <span class="bot-arm bot-arm-right"><i></i></span>
+              <span class="bot-foot bot-foot-left"></span>
+              <span class="bot-foot bot-foot-right"></span>
+            </span>
+          </span>
+          <span class="mascot-caption">click me · ask about YJ</span>
+        </button>
       </div>
 
       <form id="landingComposer" class="guided-composer" autocomplete="off">
@@ -77,7 +72,7 @@
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"></path></svg>
         </button>
       </form>
-      <small class="guided-hint">질문해 보세요 · “연구 보여줘”, “프로젝트 알려줘”, “무슨 기술 써?”</small>
+      <small class="guided-hint">질문해 보세요 · “연구 보여줘”, “프로젝트 알려줘”, “Camera–LiDAR 보여줘”</small>
 
       <nav class="menu-grid" aria-label="포트폴리오 빠른 질문">
         <button type="button" data-command="me"><span>◎</span><strong>Me</strong><small>어떤 엔지니어야?</small></button>
@@ -122,10 +117,10 @@
 
         <div class="conversation-bottom">
           <div class="quick-prompts" aria-label="추천 질문">
-            <button type="button" data-command="research">핵심 연구는?</button>
-            <button type="button" data-command="projects">Edge AI 프로젝트</button>
-            <button type="button" data-query="SCALE 설명해줘">SCALE</button>
-            <button type="button" data-query="LiDAR 프로젝트 보여줘">Camera–LiDAR</button>
+            <button type="button" data-command="projects">대표 프로젝트</button>
+            <button type="button" data-query="Camera–LiDAR 프로젝트 보여줘">Camera–LiDAR</button>
+            <button type="button" data-query="카메라 드리프트 프로젝트 보여줘">Camera drift</button>
+            <button type="button" data-query="Raspberry Pi 프로젝트 보여줘">Raspberry Pi</button>
           </div>
           <form id="chatComposer" class="chat-composer" autocomplete="off">
             <span class="spark" aria-hidden="true">✦</span>
