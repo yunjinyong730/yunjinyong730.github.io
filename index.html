@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="jinyongyun의 개발자 포트폴리오" />
-  <meta name="theme-color" content="#f4f3ef" />
-  <title>jinyongyun · Portfolio</title>
+  <meta name="description" content="윤진용 · AI/ML Engineer · Edge AI — Research to Real-World AI Systems" />
+  <meta name="theme-color" content="#f3f2ee" />
+  <title>Yun Jinyong · AI/ML Engineer</title>
 
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="./styles.css" />
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.95/build/spline-viewer.js"></script>
   <script defer src="./script.js"></script>
 </head>
 <body>
@@ -16,324 +19,349 @@
 
   <header class="site-header">
     <a class="brand" href="#home" aria-label="홈으로 이동">
-      <span class="brand-mark">Y</span>
+      <span class="brand-mark">YJ</span>
       <span class="brand-copy">
-        <strong>jinyongyun</strong>
-        <small>Software Engineer</small>
+        <strong>YUN JINYONG</strong>
+        <small>AI/ML Engineer · Edge AI</small>
       </span>
     </a>
 
-    <a class="header-link" href="#contact">
-      Available for work
-      <span class="status-dot" aria-hidden="true"></span>
-    </a>
+    <div class="header-actions">
+      <span class="availability"><i></i> Research · Edge · Application</span>
+      <a class="header-link" href="https://github.com/yunjinyong730" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </div>
   </header>
 
   <main>
     <section id="home" class="hero section-shell">
       <div class="hero-copy reveal">
-        <p class="eyebrow">안녕하세요, 개발자 jinyongyun입니다.</p>
+        <p class="eyebrow"><span>AI/ML ENGINEER</span><span>EDGE AI</span><span>SEOUL, KR</span></p>
 
         <h1>
-          복잡한 문제를
-          <span class="headline-accent">기술로 단순하게</span>
-          해결합니다.
+          From Research to
+          <span class="headline-accent">Real-World AI.</span>
         </h1>
 
         <p class="hero-description">
-          사용자와 비즈니스의 문제를 이해하고,
-          제품으로 이어지는 소프트웨어를 만듭니다.
+          실세계 문제를 정의하고 데이터를 만들며 AI 모델을 설계합니다.
+          연구 결과를 <strong>MCU · Raspberry Pi · Mobile Application</strong>까지 연결해
+          실제 동작하는 시스템으로 구현합니다.
         </p>
 
+        <div class="focus-row" aria-label="핵심 관심 분야">
+          <span>Sensor Calibration</span>
+          <span>On-Device AI</span>
+          <span>Autonomous Perception</span>
+        </div>
+
         <div class="hero-actions">
-          <a class="button button-primary" href="#projects">프로젝트 보기</a>
-          <a class="button button-ghost" href="#contact">연락하기 ↗</a>
+          <a class="button button-primary" href="#projects">Featured Projects</a>
+          <a class="button button-ghost" href="#research">Research ↘</a>
         </div>
       </div>
 
-      <div class="hero-visual reveal" aria-label="추상적인 인터랙티브 그래픽">
-        <div class="visual-grid"></div>
-        <div class="orb orb-one"></div>
-        <div class="orb orb-two"></div>
-        <div class="orb-core">
-          <span>BUILD</span>
-          <strong>01</strong>
+      <div class="hero-visual reveal" aria-label="인터랙티브 3D AI 로봇">
+        <div class="spline-backdrop" aria-hidden="true"></div>
+        <div class="ai-fallback" aria-hidden="true">
+          <span class="antenna"></span>
+          <div class="bot-head">
+            <span class="eye eye-left"></span>
+            <span class="eye eye-right"></span>
+            <span class="bot-mouth"></span>
+          </div>
+          <div class="bot-body"><span>AI</span></div>
         </div>
+        <spline-viewer
+          id="splineRobot"
+          url="https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode"
+          loading-anim-type="spinner-small-dark"
+          events-target="global"
+        ></spline-viewer>
 
         <div class="visual-label visual-label-top">
           <span class="label-dot"></span>
-          system / product / code
+          interactive ai companion
         </div>
-
-        <div class="visual-label visual-label-bottom">
-          scroll to explore ↓
-        </div>
+        <div class="visual-label visual-label-bottom">move your cursor ↗</div>
       </div>
 
-      <div class="prompt-box reveal" aria-label="소개 문구">
-        <span class="prompt-symbol">✦</span>
-        <span id="typingText" data-text="jinyongyun 개발자에 대해 알려줘"></span>
-        <span class="typing-cursor" aria-hidden="true"></span>
+      <div class="hero-metrics reveal">
+        <div><strong>Research</strong><span>Sensor Calibration · NLP</span></div>
+        <div><strong>Edge</strong><span>TFLite · MCU · Raspberry Pi</span></div>
+        <div><strong>Build</strong><span>Data → Model → Deploy → App</span></div>
       </div>
     </section>
 
     <section id="me" class="section section-shell">
       <div class="section-heading reveal">
-        <p class="section-kicker">01 · ME</p>
-        <h2>문제를 구조화하고,<br />끝까지 구현합니다.</h2>
+        <p class="section-kicker">01 · ABOUT</p>
+        <h2>정확도에서 끝나지 않고,<br />배포 조건까지 문제로 봅니다.</h2>
       </div>
 
       <div class="about-grid">
         <article class="about-card about-intro reveal">
           <p class="big-copy">
-            저는 <strong>사용자 경험과 구현 현실 사이</strong>의 균형을 찾는 개발자입니다.
-            빠르게 실험하되, 운영 가능한 구조와 읽기 쉬운 코드를 중요하게 생각합니다.
+            모델 연구에 그치지 않고 <strong>문제 정의 · 데이터 · 모델 · 배포 · Application</strong>을
+            하나의 흐름으로 연결하는 AI/ML Engineer입니다.
           </p>
-        </article>
-
-        <article class="about-card profile-card reveal">
-          <div class="profile-orbit" aria-hidden="true">
-            <span>Y</span>
-          </div>
-          <div>
-            <p class="card-label">PROFILE</p>
-            <h3>jinyongyun</h3>
-            <p>Software Engineer · Seoul, KR</p>
+          <div class="process-line" aria-label="작업 과정">
+            <span>Problem</span><i>→</i><span>Research</span><i>→</i><span>Build</span><i>→</i><span>Deploy</span><i>→</i><span>Product</span>
           </div>
         </article>
 
-        <article class="about-card principle-card reveal">
-          <p class="card-label">HOW I WORK</p>
-          <ol>
-            <li><span>01</span> 문제를 작은 단위로 나눕니다.</li>
-            <li><span>02</span> 선택의 근거를 문서화합니다.</li>
-            <li><span>03</span> 실제 사용자 피드백으로 검증합니다.</li>
-          </ol>
+        <article class="about-card capability-card reveal">
+          <p class="card-label">01 · AI RESEARCH</p>
+          <h3>Sensor Calibration<br />Model Compression</h3>
+          <p>정확도뿐 아니라 Latency · Memory · Resource Efficiency까지 함께 평가합니다.</p>
+        </article>
+
+        <article class="about-card capability-card reveal">
+          <p class="card-label">02 · EDGE DEPLOYMENT</p>
+          <h3>TFLite · ONNX<br />MCU · Raspberry Pi</h3>
+          <p>실제 장치의 지연 시간과 자원 제약을 모델 설계 단계부터 고려합니다.</p>
+        </article>
+
+        <article class="about-card capability-card reveal">
+          <p class="card-label">03 · APPLICATION</p>
+          <h3>Android · iOS<br />Real-Time AI</h3>
+          <p>모델을 데모에 머물게 하지 않고 사용자가 접하는 Application까지 연결합니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="research" class="section section-shell research-section">
+      <div class="section-heading reveal">
+        <p class="section-kicker">02 · RESEARCH</p>
+        <h2>Deployment-oriented<br />AI research.</h2>
+      </div>
+
+      <div class="research-grid">
+        <article class="research-card featured reveal">
+          <div class="research-meta"><span>PAPER 01</span><span>1st Author · 2026</span></div>
+          <p class="research-venue">Journal of KIISE / JOK</p>
+          <h3>SCALE</h3>
+          <p class="research-subtitle">Balanced Sensor Calibration for On-Device AI</p>
+          <p class="research-copy">CSP와 Binary Hash Attention을 이용해 센서 보정 정확도와 MCU 지연·자원 효율성을 함께 다룬 연구입니다.</p>
+          <div class="evidence-grid">
+            <div><strong>14.03</strong><span>PM10 RMSE · lowest</span></div>
+            <div><strong>1.72 ms</strong><span>max latency</span></div>
+            <div><strong>7.1%</strong><span>max CPU utilization</span></div>
+          </div>
+          <div class="tag-row"><span>Sensor Calibration</span><span>On-Device AI</span><span>TFLite</span><span>MCU</span></div>
+        </article>
+
+        <article class="research-card reveal">
+          <div class="research-meta"><span>PAPER 02</span><span>1st Author · 2026</span></div>
+          <p class="research-venue">IoT Journal</p>
+          <h3>S-CALIBER</h3>
+          <p class="research-subtitle">Microscopic Requirement-Aware Sensor Calibration</p>
+          <p class="research-copy">평균 정확도만이 아니라 instantaneous error, worst-case latency, timing jitter, memory, runtime headroom까지 R1–R7 요구사항으로 분해했습니다.</p>
+          <div class="evidence-grid compact">
+            <div><strong>7 / 7</strong><span>requirements satisfied</span></div>
+            <div><strong>15-week</strong><span>indoor dataset</span></div>
+          </div>
+          <div class="tag-row"><span>SLP</span><span>EBA</span><span>Requirement-aware</span><span>MCU</span></div>
+        </article>
+
+        <article class="research-card reveal">
+          <div class="research-meta"><span>PAPER 03</span><span>Co-author</span></div>
+          <p class="research-venue">Evidence-grounded NLP Application</p>
+          <h3>FEAK</h3>
+          <p class="research-subtitle">Feature-Based Evaluation & LLM-Constrained Feedback</p>
+          <p class="research-copy">29개 자질과 루브릭 점수를 분석하고, 강한 evidence를 선택해 LLM 피드백을 제약하는 한국어 작문 평가 파이프라인입니다.</p>
+          <div class="evidence-grid compact">
+            <div><strong>+4.43</strong><span>writing gain</span></div>
+            <div><strong>16.42 s</strong><span>feedback time</span></div>
+          </div>
+          <a class="inline-link" href="https://github.com/yunjinyong730/UKTA_v2" target="_blank" rel="noreferrer">Related UKTA repository ↗</a>
+        </article>
+
+        <article class="dataset-card reveal">
+          <p class="card-label">DATA · RESEARCH ENGINEERING</p>
+          <h3>Long-term Indoor Multi-Sensor Calibration Dataset</h3>
+          <p>고비용–저비용 센서쌍이 부족한 문제를 해결하기 위해 연구실 환경에서 장기간 데이터를 직접 수집했습니다.</p>
+          <div class="dataset-stats">
+            <div><strong>6 months</strong><span>2026.01.22–07.05</span></div>
+            <div><strong>5 signals</strong><span>PM1 · CO · CO₂ · Temp · Humidity</span></div>
+            <div><strong>5 locations</strong><span>indoor collection nodes</span></div>
+          </div>
+          <p class="dataset-note">출입 · 문/창문 개방 · 재실 인원 메타데이터까지 기록하고, 정제와 split leakage 방지까지 수행했습니다.</p>
         </article>
       </div>
     </section>
 
     <section id="projects" class="section section-shell projects-section">
       <div class="section-heading reveal">
-        <p class="section-kicker">02 · PROJECTS</p>
-        <h2>선택과 결과가 보이는<br />프로젝트 기록.</h2>
+        <p class="section-kicker">03 · PROJECTS</p>
+        <h2>Research ideas,<br />running systems.</h2>
       </div>
 
       <div class="project-list">
         <article class="project-card reveal">
-          <div class="project-topline">
-            <span>PROJECT 01</span>
-            <span>2026 · PRODUCTION</span>
+          <div class="project-media">
+            <img src="https://github.com/user-attachments/assets/b49fa4f9-f7bc-4936-a172-15a005de1742" alt="실시간 센서 보정 시스템 구성" loading="lazy" />
           </div>
-
-          <div class="project-main">
-            <div>
-              <p class="project-company">COMPANY / TEAM</p>
-              <h3>AI 업무 자동화 플랫폼</h3>
-              <p class="project-summary">
-                반복 업무를 줄이고 의사결정 속도를 높이기 위한
-                사내 AI 기반 업무 자동화 서비스를 설계하고 구현했습니다.
-              </p>
+          <div class="project-content">
+            <div class="project-topline"><span>PROJECT 01</span><span>REAL-TIME SENSOR AI</span></div>
+            <div class="project-main">
+              <div>
+                <p class="project-company">SENSOR CALIBRATION · ANOMALY DETECTION</p>
+                <h3>Multi-sensor Real-time Calibration & Anomaly Detection</h3>
+                <p class="project-summary">PM1 · Humidity · Temperature · CO · CO₂를 실시간으로 보정하고 Robust Z-Score 기반 Level/Jump 이상을 탐지하는 온라인 모니터링 파이프라인입니다.</p>
+              </div>
+              <a class="project-arrow" href="https://github.com/yunjinyong730/Real_time_Sensor_Calibration_Anomaly_Detection" target="_blank" rel="noreferrer" aria-label="GitHub에서 프로젝트 보기">↗</a>
             </div>
-
-            <a class="project-arrow" href="#" aria-label="프로젝트 상세 링크">
-              ↗
-            </a>
-          </div>
-
-          <div class="project-details">
-            <div>
-              <p class="detail-label">MY ROLE</p>
-              <p>서비스 구조 설계, API 개발, 검색 파이프라인 구현, 배포 자동화</p>
+            <div class="project-details">
+              <div><p class="detail-label">PIPELINE</p><p>5 sensor channels → 30s resampling → 180-step window → calibration → robust anomaly detection</p></div>
+              <div><p class="detail-label">ENGINEERING</p><p>Reference 기반 보정, online monitoring, cooldown 로직으로 반복 false alarm 제어</p></div>
             </div>
-            <div>
-              <p class="detail-label">OUTCOME</p>
-              <p>처리 시간 60% 단축 · 반복 수작업 제거 · 운영 모니터링 체계 구축</p>
-            </div>
-          </div>
-
-          <div class="architecture">
-            <span>Client</span>
-            <i>→</i>
-            <span>API</span>
-            <i>→</i>
-            <span>Orchestrator</span>
-            <i>→</i>
-            <span>Search / DB</span>
-          </div>
-
-          <div class="tag-row">
-            <span>Python</span><span>FastAPI</span><span>Azure</span><span>RAG</span>
+            <div class="tag-row"><span>TensorFlow</span><span>Time Series</span><span>Sensor Calibration</span><span>Anomaly Detection</span></div>
           </div>
         </article>
 
         <article class="project-card reveal">
-          <div class="project-topline">
-            <span>PROJECT 02</span>
-            <span>2025 · PRODUCT</span>
+          <div class="project-media dark-media">
+            <img src="https://github.com/user-attachments/assets/2c45f1b4-1c85-4519-9b09-50f6c3f3e63a" alt="Camera LiDAR calibration 복구 시각화" loading="lazy" />
           </div>
-
-          <div class="project-main">
-            <div>
-              <p class="project-company">PERSONAL / TEAM</p>
-              <h3>데이터 기반 사용자 분석 대시보드</h3>
-              <p class="project-summary">
-                흩어진 사용자 행동 데이터를 하나의 화면에서 분석하고
-                핵심 지표 변화를 빠르게 파악할 수 있는 대시보드를 만들었습니다.
-              </p>
+          <div class="project-content">
+            <div class="project-topline"><span>PROJECT 02</span><span>AUTONOMOUS PERCEPTION</span></div>
+            <div class="project-main">
+              <div>
+                <p class="project-company">CAMERA–LIDAR FUSION · SE(3)</p>
+                <h3>Camera–LiDAR 6DoF Calibration Drift Recovery</h3>
+                <p class="project-summary">RGB · sparse depth · edge · residual 특징을 융합해 extrinsic drift의 6DoF correction과 confidence를 함께 추정하는 MSF-CalibNet 프로젝트입니다.</p>
+              </div>
+              <a class="project-arrow" href="https://github.com/yunjinyong730/LiDAR_Sensor_Calibration_Aware_Failure_Monitoring" target="_blank" rel="noreferrer" aria-label="GitHub에서 프로젝트 보기">↗</a>
             </div>
-            <a class="project-arrow" href="#" aria-label="프로젝트 상세 링크">↗</a>
-          </div>
-
-          <div class="project-details">
-            <div>
-              <p class="detail-label">MY ROLE</p>
-              <p>프론트엔드 구조 설계, 시각화 컴포넌트, 데이터 API 연동</p>
+            <div class="project-details">
+              <div><p class="detail-label">TOY KITTI VALIDATION</p><p>24 frames에서 15 frames complete recovery — 62.5% recovered status</p></div>
+              <div><p class="detail-label">DEPLOYMENT PATH</p><p>TensorFlow model → recovery metrics → visualization → TFLite export</p></div>
             </div>
-            <div>
-              <p class="detail-label">OUTCOME</p>
-              <p>주요 분석 플로우 단축 · 반응형 UI 구축 · 재사용 가능한 차트 모듈화</p>
-            </div>
-          </div>
-
-          <div class="architecture">
-            <span>Events</span>
-            <i>→</i>
-            <span>ETL</span>
-            <i>→</i>
-            <span>API</span>
-            <i>→</i>
-            <span>Dashboard</span>
-          </div>
-
-          <div class="tag-row">
-            <span>TypeScript</span><span>React</span><span>SQL</span><span>Docker</span>
+            <div class="tag-row"><span>TensorFlow</span><span>KITTI</span><span>SE(3)</span><span>OpenCV</span><span>TFLite</span></div>
           </div>
         </article>
 
         <article class="project-card reveal">
-          <div class="project-topline">
-            <span>PROJECT 03</span>
-            <span>2025 · EXPERIMENT</span>
+          <div class="project-media dark-media">
+            <img src="https://github.com/user-attachments/assets/3af94c0e-f511-416f-b227-7b668ab430cd" alt="카메라 캘리브레이션 드리프트 복구 결과" loading="lazy" />
           </div>
-
-          <div class="project-main">
-            <div>
-              <p class="project-company">SIDE PROJECT</p>
-              <h3>개인 생산성 도구</h3>
-              <p class="project-summary">
-                작은 불편을 직접 해결하기 위해 만든 실험형 서비스입니다.
-                아이디어 검증부터 배포와 사용자 피드백까지 전 과정을 경험했습니다.
-              </p>
+          <div class="project-content">
+            <div class="project-topline"><span>PROJECT 03</span><span>EDGE VISION</span></div>
+            <div class="project-main">
+              <div>
+                <p class="project-company">HOMOGRAPHY · IMAGE REGISTRATION</p>
+                <h3>Deep Learning-based Camera Calibration Drift Recovery</h3>
+                <p class="project-summary">카메라만으로 calibration drift를 탐지하고 8D Homography를 추정한 뒤 ECC refinement로 영상 정합을 복구합니다.</p>
+              </div>
+              <a class="project-arrow" href="https://github.com/yunjinyong730/Autonomous-driving-camera-calibration-drift-detection-recovery" target="_blank" rel="noreferrer" aria-label="GitHub에서 프로젝트 보기">↗</a>
             </div>
-            <a class="project-arrow" href="#" aria-label="프로젝트 상세 링크">↗</a>
-          </div>
-
-          <div class="project-details">
-            <div>
-              <p class="detail-label">MY ROLE</p>
-              <p>기획, 디자인, 풀스택 개발, 배포</p>
+            <div class="project-details">
+              <div><p class="detail-label">TOY VALIDATION</p><p>Pixel MAE 24.3 → 2.1 · SSIM 0.78 → 0.96</p></div>
+              <div><p class="detail-label">EDGE PATH</p><p>HomoMamba-CalibNet-Lite · ECC refinement · TFLite INT8 export</p></div>
             </div>
-            <div>
-              <p class="detail-label">OUTCOME</p>
-              <p>MVP 2주 내 출시 · 사용자 인터뷰 기반 3회 개선</p>
-            </div>
-          </div>
-
-          <div class="architecture">
-            <span>Web</span>
-            <i>→</i>
-            <span>Serverless</span>
-            <i>→</i>
-            <span>Database</span>
-          </div>
-
-          <div class="tag-row">
-            <span>Next.js</span><span>Supabase</span><span>Vercel</span>
+            <div class="tag-row"><span>TensorFlow</span><span>OpenCV</span><span>Homography</span><span>ECC</span><span>INT8</span></div>
           </div>
         </article>
+
+        <article class="project-card project-card-graphic reveal">
+          <div class="project-graphic" aria-hidden="true">
+            <div class="distill-node teacher">Teacher<br /><b>3.31M</b></div>
+            <span>knowledge<br />distillation</span>
+            <div class="distill-node student">Student<br /><b>1.85M</b></div>
+            <span>→</span>
+            <div class="pi-node">RPi</div>
+          </div>
+          <div class="project-content">
+            <div class="project-topline"><span>PROJECT 04</span><span>MODEL COMPRESSION</span></div>
+            <div class="project-main">
+              <div>
+                <p class="project-company">KNOWLEDGE DISTILLATION · RASPBERRY PI</p>
+                <h3>Vision Model Compression & Real Device Deployment</h3>
+                <p class="project-summary">Teacher–Student CNN에 Knowledge Distillation을 적용하고 Raspberry Pi 환경에서 모델 크기와 실제 추론 가능성을 함께 검증한 Edge AI 프로젝트입니다.</p>
+              </div>
+              <a class="project-arrow" href="https://github.com/yunjinyong730/Custom_CNN_Waste_Classification_Knowledge_Distillation_Raspberry" target="_blank" rel="noreferrer" aria-label="GitHub에서 프로젝트 보기">↗</a>
+            </div>
+            <div class="project-details">
+              <div><p class="detail-label">COMPRESSION</p><p>3.31M → 1.85M parameters · 44.1% lightweighting</p></div>
+              <div><p class="detail-label">TARGET</p><p>Image classification · Teacher/Student CNN · Raspberry Pi benchmark</p></div>
+            </div>
+            <div class="tag-row"><span>TensorFlow</span><span>CNN</span><span>Knowledge Distillation</span><span>Raspberry Pi</span></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="more-repos reveal">
+        <p class="card-label">MORE EXPERIMENTS ON GITHUB</p>
+        <div class="repo-links">
+          <a href="https://github.com/yunjinyong730/PatchMLP_Sensor_Calibration" target="_blank" rel="noreferrer">PatchMLP Sensor Calibration ↗</a>
+          <a href="https://github.com/yunjinyong730/TimeXer_Sensor_Calibration" target="_blank" rel="noreferrer">TimeXer Sensor Calibration ↗</a>
+          <a href="https://github.com/yunjinyong730/India_PM2.5_Prediction_Transformer" target="_blank" rel="noreferrer">PM2.5 Transformer ↗</a>
+          <a href="https://github.com/yunjinyong730/Vehicle_Counting_Model_Raspberry_Pi_TFLite" target="_blank" rel="noreferrer">Vehicle Counting · RPi · TFLite ↗</a>
+          <a href="https://github.com/yunjinyong730/UKTA_v2" target="_blank" rel="noreferrer">UKTA · Korean Text Analyzer ↗</a>
+        </div>
       </div>
     </section>
 
-    <section id="skills" class="section section-shell">
+    <section id="stack" class="section section-shell">
       <div class="section-heading reveal">
-        <p class="section-kicker">03 · SKILLS</p>
-        <h2>필요한 기술을 골라<br />제품으로 연결합니다.</h2>
+        <p class="section-kicker">04 · STACK & EDUCATION</p>
+        <h2>Tools for research,<br />deployment and products.</h2>
       </div>
 
       <div class="skills-grid">
-        <article class="skill-panel reveal">
-          <span class="skill-number">01</span>
-          <p class="card-label">LANGUAGE</p>
-          <h3>Python · TypeScript</h3>
-          <p>서비스 로직, 데이터 처리, 웹 애플리케이션 개발</p>
-        </article>
+        <article class="skill-panel reveal"><span class="skill-number">01</span><p class="card-label">PROGRAMMING</p><h3>Python · C · C++ · SQL</h3><p>Research prototyping, data pipeline, embedded-oriented implementation.</p></article>
+        <article class="skill-panel reveal"><span class="skill-number">02</span><p class="card-label">AI / DEEP LEARNING</p><h3>PyTorch · TensorFlow · CUDA</h3><p>Time-series calibration, vision, NLP and model compression.</p></article>
+        <article class="skill-panel reveal"><span class="skill-number">03</span><p class="card-label">EDGE / DEPLOYMENT</p><h3>TFLite · ONNX · Linux</h3><p>MCU and Raspberry Pi inference, quantization and device benchmark.</p></article>
+        <article class="skill-panel reveal"><span class="skill-number">04</span><p class="card-label">APPLICATION</p><h3>Swift · UIKit · Kotlin · Android</h3><p>Mobile application development and real-time AI product integration.</p></article>
+      </div>
 
-        <article class="skill-panel reveal">
-          <span class="skill-number">02</span>
-          <p class="card-label">BACKEND</p>
-          <h3>FastAPI · Node.js</h3>
-          <p>REST API, 비동기 처리, 인증과 서비스 연동</p>
+      <div class="education-grid">
+        <article class="education-card reveal">
+          <p class="card-label">M.S. ARTIFICIAL INTELLIGENCE</p>
+          <h3>Electrical & Computer Engineering</h3>
+          <p>Inha University · 2025.03–2027.02</p>
+          <strong>GPA 4.21 / 4.5</strong>
         </article>
-
-        <article class="skill-panel reveal">
-          <span class="skill-number">03</span>
-          <p class="card-label">FRONTEND</p>
-          <h3>React · Next.js</h3>
-          <p>반응형 UI, 상태 관리, 디자인 시스템 기반 개발</p>
+        <article class="education-card reveal">
+          <p class="card-label">B.S. COMPUTER SCIENCE</p>
+          <h3>Computer Science</h3>
+          <p>Inha University · 2019.03–2025.02</p>
+          <strong>GPA 4.35 / 4.5</strong>
         </article>
-
-        <article class="skill-panel reveal">
-          <span class="skill-number">04</span>
-          <p class="card-label">INFRA / AI</p>
-          <h3>Docker · Cloud · LLM</h3>
-          <p>배포 자동화, 검색 시스템, LLM 서비스 프로토타이핑</p>
+        <article class="education-card honors reveal">
+          <p class="card-label">HONORS & CERTIFICATIONS</p>
+          <div class="honor-list"><span>KIIT Best Paper Gold</span><span>SQLD</span><span>OPIc IH</span></div>
         </article>
       </div>
     </section>
 
     <section id="contact" class="section contact section-shell">
       <div class="contact-inner reveal">
-        <p class="section-kicker">04 · CONTACT</p>
-        <h2>
-          함께 만들고 싶은 것이<br />
-          있다면 이야기해 주세요.
-        </h2>
+        <p class="section-kicker">05 · CONTACT</p>
+        <h2>Build AI that works<br />in the real world.</h2>
+        <p class="contact-copy">Research · Edge AI · Autonomous Perception에 관한 이야기라면 언제든 연락 주세요.</p>
 
         <div class="contact-links">
-          <a href="https://github.com/yunjinyong730" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href="mailto:yunjinyong7302000@gmail.com">Email ↗</a>
+          <a href="https://github.com/yunjinyong730" target="_blank" rel="noreferrer">AI GitHub ↗</a>
+          <a href="https://github.com/jinyongyun" target="_blank" rel="noreferrer">iOS GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/%EC%A7%84%EC%9A%A9-%EC%9C%A4" target="_blank" rel="noreferrer">LinkedIn ↗</a>
         </div>
       </div>
 
       <footer>
-        <span>© <span id="year"></span> jinyongyun</span>
-        <span>Built for GitHub Pages.</span>
+        <span>© <span id="year"></span> YUN JINYONG</span>
+        <span>AI Research × Edge Deployment × Application Development</span>
       </footer>
     </section>
   </main>
 
   <nav class="dock" aria-label="주요 메뉴">
-    <a href="#me" data-section="me">
-      <span class="dock-icon">◎</span>
-      <span>Me</span>
-    </a>
-    <a href="#projects" data-section="projects">
-      <span class="dock-icon">▣</span>
-      <span>Projects</span>
-    </a>
-    <a href="#skills" data-section="skills">
-      <span class="dock-icon">≋</span>
-      <span>Skills</span>
-    </a>
-    <a href="#contact" data-section="contact">
-      <span class="dock-icon">♧</span>
-      <span>Contact</span>
-    </a>
-    <!-- resume.pdf를 루트에 추가한 뒤 href를 ./resume.pdf 로 바꾸세요. -->
-    <a href="#contact">
-      <span class="dock-icon">▤</span>
-      <span>Resume</span>
-    </a>
+    <a href="#me" data-section="me"><span class="dock-icon">◎</span><span>Me</span></a>
+    <a href="#research" data-section="research"><span class="dock-icon">⌁</span><span>Research</span></a>
+    <a href="#projects" data-section="projects"><span class="dock-icon">▣</span><span>Projects</span></a>
+    <a href="#stack" data-section="stack"><span class="dock-icon">≋</span><span>Stack</span></a>
+    <a href="#contact" data-section="contact"><span class="dock-icon">↗</span><span>Contact</span></a>
   </nav>
 </body>
 </html>
