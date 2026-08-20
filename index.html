@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="YOUR NAME의 개발자 포트폴리오" />
+  <meta name="theme-color" content="#f4f3ef" />
+  <title>YOUR NAME · Portfolio</title>
+
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script defer src="./script.js"></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="홈으로 이동">
+      <span class="brand-mark">Y</span>
+      <span class="brand-copy">
+        <strong>YOUR NAME</strong>
+        <small>Software Engineer</small>
+      </span>
+    </a>
+
+    <a class="header-link" href="#contact">
+      Available for work
+      <span class="status-dot" aria-hidden="true"></span>
+    </a>
+  </header>
+
+  <main>
+    <section id="home" class="hero section-shell">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">안녕하세요, 개발자 YOUR NAME입니다.</p>
+
+        <h1>
+          복잡한 문제를
+          <span class="headline-accent">기술로 단순하게</span>
+          해결합니다.
+        </h1>
+
+        <p class="hero-description">
+          사용자와 비즈니스의 문제를 이해하고,
+          제품으로 이어지는 소프트웨어를 만듭니다.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#projects">프로젝트 보기</a>
+          <a class="button button-ghost" href="#contact">연락하기 ↗</a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-label="추상적인 인터랙티브 그래픽">
+        <div class="visual-grid"></div>
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="orb-core">
+          <span>BUILD</span>
+          <strong>01</strong>
+        </div>
+
+        <div class="visual-label visual-label-top">
+          <span class="label-dot"></span>
+          system / product / code
+        </div>
+
+        <div class="visual-label visual-label-bottom">
+          scroll to explore ↓
+        </div>
+      </div>
+
+      <div class="prompt-box reveal" aria-label="소개 문구">
+        <span class="prompt-symbol">✦</span>
+        <span id="typingText" data-text="YOUR NAME 개발자에 대해 알려줘"></span>
+        <span class="typing-cursor" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section id="me" class="section section-shell">
+      <div class="section-heading reveal">
+        <p class="section-kicker">01 · ME</p>
+        <h2>문제를 구조화하고,<br />끝까지 구현합니다.</h2>
+      </div>
+
+      <div class="about-grid">
+        <article class="about-card about-intro reveal">
+          <p class="big-copy">
+            저는 <strong>사용자 경험과 구현 현실 사이</strong>의 균형을 찾는 개발자입니다.
+            빠르게 실험하되, 운영 가능한 구조와 읽기 쉬운 코드를 중요하게 생각합니다.
+          </p>
+        </article>
+
+        <article class="about-card profile-card reveal">
+          <div class="profile-orbit" aria-hidden="true">
+            <span>Y</span>
+          </div>
+          <div>
+            <p class="card-label">PROFILE</p>
+            <h3>YOUR NAME</h3>
+            <p>Software Engineer · Seoul, KR</p>
+          </div>
+        </article>
+
+        <article class="about-card principle-card reveal">
+          <p class="card-label">HOW I WORK</p>
+          <ol>
+            <li><span>01</span> 문제를 작은 단위로 나눕니다.</li>
+            <li><span>02</span> 선택의 근거를 문서화합니다.</li>
+            <li><span>03</span> 실제 사용자 피드백으로 검증합니다.</li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section section-shell projects-section">
+      <div class="section-heading reveal">
+        <p class="section-kicker">02 · PROJECTS</p>
+        <h2>선택과 결과가 보이는<br />프로젝트 기록.</h2>
+      </div>
+
+      <div class="project-list">
+        <article class="project-card reveal">
+          <div class="project-topline">
+            <span>PROJECT 01</span>
+            <span>2026 · PRODUCTION</span>
+          </div>
+
+          <div class="project-main">
+            <div>
+              <p class="project-company">COMPANY / TEAM</p>
+              <h3>AI 업무 자동화 플랫폼</h3>
+              <p class="project-summary">
+                반복 업무를 줄이고 의사결정 속도를 높이기 위한
+                사내 AI 기반 업무 자동화 서비스를 설계하고 구현했습니다.
+              </p>
+            </div>
+
+            <a class="project-arrow" href="#" aria-label="프로젝트 상세 링크">
+              ↗
+            </a>
+          </div>
+
+          <div class="project-details">
+            <div>
+              <p class="detail-label">MY ROLE</p>
+              <p>서비스 구조 설계, API 개발, 검색 파이프라인 구현, 배포 자동화</p>
+            </div>
+            <div>
+              <p class="detail-label">OUTCOME</p>
+              <p>처리 시간 60% 단축 · 반복 수작업 제거 · 운영 모니터링 체계 구축</p>
+            </div>
+          </div>
+
+          <div class="architecture">
+            <span>Client</span>
+            <i>→</i>
+            <span>API</span>
+            <i>→</i>
+            <span>Orchestrator</span>
+            <i>→</i>
+            <span>Search / DB</span>
+          </div>
+
+          <div class="tag-row">
+            <span>Python</span><span>FastAPI</span><span>Azure</span><span>RAG</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-topline">
+            <span>PROJECT 02</span>
+            <span>2025 · PRODUCT</span>
+          </div>
+
+          <div class="project-main">
+            <div>
+              <p class="project-company">PERSONAL / TEAM</p>
+              <h3>데이터 기반 사용자 분석 대시보드</h3>
+              <p class="project-summary">
+                흩어진 사용자 행동 데이터를 하나의 화면에서 분석하고
+                핵심 지표 변화를 빠르게 파악할 수 있는 대시보드를 만들었습니다.
+              </p>
+            </div>
+            <a class="project-arrow" href="#" aria-label="프로젝트 상세 링크">↗</a>
+          </div>
+
+          <div class="project-details">
+            <div>
+              <p class="detail-label">MY ROLE</p>
+              <p>프론트엔드 구조 설계, 시각화 컴포넌트, 데이터 API 연동</p>
+            </div>
+            <div>
+              <p class="detail-label">OUTCOME</p>
+              <p>주요 분석 플로우 단축 · 반응형 UI 구축 · 재사용 가능한 차트 모듈화</p>
+            </div>
+          </div>
+
+          <div class="architecture">
+            <span>Events</span>
+            <i>→</i>
+            <span>ETL</span>
+            <i>→</i>
+            <span>API</span>
+            <i>→</i>
+            <span>Dashboard</span>
+          </div>
+
+          <div class="tag-row">
+            <span>TypeScript</span><span>React</span><span>SQL</span><span>Docker</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-topline">
+            <span>PROJECT 03</span>
+            <span>2025 · EXPERIMENT</span>
+          </div>
+
+          <div class="project-main">
+            <div>
+              <p class="project-company">SIDE PROJECT</p>
+              <h3>개인 생산성 도구</h3>
+              <p class="project-summary">
+                작은 불편을 직접 해결하기 위해 만든 실험형 서비스입니다.
+                아이디어 검증부터 배포와 사용자 피드백까지 전 과정을 경험했습니다.
+              </p>
+            </div>
+            <a class="project-arrow" href="#" aria-label="프로젝트 상세 링크">↗</a>
+          </div>
+
+          <div class="project-details">
+            <div>
+              <p class="detail-label">MY ROLE</p>
+              <p>기획, 디자인, 풀스택 개발, 배포</p>
+            </div>
+            <div>
+              <p class="detail-label">OUTCOME</p>
+              <p>MVP 2주 내 출시 · 사용자 인터뷰 기반 3회 개선</p>
+            </div>
+          </div>
+
+          <div class="architecture">
+            <span>Web</span>
+            <i>→</i>
+            <span>Serverless</span>
+            <i>→</i>
+            <span>Database</span>
+          </div>
+
+          <div class="tag-row">
+            <span>Next.js</span><span>Supabase</span><span>Vercel</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section section-shell">
+      <div class="section-heading reveal">
+        <p class="section-kicker">03 · SKILLS</p>
+        <h2>필요한 기술을 골라<br />제품으로 연결합니다.</h2>
+      </div>
+
+      <div class="skills-grid">
+        <article class="skill-panel reveal">
+          <span class="skill-number">01</span>
+          <p class="card-label">LANGUAGE</p>
+          <h3>Python · TypeScript</h3>
+          <p>서비스 로직, 데이터 처리, 웹 애플리케이션 개발</p>
+        </article>
+
+        <article class="skill-panel reveal">
+          <span class="skill-number">02</span>
+          <p class="card-label">BACKEND</p>
+          <h3>FastAPI · Node.js</h3>
+          <p>REST API, 비동기 처리, 인증과 서비스 연동</p>
+        </article>
+
+        <article class="skill-panel reveal">
+          <span class="skill-number">03</span>
+          <p class="card-label">FRONTEND</p>
+          <h3>React · Next.js</h3>
+          <p>반응형 UI, 상태 관리, 디자인 시스템 기반 개발</p>
+        </article>
+
+        <article class="skill-panel reveal">
+          <span class="skill-number">04</span>
+          <p class="card-label">INFRA / AI</p>
+          <h3>Docker · Cloud · LLM</h3>
+          <p>배포 자동화, 검색 시스템, LLM 서비스 프로토타이핑</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact section-shell">
+      <div class="contact-inner reveal">
+        <p class="section-kicker">04 · CONTACT</p>
+        <h2>
+          함께 만들고 싶은 것이<br />
+          있다면 이야기해 주세요.
+        </h2>
+
+        <div class="contact-links">
+          <a href="mailto:you@example.com">you@example.com ↗</a>
+          <a href="https://github.com/YOUR_GITHUB" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <footer>
+        <span>© <span id="year"></span> YOUR NAME</span>
+        <span>Built for GitHub Pages.</span>
+      </footer>
+    </section>
+  </main>
+
+  <nav class="dock" aria-label="주요 메뉴">
+    <a href="#me" data-section="me">
+      <span class="dock-icon">◎</span>
+      <span>Me</span>
+    </a>
+    <a href="#projects" data-section="projects">
+      <span class="dock-icon">▣</span>
+      <span>Projects</span>
+    </a>
+    <a href="#skills" data-section="skills">
+      <span class="dock-icon">≋</span>
+      <span>Skills</span>
+    </a>
+    <a href="#contact" data-section="contact">
+      <span class="dock-icon">♧</span>
+      <span>Contact</span>
+    </a>
+    <!-- resume.pdf를 루트에 추가한 뒤 href를 ./resume.pdf 로 바꾸세요. -->
+    <a href="#contact">
+      <span class="dock-icon">▤</span>
+      <span>Resume</span>
+    </a>
+  </nav>
+</body>
+</html>
