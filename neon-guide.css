@@ -44,3 +44,66 @@
   grid-template-columns: minmax(0, 1fr);
   gap: 0;
 }
+
+/* Recruiter Suite uses the same Neon identity as the rest of the portfolio. */
+.rs-dialog-title > i {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(93, 126, 192, .10);
+  background-color: #fff;
+  background-image: url("./assets/neon-profile.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 6px 18px rgba(68, 103, 174, .12);
+  color: transparent;
+  font-size: 0;
+  overflow: hidden;
+}
+
+.rs-neon-line {
+  display: grid;
+  grid-template-columns: 34px auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 9px 13px 9px 9px;
+}
+
+.rs-neon-line::before {
+  content: "";
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(93, 126, 192, .09);
+  background-color: #fff;
+  background-image: url("./assets/neon-profile.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 6px 18px rgba(68, 103, 174, .10);
+}
+
+.rs-neon-line b {
+  align-self: center;
+}
+
+@media (max-width: 620px) {
+  .rs-neon-line {
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 8px;
+  }
+  .rs-neon-line::before {
+    width: 30px;
+    height: 30px;
+  }
+  .rs-neon-line b {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .rs-neon-line span {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
