@@ -299,7 +299,7 @@
           <p class="rs-tour-copy">${step.copy}</p>
           <div class="rs-tour-metrics">${metrics}</div>
           <div class="rs-proof-row">${proofs}</div>
-          <div class="rs-splinee-line"><b>Splinee</b><span>${step.speech}</span></div>
+          <div class="rs-neon-line"><b>neon</b><span>${step.speech}</span></div>
         </article>
         <div class="rs-tour-bottom">
           <div class="rs-tour-dots">${dots}</div>
