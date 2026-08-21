@@ -1,9 +1,9 @@
-/* Neutral ghost AI slime — translucent white/gray body with a restrained blue neural core. */
+/* Ghost AI slime v5 — stronger arms, neural core, and orbit effects. */
 .mascot-stage {
   position: relative;
-  width: min(390px, 80vw);
-  height: 330px;
-  margin: 4px auto 2px;
+  width: min(410px, 82vw);
+  height: 345px;
+  margin: 4px auto 0;
   overflow: visible;
   isolation: isolate;
 }
@@ -17,11 +17,11 @@
   display: block;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .45s ease, filter .25s ease, transform .25s ease;
+  transition: opacity .45s ease, filter .28s ease, transform .28s ease;
   filter:
-    saturate(.82)
-    contrast(1.015)
-    drop-shadow(0 18px 30px rgba(65, 72, 84, .10));
+    saturate(1.02)
+    contrast(1.02)
+    drop-shadow(0 22px 38px rgba(80, 106, 170, .16));
 }
 
 .mascot-stage::before {
@@ -29,17 +29,17 @@
   position: absolute;
   z-index: 0;
   left: 50%;
-  top: 50%;
-  width: 72%;
+  top: 51%;
+  width: 84%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 50% 54%, rgba(145, 154, 166, .11), transparent 38%),
-    radial-gradient(circle at 54% 45%, rgba(118, 202, 240, .08), transparent 52%),
-    radial-gradient(circle at 42% 35%, rgba(255,255,255,.50), transparent 60%);
-  filter: blur(24px);
-  opacity: .78;
+    radial-gradient(circle at 50% 52%, rgba(112, 214, 255, .20), transparent 30%),
+    radial-gradient(circle at 50% 50%, rgba(125, 150, 255, .11), transparent 46%),
+    radial-gradient(circle at 46% 38%, rgba(255,255,255,.56), transparent 62%);
+  filter: blur(26px);
+  opacity: .90;
   pointer-events: none;
 }
 
@@ -48,29 +48,25 @@
   position: absolute;
   z-index: 7;
   left: 50%;
-  bottom: 24px;
+  bottom: 26px;
   transform: translateX(-50%);
-  color: rgba(82, 91, 103, .50);
+  color: rgba(65, 85, 122, .56);
   font: 500 7px/1 var(--mono, "DM Mono", monospace);
-  letter-spacing: .15em;
+  letter-spacing: .16em;
   white-space: nowrap;
   opacity: 0;
   transition: opacity .22s ease, transform .22s ease;
   pointer-events: none;
 }
 
-.mascot-stage.webgl-ready .three-slime-canvas {
-  opacity: 1;
-}
-
+.mascot-stage.webgl-ready .three-slime-canvas { opacity: 1; }
 .mascot-stage.webgl-ready:hover .three-slime-canvas {
   filter:
-    saturate(.90)
+    saturate(1.06)
     contrast(1.025)
-    drop-shadow(0 21px 34px rgba(65, 72, 84, .13));
-  transform: translateY(-1px);
+    drop-shadow(0 26px 46px rgba(70, 102, 186, .22));
+  transform: translateY(-2px);
 }
-
 .mascot-stage.webgl-ready:hover::after {
   opacity: 1;
   transform: translateX(-50%) translateY(-2px);
@@ -82,50 +78,34 @@
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
-  transition: opacity .25s ease, visibility .25s ease;
 }
 
 .mascot-stage.webgl-ready .mascot-caption {
   z-index: 8;
-  bottom: 3px;
-  color: #858b92;
+  bottom: 2px;
+  color: #7e858f;
   font-size: 9.5px;
   letter-spacing: .11em;
   transition: color .2s ease, transform .2s ease;
 }
 
 .mascot-stage.webgl-ready:hover .mascot-caption {
-  color: #4f5966;
+  color: var(--blue);
   transform: translateX(-50%) translateY(-1px);
 }
 
 @media (max-width: 700px) {
   .mascot-stage {
-    width: min(316px, 86vw);
-    height: 270px;
-    margin-top: 2px;
+    width: min(324px, 88vw);
+    height: 276px;
   }
-
-  .mascot-stage::before {
-    width: 78%;
-    filter: blur(18px);
-  }
-
-  .mascot-stage::after {
-    bottom: 20px;
-    font-size: 6px;
-  }
+  .mascot-stage::before { width: 88%; filter: blur(19px); }
+  .mascot-stage::after { bottom: 21px; font-size: 6px; }
 }
 
 @media (max-width: 390px) {
-  .mascot-stage {
-    width: min(292px, 88vw);
-    height: 248px;
-  }
-
-  .mascot-stage.webgl-ready .mascot-caption {
-    font-size: 8.5px;
-  }
+  .mascot-stage { width: min(296px, 90vw); height: 252px; }
+  .mascot-stage.webgl-ready .mascot-caption { font-size: 8.5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
