@@ -1,8 +1,8 @@
-/* Ghost AI slime v5 — stronger arms, neural core, and orbit effects. */
+/* Ghost AI slime v6 — arm-free expressive holographic mascot. */
 .mascot-stage {
   position: relative;
-  width: min(410px, 82vw);
-  height: 345px;
+  width: min(418px, 84vw);
+  height: 350px;
   margin: 4px auto 0;
   overflow: visible;
   isolation: isolate;
@@ -19,9 +19,9 @@
   pointer-events: none;
   transition: opacity .45s ease, filter .28s ease, transform .28s ease;
   filter:
-    saturate(1.02)
-    contrast(1.02)
-    drop-shadow(0 22px 38px rgba(80, 106, 170, .16));
+    saturate(1.035)
+    contrast(1.025)
+    drop-shadow(0 24px 42px rgba(73, 105, 181, .18));
 }
 
 .mascot-stage::before {
@@ -29,47 +29,57 @@
   position: absolute;
   z-index: 0;
   left: 50%;
-  top: 51%;
-  width: 84%;
+  top: 50%;
+  width: 91%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 50% 52%, rgba(112, 214, 255, .20), transparent 30%),
-    radial-gradient(circle at 50% 50%, rgba(125, 150, 255, .11), transparent 46%),
-    radial-gradient(circle at 46% 38%, rgba(255,255,255,.56), transparent 62%);
-  filter: blur(26px);
-  opacity: .90;
+    radial-gradient(circle at 50% 52%, rgba(113, 226, 255, .24), transparent 29%),
+    radial-gradient(circle at 50% 50%, rgba(100, 137, 255, .14), transparent 45%),
+    radial-gradient(circle at 56% 44%, rgba(167, 177, 255, .12), transparent 55%),
+    radial-gradient(circle at 44% 38%, rgba(255,255,255,.68), transparent 64%);
+  filter: blur(28px);
+  opacity: .93;
   pointer-events: none;
+  animation: slimeAura 4.8s ease-in-out infinite;
 }
 
 .mascot-stage::after {
-  content: "NEURAL CORE · ADAPTIVE AI";
+  content: "LIVE INFERENCE · NEURAL CORE · ADAPTIVE AI";
   position: absolute;
   z-index: 7;
   left: 50%;
-  bottom: 26px;
+  bottom: 25px;
   transform: translateX(-50%);
-  color: rgba(65, 85, 122, .56);
+  color: rgba(58, 79, 119, .58);
   font: 500 7px/1 var(--mono, "DM Mono", monospace);
-  letter-spacing: .16em;
+  letter-spacing: .15em;
   white-space: nowrap;
   opacity: 0;
-  transition: opacity .22s ease, transform .22s ease;
+  transition: opacity .22s ease, transform .22s ease, letter-spacing .22s ease;
   pointer-events: none;
 }
 
 .mascot-stage.webgl-ready .three-slime-canvas { opacity: 1; }
+
 .mascot-stage.webgl-ready:hover .three-slime-canvas {
   filter:
-    saturate(1.06)
-    contrast(1.025)
-    drop-shadow(0 26px 46px rgba(70, 102, 186, .22));
-  transform: translateY(-2px);
+    saturate(1.08)
+    contrast(1.035)
+    drop-shadow(0 28px 50px rgba(64, 103, 202, .25))
+    drop-shadow(0 0 24px rgba(112, 224, 255, .12));
+  transform: translateY(-2px) scale(1.008);
 }
+
+.mascot-stage.webgl-ready:hover::before {
+  opacity: 1;
+}
+
 .mascot-stage.webgl-ready:hover::after {
   opacity: 1;
   transform: translateX(-50%) translateY(-2px);
+  letter-spacing: .18em;
 }
 
 .mascot-stage.webgl-ready .soft-bot,
@@ -82,33 +92,61 @@
 
 .mascot-stage.webgl-ready .mascot-caption {
   z-index: 8;
-  bottom: 2px;
-  color: #7e858f;
+  bottom: 1px;
+  color: #7d848e;
   font-size: 9.5px;
   letter-spacing: .11em;
-  transition: color .2s ease, transform .2s ease;
+  transition: color .2s ease, transform .2s ease, letter-spacing .2s ease;
 }
 
 .mascot-stage.webgl-ready:hover .mascot-caption {
   color: var(--blue);
   transform: translateX(-50%) translateY(-1px);
+  letter-spacing: .13em;
+}
+
+@keyframes slimeAura {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(.97);
+    filter: blur(28px);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.035);
+    filter: blur(31px);
+  }
 }
 
 @media (max-width: 700px) {
   .mascot-stage {
-    width: min(324px, 88vw);
-    height: 276px;
+    width: min(330px, 89vw);
+    height: 280px;
   }
-  .mascot-stage::before { width: 88%; filter: blur(19px); }
-  .mascot-stage::after { bottom: 21px; font-size: 6px; }
+
+  .mascot-stage::before {
+    width: 94%;
+    filter: blur(21px);
+  }
+
+  .mascot-stage::after {
+    bottom: 20px;
+    font-size: 6px;
+    letter-spacing: .12em;
+  }
 }
 
 @media (max-width: 390px) {
-  .mascot-stage { width: min(296px, 90vw); height: 252px; }
-  .mascot-stage.webgl-ready .mascot-caption { font-size: 8.5px; }
+  .mascot-stage {
+    width: min(300px, 91vw);
+    height: 255px;
+  }
+
+  .mascot-stage.webgl-ready .mascot-caption {
+    font-size: 8.5px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .three-slime-canvas { transition: none; }
+  .mascot-stage::before { animation: none; }
   .mascot-stage::after { display: none; }
 }
