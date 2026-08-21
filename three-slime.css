@@ -1,0 +1,82 @@
+/* Three.js AI slime layer. The previous CSS bot remains as a graceful fallback. */
+.mascot-stage {
+  width: min(360px, 78vw);
+  height: 310px;
+  margin: 8px auto 2px;
+  overflow: visible;
+}
+
+.three-slime-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s ease;
+  filter: saturate(1.04) contrast(1.01);
+}
+
+.mascot-stage::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 48%;
+  width: 68%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 52%, rgba(110,198,255,.16), transparent 42%),
+    radial-gradient(circle at 60% 38%, rgba(179,141,255,.10), transparent 52%);
+  filter: blur(18px);
+  opacity: .72;
+  pointer-events: none;
+}
+
+.mascot-stage.webgl-ready .three-slime-canvas { opacity: 1; }
+
+.mascot-stage.webgl-ready .soft-bot,
+.mascot-stage.webgl-ready .bot-shadow,
+.mascot-stage.webgl-ready > .orbit {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+
+.mascot-stage.webgl-ready .mascot-caption {
+  z-index: 8;
+  color: #7f8791;
+}
+
+.mascot-stage.webgl-ready:hover .mascot-caption {
+  color: var(--blue);
+}
+
+@media (max-width: 700px) {
+  .mascot-stage {
+    width: min(292px, 82vw);
+    height: 250px;
+    margin-top: 4px;
+  }
+
+  .mascot-stage::before {
+    width: 74%;
+    filter: blur(15px);
+  }
+}
+
+@media (max-width: 390px) {
+  .mascot-stage {
+    width: min(270px, 84vw);
+    height: 232px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .three-slime-canvas { transition: none; }
+}
