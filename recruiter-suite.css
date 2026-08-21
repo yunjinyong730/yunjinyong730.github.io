@@ -213,8 +213,8 @@
 .rs-tour-dots i.is-active { width:24px; border-radius:99px; background:#4b82f1; }
 .rs-action-row { display:flex; gap:7px; }
 .rs-action-row .primary { background:#17213a; color:#fff; border-color:#17213a; }
-.rs-splinee-line { display:flex; gap:10px; align-items:flex-start; margin-top:18px; padding:11px 13px; width:max-content; max-width:100%; border-radius:14px; background:#f2f7ff; color:#50607c; font-size:12px; line-height:1.5; }
-.rs-splinee-line b { color:#2b6ce7; white-space:nowrap; }
+.rs-neon-line { display:flex; gap:10px; align-items:flex-start; margin-top:18px; padding:11px 13px; width:max-content; max-width:100%; border-radius:14px; background:#f2f7ff; color:#50607c; font-size:12px; line-height:1.5; }
+.rs-neon-line b { color:#2b6ce7; white-space:nowrap; }
 
 /* JD matcher */
 .rs-grid-two { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr); gap:18px; }
