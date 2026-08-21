@@ -17,7 +17,9 @@
   <link rel="stylesheet" href="./three-slime.css?v=20260821-ghost-ai-v7" />
   <link rel="stylesheet" href="./recruiter-suite.css?v=20260821-rs3" />
   <link rel="stylesheet" href="./background-polish.css?v=20260821-bg1" />
+  <link rel="stylesheet" href="./neon-guide.css?v=20260821-neon1" />
   <script defer src="./script.js"></script>
+  <script defer src="./neon-guide.js?v=20260821-neon1"></script>
   <script defer src="./paper-links.js?v=20260821-0212"></script>
   <script defer src="./recruiter-suite.js?v=20260821-rs3"></script>
   <script defer src="./recruiter-suite-router.js?v=20260821-rs3"></script>
@@ -45,7 +47,7 @@
           <h1 id="hero-title">연구를 넘어<br /><em>실제로 동작하는 AI를 만듭니다.</em></h1>
         </div>
 
-        <button id="mascotStage" class="mascot-stage" type="button" aria-label="AI 슬라임 마스코트에게 윤진용 개발자에 대해 질문하기">
+        <button id="mascotStage" class="mascot-stage" type="button" aria-label="AI 슬라임 마스코트 neon에게 윤진용 개발자에 대해 질문하기">
           <span class="orbit orbit-a" aria-hidden="true">AI</span>
           <span class="orbit orbit-b" aria-hidden="true">EDGE</span>
           <span class="orbit orbit-c" aria-hidden="true">YJ</span>
@@ -70,8 +72,8 @@
               <span class="bot-foot bot-foot-right"></span>
             </span>
           </span>
-          <span id="mascotSpeech" class="mascot-speech" role="status" aria-live="polite">안녕! 궁금한 걸 물어봐.</span>
-          <span class="mascot-caption">ask neon about YJ</span>
+          <span id="mascotSpeech" class="mascot-speech" role="status" aria-live="polite">안녕! 내가 연구, 프로젝트, 경력을 안내할게.</span>
+          <span class="mascot-caption">neon · your portfolio guide</span>
         </button>
       </div>
 
@@ -120,8 +122,24 @@
       </aside>
 
       <div class="conversation">
+        <div id="neonGuideBar" class="neon-guide-bar" role="status" aria-live="polite">
+          <button class="neon-guide-avatar" type="button" data-command="me" aria-label="neon에게 윤진용 소개 듣기">
+            <span class="neon-mini-antenna" aria-hidden="true"></span>
+            <span class="neon-mini-face" aria-hidden="true">
+              <i class="neon-mini-eye left"></i>
+              <i class="neon-mini-eye right"></i>
+              <i class="neon-mini-mouth"></i>
+            </span>
+          </button>
+          <div class="neon-guide-copy">
+            <span id="neonGuideContext">NEON · PORTFOLIO GUIDE</span>
+            <p id="neonGuideText">궁금한 내용을 골라줘. 내가 핵심부터 안내할게.</p>
+          </div>
+          <span class="neon-guide-status">ONLINE</span>
+        </div>
+
         <header class="conversation-head">
-          <div><i class="status-dot"></i><span>PORTFOLIO GUIDE · RESUME + GITHUB</span></div>
+          <div><i class="status-dot"></i><span>NEON · PORTFOLIO GUIDE · RESUME + GITHUB</span></div>
           <button type="button" data-action="home">NEW CHAT ↗</button>
         </header>
 
