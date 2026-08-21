@@ -112,15 +112,11 @@
     if (!(message instanceof HTMLElement) || !message.classList.contains("assistant-message")) return;
     if (message.dataset.neonEnhanced === "1") return;
     message.dataset.neonEnhanced = "1";
+    message.classList.add("neon-single-avatar");
 
     const profile = resolveProfile(message);
     const mark = message.querySelector(".assistant-mark");
-    if (mark) {
-      mark.classList.add("neon-assistant-mark");
-      mark.innerHTML = miniAvatar();
-      mark.setAttribute("aria-label", "neon");
-      mark.removeAttribute("aria-hidden");
-    }
+    if (mark) mark.remove();
 
     const content = message.querySelector(".assistant-content");
     if (content && !content.querySelector(":scope > .neon-inline-intro")) {
