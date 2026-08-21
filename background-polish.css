@@ -1,0 +1,71 @@
+/* Landing background polish — quiet center, soft color at the edges. */
+
+.aurora-field {
+  inset: 0;
+  overflow: hidden;
+  filter: none;
+  opacity: 1;
+  background: transparent;
+}
+
+/* Replace the old center-reaching blobs with restrained edge light. */
+.aurora-field > i {
+  display: none;
+}
+
+.aurora-field::before,
+.aurora-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.aurora-field::before {
+  background:
+    radial-gradient(62% 58% at -12% 18%, rgba(91, 178, 255, .20) 0%, rgba(91, 178, 255, .09) 38%, transparent 70%),
+    radial-gradient(58% 55% at 108% 20%, rgba(157, 128, 255, .16) 0%, rgba(157, 128, 255, .07) 38%, transparent 72%),
+    radial-gradient(58% 52% at -8% 104%, rgba(104, 224, 190, .13) 0%, rgba(104, 224, 190, .055) 42%, transparent 72%),
+    radial-gradient(54% 50% at 106% 104%, rgba(255, 205, 138, .12) 0%, rgba(255, 205, 138, .045) 42%, transparent 72%);
+  filter: blur(12px) saturate(1.04);
+  animation: edgeAmbientShift 14s ease-in-out infinite alternate;
+}
+
+/* A nearly invisible technical texture that fades away before the content area. */
+.aurora-field::after {
+  background-image: radial-gradient(circle, rgba(71, 103, 155, .12) .65px, transparent .75px);
+  background-size: 28px 28px;
+  opacity: .18;
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 0 42%, rgba(0,0,0,.16) 63%, #000 100%);
+  mask-image: radial-gradient(ellipse at center, transparent 0 42%, rgba(0,0,0,.16) 63%, #000 100%);
+}
+
+/* Keep the landing content itself clean and readable. */
+.landing-view {
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(255,255,255,.46) 0%, rgba(255,255,255,.18) 36%, transparent 66%);
+}
+
+@keyframes edgeAmbientShift {
+  0% { transform: scale(1) translate3d(0, 0, 0); }
+  100% { transform: scale(1.035) translate3d(0, -4px, 0); }
+}
+
+@media (max-width: 700px) {
+  .aurora-field::before {
+    background:
+      radial-gradient(78% 48% at -20% 12%, rgba(91, 178, 255, .17) 0%, transparent 72%),
+      radial-gradient(72% 46% at 116% 20%, rgba(157, 128, 255, .14) 0%, transparent 72%),
+      radial-gradient(70% 42% at -16% 106%, rgba(104, 224, 190, .10) 0%, transparent 72%),
+      radial-gradient(66% 40% at 114% 106%, rgba(255, 205, 138, .09) 0%, transparent 72%);
+  }
+
+  .aurora-field::after {
+    background-size: 24px 24px;
+    opacity: .13;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-field::before { animation: none; }
+}
