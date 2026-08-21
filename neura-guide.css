@@ -1,0 +1,334 @@
+/* NEURA recruiter guide — visible mini AI ghost avatar inside Recruiter Mode. */
+
+.rs-splinee-line.neura-guide-line {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 86px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  min-height: 96px;
+  padding: 12px 16px 12px 10px !important;
+  overflow: visible;
+  border: 1px solid rgba(82, 112, 172, .18) !important;
+  border-radius: 24px !important;
+  background:
+    radial-gradient(circle at 13% 48%, rgba(112, 220, 255, .10), transparent 24%),
+    linear-gradient(105deg, rgba(244, 248, 255, .96), rgba(255, 255, 255, .88)) !important;
+  box-shadow:
+    0 16px 38px rgba(39, 61, 108, .10),
+    inset 0 1px 0 rgba(255,255,255,.94) !important;
+  backdrop-filter: blur(15px) saturate(1.07);
+  -webkit-backdrop-filter: blur(15px) saturate(1.07);
+}
+
+.neura-mini {
+  position: relative;
+  display: block;
+  width: 82px;
+  height: 76px;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 11px 17px rgba(59, 90, 153, .18));
+  animation: neuraEnter .56s cubic-bezier(.2,.9,.25,1.18) both;
+}
+
+.neura-mini-orbit {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(80, 166, 255, .42);
+  border-radius: 50%;
+  transform-origin: center;
+}
+
+.neura-mini-orbit.orbit-a {
+  width: 78px;
+  height: 40px;
+  margin: -20px 0 0 -39px;
+  transform: rotate(-14deg);
+  animation: neuraOrbitA 5.4s linear infinite;
+}
+
+.neura-mini-orbit.orbit-b {
+  width: 62px;
+  height: 56px;
+  margin: -28px 0 0 -31px;
+  border-color: rgba(117, 123, 255, .27);
+  transform: rotate(51deg);
+  animation: neuraOrbitB 7.2s linear infinite reverse;
+}
+
+.neura-mini-orbit i,
+.neura-mini-orbit::before,
+.neura-mini-orbit::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #91e8ff;
+  box-shadow: 0 0 10px rgba(78, 184, 255, .92);
+}
+
+.neura-mini-orbit i { left: 7px; top: 5px; }
+.neura-mini-orbit::before { right: 7px; bottom: 3px; background: #b0b6ff; }
+.neura-mini-orbit::after { right: 17px; top: -2px; width: 3px; height: 3px; background: #ffffff; }
+
+.neura-mini-body {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 2px;
+  width: 63px;
+  height: 61px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  border: 1px solid rgba(126, 145, 178, .33);
+  border-radius: 49% 51% 42% 44% / 48% 49% 45% 46%;
+  background:
+    radial-gradient(circle at 34% 18%, rgba(255,255,255,.98) 0 8%, transparent 27%),
+    radial-gradient(circle at 50% 69%, rgba(111, 224, 255, .20), transparent 31%),
+    linear-gradient(145deg, rgba(255,255,255,.86), rgba(218,224,234,.50));
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,.78),
+    inset 0 -11px 18px rgba(112, 132, 170, .11),
+    0 9px 20px rgba(63, 84, 130, .10);
+  animation: neuraFloat 3.05s ease-in-out infinite;
+}
+
+.neura-mini-body::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 14px;
+  height: 17px;
+  border: 1px solid rgba(84, 202, 255, .25);
+  border-radius: 50%;
+  transform: rotate(-11deg);
+}
+
+.neura-mini-body::after {
+  content: "";
+  position: absolute;
+  left: 17px;
+  right: 17px;
+  bottom: 18px;
+  height: 10px;
+  border-top: 1px solid rgba(110, 127, 255, .20);
+  border-radius: 50%;
+  transform: rotate(15deg);
+}
+
+.neura-mini-eye {
+  position: absolute;
+  z-index: 5;
+  top: 20px;
+  width: 6px;
+  height: 10px;
+  border-radius: 999px;
+  background: #07090c;
+  transform-origin: 50% 50%;
+  animation: neuraBlink 4.5s ease-in-out infinite;
+}
+
+.neura-mini-eye.left { left: 19px; }
+.neura-mini-eye.right { right: 19px; animation-delay: .04s; }
+
+.neura-mini-mouth {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 35px;
+  width: 12px;
+  height: 7px;
+  transform: translateX(-50%);
+  border-bottom: 2px solid #07090c;
+  border-radius: 0 0 13px 13px;
+}
+
+.is-talking .neura-mini-mouth {
+  animation: neuraTalk .42s ease-in-out infinite;
+}
+
+.neura-mini-core {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 7px;
+  width: 20px;
+  height: 20px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fbffff 0 13%, #8cf1ff 27%, rgba(82,139,255,.68) 54%, transparent 73%);
+  box-shadow:
+    0 0 10px rgba(96, 230, 255, .82),
+    0 0 22px rgba(80, 132, 255, .38);
+  animation: neuraCore 1.65s ease-in-out infinite;
+}
+
+.neura-mini-core i,
+.neura-mini-core b {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 31px;
+  height: 11px;
+  border: 1px solid rgba(121, 229, 255, .44);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+}
+
+.neura-mini-core b {
+  width: 26px;
+  height: 16px;
+  border-color: rgba(124, 133, 255, .28);
+  transform: translate(-50%, -50%) rotate(48deg);
+}
+
+.neura-mini-spark {
+  position: absolute;
+  z-index: 6;
+  right: 1px;
+  top: 0;
+  color: #66baff;
+  font-size: 12px;
+  line-height: 1;
+  text-shadow: 0 0 9px rgba(85, 185, 255, .62);
+  animation: neuraSpark 1.55s ease-in-out infinite;
+}
+
+.neura-guide-copy {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+  padding: 11px 14px 11px 16px;
+  border-radius: 17px 17px 17px 6px;
+  background: rgba(255,255,255,.78);
+  box-shadow: inset 0 0 0 1px rgba(102, 123, 163, .11);
+}
+
+.neura-guide-copy::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 28px;
+  width: 14px;
+  height: 14px;
+  transform: rotate(45deg);
+  background: rgba(255,255,255,.78);
+  box-shadow: -1px 1px 0 rgba(102,123,163,.08);
+}
+
+.neura-guide-identity {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.neura-guide-identity b {
+  color: #176dff !important;
+  font-family: "DM Mono", monospace;
+  font-size: 10.5px !important;
+  font-weight: 600;
+  letter-spacing: .12em;
+}
+
+.neura-guide-identity em {
+  color: #7b879b;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: .11em;
+}
+
+.neura-guide-message {
+  position: relative;
+  z-index: 1;
+  color: #4e5b70 !important;
+  font-size: 13px !important;
+  line-height: 1.58 !important;
+  letter-spacing: -.015em;
+}
+
+.rs-splinee-line.neura-guide-line.is-talking .neura-guide-copy {
+  box-shadow:
+    inset 0 0 0 1px rgba(88, 158, 255, .14),
+    0 0 0 4px rgba(105, 202, 255, .045);
+}
+
+@keyframes neuraEnter {
+  from { opacity: 0; transform: translateY(9px) scale(.78) rotate(-6deg); }
+  to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+}
+
+@keyframes neuraFloat {
+  0%, 100% { transform: translateX(-50%) translateY(1px) scale(1,.985); }
+  50% { transform: translateX(-50%) translateY(-4px) scale(.985,1.022); }
+}
+
+@keyframes neuraOrbitA {
+  to { transform: rotate(346deg); }
+}
+
+@keyframes neuraOrbitB {
+  to { transform: rotate(411deg); }
+}
+
+@keyframes neuraCore {
+  0%, 100% { opacity: .76; transform: translateX(-50%) scale(.88); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.18); }
+}
+
+@keyframes neuraBlink {
+  0%, 43%, 47%, 100% { transform: scaleY(1); }
+  45% { transform: scaleY(.08); }
+}
+
+@keyframes neuraTalk {
+  0%, 100% { width: 10px; height: 5px; border-radius: 0 0 12px 12px; }
+  50% { width: 8px; height: 9px; border-radius: 50%; }
+}
+
+@keyframes neuraSpark {
+  0%, 100% { opacity: .34; transform: scale(.72) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(24deg); }
+}
+
+@media (max-width: 700px) {
+  .rs-splinee-line.neura-guide-line {
+    grid-template-columns: 66px minmax(0, 1fr);
+    gap: 9px;
+    min-height: 80px;
+    padding: 9px 10px 9px 7px !important;
+    border-radius: 19px !important;
+  }
+  .neura-mini { width: 64px; height: 59px; transform: scale(.91); }
+  .neura-mini-body { width: 52px; height: 51px; }
+  .neura-mini-orbit.orbit-a { width: 60px; height: 32px; margin: -16px 0 0 -30px; }
+  .neura-mini-orbit.orbit-b { width: 49px; height: 45px; margin: -22.5px 0 0 -24.5px; }
+  .neura-mini-eye { top: 17px; }
+  .neura-mini-eye.left { left: 16px; }
+  .neura-mini-eye.right { right: 16px; }
+  .neura-mini-mouth { top: 29px; }
+  .neura-mini-core { width: 17px; height: 17px; bottom: 6px; }
+  .neura-guide-copy { padding: 9px 10px 9px 12px; }
+  .neura-guide-message { font-size: 11.8px !important; }
+  .neura-guide-identity em { font-size: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neura-mini,
+  .neura-mini-orbit,
+  .neura-mini-body,
+  .neura-mini-eye,
+  .neura-mini-mouth,
+  .neura-mini-core,
+  .neura-mini-spark { animation: none !important; }
+}
