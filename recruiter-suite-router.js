@@ -1,6 +1,27 @@
 (() => {
   "use strict";
 
+  const NEON_VERSION = "20260821-neon1";
+
+  function loadNeonGuide() {
+    if (!document.querySelector('link[data-neon-guide]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = `./neon-guide.css?v=${NEON_VERSION}`;
+      link.dataset.neonGuide = "true";
+      document.head.appendChild(link);
+    }
+
+    if (!document.querySelector('script[data-neon-guide]')) {
+      const script = document.createElement("script");
+      script.src = `./neon-guide.js?v=${NEON_VERSION}`;
+      script.dataset.neonGuide = "true";
+      document.head.appendChild(script);
+    }
+  }
+
+  loadNeonGuide();
+
   const routeQueries = {
     lidar: "Camera–LiDAR 6DoF calibration 프로젝트 보여줘",
     camera: "Camera calibration drift detection recovery 프로젝트 보여줘",
