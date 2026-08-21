@@ -17,33 +17,33 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 renderer.setClearColor(0x000000, 0);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.08;
+renderer.toneMappingExposure = 1.1;
 renderer.domElement.className = "three-slime-canvas";
 renderer.domElement.setAttribute("aria-hidden", "true");
 stage.prepend(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
-camera.position.set(0, 0.08, 5.65);
-camera.lookAt(0, 0.03, 0);
+camera.position.set(0, 0.08, 5.7);
+camera.lookAt(0, 0.02, 0);
 
-scene.add(new THREE.HemisphereLight(0xffffff, 0xc9ced6, 3.0));
-const keyLight = new THREE.DirectionalLight(0xffffff, 5.2);
-keyLight.position.set(-3.5, 4.8, 5.8);
+scene.add(new THREE.HemisphereLight(0xffffff, 0xc8d0da, 3.0));
+const keyLight = new THREE.DirectionalLight(0xffffff, 4.8);
+keyLight.position.set(-3.4, 4.8, 5.8);
 scene.add(keyLight);
-const softLight = new THREE.PointLight(0xeaf1ff, 15, 7, 2);
-softLight.position.set(2.8, 1.0, 2.8);
-scene.add(softLight);
-const coreLight = new THREE.PointLight(0x82d9ff, 12, 6, 2);
-coreLight.position.set(0, -0.35, 1.1);
+const coreLight = new THREE.PointLight(0x76dfff, 18, 7, 2);
+coreLight.position.set(0, -0.1, 2.4);
 scene.add(coreLight);
+const rimLight = new THREE.PointLight(0x8b9dff, 10, 7, 2);
+rimLight.position.set(2.8, 0.5, 2.2);
+scene.add(rimLight);
 
 const slimeRoot = new THREE.Group();
 slimeRoot.position.y = -0.04;
 scene.add(slimeRoot);
 
-// Neutral ghost/slime silhouette.
-const bodyGeometry = new THREE.SphereGeometry(1.08, 72, 58);
+// --- Neutral ghost body -------------------------------------------------------
+const bodyGeometry = new THREE.SphereGeometry(1.06, 72, 58);
 const bodyPos = bodyGeometry.attributes.position;
 for (let i = 0; i < bodyPos.count; i += 1) {
   const x = bodyPos.getX(i);
@@ -53,33 +53,27 @@ for (let i = 0; i < bodyPos.count; i += 1) {
   let ny = y;
   let nz = z;
 
-  if (y > 0.18) {
+  if (y > 0.12) {
     nx *= 0.93;
     nz *= 0.93;
     ny *= 1.04;
-  } else if (y > -0.22) {
-    nx *= 1.015;
-    nz *= 1.0;
-    ny *= 0.98;
+  } else if (y > -0.24) {
+    nx *= 1.02;
+    nz *= 1.01;
   } else {
-    const spread = 1.06 + Math.abs(y + 0.22) * 0.30;
+    const spread = 1.08 + Math.abs(y + 0.24) * 0.30;
     nx *= spread;
     nz *= spread;
-    ny *= 0.84;
+    ny *= 0.83;
   }
 
-  const angle = Math.atan2(z, x);
-  if (y < -0.40) {
-    const skirt = Math.sin(angle * 3) * 0.035 + Math.cos(angle * 5) * 0.018;
+  if (y < -0.38) {
+    const angle = Math.atan2(z, x);
+    const skirt = Math.sin(angle * 3) * 0.045 + Math.cos(angle * 5) * 0.025;
     nx *= 1 + skirt;
     nz *= 1 + skirt;
-    ny -= 0.035;
+    ny -= 0.04;
   }
-
-  // Tiny integrated side puffs — no detached arms.
-  const sideL = Math.exp(-((x + 0.90) ** 2) * 9 - ((y + 0.02) ** 2) * 12) * 0.10;
-  const sideR = Math.exp(-((x - 0.90) ** 2) * 9 - ((y + 0.02) ** 2) * 12) * 0.10;
-  nx += x < 0 ? -sideL : sideR;
 
   bodyPos.setXYZ(i, nx, ny, nz);
 }
@@ -89,196 +83,208 @@ const basePositions = new Float32Array(bodyPos.array);
 
 const bodyMaterial = new THREE.MeshPhysicalMaterial({
   color: new THREE.Color("#f2f3f5"),
-  roughness: 0.11,
+  roughness: 0.08,
   metalness: 0,
-  transmission: 0.72,
+  transmission: 0.82,
   transparent: true,
-  opacity: 0.70,
-  thickness: 1.65,
-  ior: 1.16,
+  opacity: 0.68,
+  thickness: 1.75,
+  ior: 1.17,
   clearcoat: 1,
-  clearcoatRoughness: 0.07,
-  emissive: new THREE.Color("#d9dde3"),
+  clearcoatRoughness: 0.05,
+  emissive: new THREE.Color("#cfd4db"),
   emissiveIntensity: 0.035,
 });
 const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
 body.position.y = -0.02;
 slimeRoot.add(body);
 
-// A soft inner mass keeps the transparent body from disappearing on white backgrounds.
 const innerShell = new THREE.Mesh(
   bodyGeometry.clone(),
-  new THREE.MeshPhysicalMaterial({
-    color: new THREE.Color("#cfd3d9"),
-    roughness: 0.18,
-    transmission: 0.45,
-    transparent: true,
-    opacity: 0.10,
-    thickness: 0.8,
-    ior: 1.10,
-    depthWrite: false,
-  }),
+  new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.08, depthWrite: false }),
 );
+innerShell.scale.set(0.94, 0.93, 0.92);
 innerShell.position.copy(body.position);
-innerShell.scale.set(0.925, 0.92, 0.91);
 slimeRoot.add(innerShell);
 
-// AI neural core — the only strong color accent.
+// --- More visible arms --------------------------------------------------------
+const armGeometry = new THREE.SphereGeometry(0.38, 32, 24);
+const armMaterial = bodyMaterial;
+const makeArm = (side) => {
+  const pivot = new THREE.Group();
+  pivot.position.set(side * 0.89, -0.02, 0.0);
+  const arm = new THREE.Mesh(armGeometry, armMaterial);
+  arm.position.set(side * 0.24, -0.08, 0.02);
+  arm.scale.set(0.72, 1.18, 0.72);
+  arm.rotation.z = side * -0.34;
+  pivot.add(arm);
+  slimeRoot.add(pivot);
+  return { pivot, arm };
+};
+const leftArm = makeArm(-1);
+const rightArm = makeArm(1);
+
+// --- AI neural core -----------------------------------------------------------
 const coreGroup = new THREE.Group();
-coreGroup.position.set(0, -0.10, 0.13);
+coreGroup.position.set(0, -0.12, 0.18);
 slimeRoot.add(coreGroup);
 
 const coreHalo = new THREE.Mesh(
-  new THREE.SphereGeometry(0.38, 30, 24),
-  new THREE.MeshBasicMaterial({ color: 0x7bdcff, transparent: true, opacity: 0.10, blending: THREE.AdditiveBlending, depthWrite: false }),
+  new THREE.SphereGeometry(0.46, 36, 28),
+  new THREE.MeshBasicMaterial({ color: 0x7fe6ff, transparent: true, opacity: 0.16, blending: THREE.AdditiveBlending, depthWrite: false }),
 );
 coreGroup.add(coreHalo);
 const coreSphere = new THREE.Mesh(
-  new THREE.SphereGeometry(0.145, 26, 20),
-  new THREE.MeshBasicMaterial({ color: 0xeaffff, transparent: true, opacity: 0.96, blending: THREE.AdditiveBlending, depthWrite: false }),
+  new THREE.SphereGeometry(0.17, 28, 22),
+  new THREE.MeshBasicMaterial({ color: 0xf2feff, transparent: true, opacity: 0.98, blending: THREE.AdditiveBlending, depthWrite: false }),
 );
 coreGroup.add(coreSphere);
 const coreGlow = new THREE.Mesh(
-  new THREE.SphereGeometry(0.23, 24, 20),
-  new THREE.MeshBasicMaterial({ color: 0x5ecbff, transparent: true, opacity: 0.24, blending: THREE.AdditiveBlending, depthWrite: false }),
+  new THREE.SphereGeometry(0.28, 28, 22),
+  new THREE.MeshBasicMaterial({ color: 0x74dcff, transparent: true, opacity: 0.34, blending: THREE.AdditiveBlending, depthWrite: false }),
 );
 coreGroup.add(coreGlow);
 
-const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x9ddfff, transparent: true, opacity: 0.32, blending: THREE.AdditiveBlending, depthWrite: false });
+const coreRingMaterial = new THREE.MeshBasicMaterial({ color: 0x9deaff, transparent: true, opacity: 0.56, blending: THREE.AdditiveBlending, depthWrite: false });
 const coreRings = [];
-for (let i = 0; i < 4; i += 1) {
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.29 + i * 0.075, 0.006, 8, 72), ringMaterial.clone());
-  ring.rotation.x = Math.PI / 2 + i * 0.40;
-  ring.rotation.y = i * 0.78;
-  ring.rotation.z = i * 0.23;
+for (let i = 0; i < 5; i += 1) {
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.31 + i * 0.073, 0.008, 8, 88), coreRingMaterial.clone());
+  ring.rotation.x = Math.PI / 2 + i * 0.36;
+  ring.rotation.y = i * 0.68;
+  ring.rotation.z = i * 0.22;
   coreRings.push(ring);
   coreGroup.add(ring);
 }
 
+const neuralPositions = [
+  [-0.36, 0.18, 0.03],[0.34,0.21,0.05],[-0.31,-0.18,0.06],[0.33,-0.17,0.08],
+  [0,0.38,-0.02],[0,-0.38,0.03],[-0.45,0,-0.03],[0.45,0.03,0.02],
+  [-0.18,0.08,0.25],[0.20,-0.03,0.23],[0.12,0.18,-0.22],[-0.12,-0.19,-0.20],
+];
 const neuralGroup = new THREE.Group();
 coreGroup.add(neuralGroup);
-const neuralPositions = [
-  [-0.28,0.15,0.02],[0.26,0.18,0.04],[-0.24,-0.12,0.08],[0.25,-0.13,0.08],
-  [0,0.29,-0.04],[0,-0.29,0.03],[-0.35,0,-0.03],[0.35,0.02,-0.02],[-0.12,0.08,0.20],[0.14,-0.02,0.21],
-];
-const neuralNodes = [];
-const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0xeaffff, transparent: true, opacity: 0.90, blending: THREE.AdditiveBlending, depthWrite: false });
-neuralPositions.forEach(([x,y,z], index) => {
-  const node = new THREE.Mesh(new THREE.SphereGeometry(index < 4 ? 0.028 : 0.021, 14, 12), nodeMaterial);
-  node.position.set(x,y,z);
-  neuralNodes.push(node);
-  neuralGroup.add(node);
+const nodeMat = new THREE.MeshBasicMaterial({ color: 0xf4feff, transparent: true, opacity: 0.96, blending: THREE.AdditiveBlending, depthWrite: false });
+const neuralNodes = neuralPositions.map(([x,y,z], idx) => {
+  const n = new THREE.Mesh(new THREE.SphereGeometry(idx < 4 ? 0.032 : 0.024, 14, 12), nodeMat);
+  n.position.set(x,y,z);
+  neuralGroup.add(n);
+  return n;
 });
-const edgePairs = [[0,4],[1,4],[0,6],[1,7],[2,5],[3,5],[2,6],[3,7],[4,8],[5,9],[8,9],[0,8],[1,9]];
-const edgeArray = [];
-edgePairs.forEach(([a,b]) => edgeArray.push(...neuralPositions[a], ...neuralPositions[b]));
+const links = [];
+[[0,4],[0,6],[0,8],[1,4],[1,7],[1,10],[2,5],[2,6],[2,11],[3,5],[3,7],[3,9],[4,8],[4,10],[5,9],[5,11],[8,9],[10,11],[8,10],[9,11]].forEach(([a,b]) => links.push(...neuralPositions[a], ...neuralPositions[b]));
 const edgeGeometry = new THREE.BufferGeometry();
-edgeGeometry.setAttribute("position", new THREE.Float32BufferAttribute(edgeArray, 3));
-const edgeLines = new THREE.LineSegments(edgeGeometry, new THREE.LineBasicMaterial({ color: 0xaee8ff, transparent: true, opacity: 0.36, blending: THREE.AdditiveBlending, depthWrite: false }));
+edgeGeometry.setAttribute("position", new THREE.Float32BufferAttribute(links, 3));
+const edgeLines = new THREE.LineSegments(edgeGeometry, new THREE.LineBasicMaterial({ color: 0xbff6ff, transparent: true, opacity: 0.52, blending: THREE.AdditiveBlending, depthWrite: false }));
 neuralGroup.add(edgeLines);
 
-// Data motes inside the translucent body.
-const moteCount = 44;
+const moteCount = 70;
 const moteArray = new Float32Array(moteCount * 3);
 for (let i = 0; i < moteCount; i += 1) {
-  const theta = Math.random() * Math.PI * 2;
-  const radius = Math.sqrt(Math.random()) * 0.75;
-  moteArray[i * 3] = Math.cos(theta) * radius;
-  moteArray[i * 3 + 1] = (Math.random() - 0.52) * 1.20;
-  moteArray[i * 3 + 2] = (Math.random() - 0.5) * 0.68;
+  const a = Math.random() * Math.PI * 2;
+  const r = Math.sqrt(Math.random()) * 0.82;
+  moteArray[i*3] = Math.cos(a) * r;
+  moteArray[i*3+1] = (Math.random() - 0.5) * 1.26;
+  moteArray[i*3+2] = (Math.random() - 0.5) * 0.72;
 }
 const innerMotes = new THREE.Points(
   new THREE.BufferGeometry().setAttribute("position", new THREE.BufferAttribute(moteArray, 3)),
-  new THREE.PointsMaterial({ color: 0xa9dbef, size: 0.020, transparent: true, opacity: 0.28, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true }),
+  new THREE.PointsMaterial({ color: 0xcff8ff, size: 0.026, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true }),
 );
 slimeRoot.add(innerMotes);
 
-// Face: single-color black eyes, no pupil/highlight layers.
+// --- Face: single-color black eyes -------------------------------------------
 const faceGroup = new THREE.Group();
-faceGroup.position.z = 0.01;
 slimeRoot.add(faceGroup);
-const faceMaterial = new THREE.MeshBasicMaterial({ color: 0x111214 });
-function createEye(x) {
-  const eye = new THREE.Mesh(new THREE.SphereGeometry(0.105, 24, 18), faceMaterial);
-  eye.position.set(x, 0.25, 0.965);
-  eye.scale.set(0.72, 1.26, 0.30);
+const eyeMaterial = new THREE.MeshBasicMaterial({ color: 0x111111 });
+const makeEye = (x) => {
+  const eye = new THREE.Mesh(new THREE.SphereGeometry(0.145, 28, 22), eyeMaterial);
+  eye.position.set(x, 0.24, 0.93);
+  eye.scale.set(0.74, 1.26, 0.34);
   faceGroup.add(eye);
   return eye;
-}
-const leftEye = createEye(-0.235);
-const rightEye = createEye(0.235);
-const smile = new THREE.Mesh(new THREE.TorusGeometry(0.105, 0.015, 10, 36, Math.PI), faceMaterial);
-smile.position.set(0, -0.015, 1.006);
+};
+const leftEye = makeEye(-0.235);
+const rightEye = makeEye(0.235);
+const smile = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.017, 10, 38, Math.PI), eyeMaterial);
+smile.position.set(0, -0.025, 0.99);
 smile.rotation.z = Math.PI;
 faceGroup.add(smile);
-const surpriseMouth = new THREE.Mesh(new THREE.SphereGeometry(0.050, 16, 12), new THREE.MeshBasicMaterial({ color: 0x111214, transparent: true, opacity: 0 }));
-surpriseMouth.position.set(0, -0.035, 1.010);
-surpriseMouth.scale.set(0.72, 1.05, 0.24);
+const surpriseMouth = new THREE.Mesh(new THREE.SphereGeometry(0.058, 18, 14), new THREE.MeshBasicMaterial({ color: 0x111111, transparent: true, opacity: 0 }));
+surpriseMouth.position.set(0, -0.045, 0.992);
+surpriseMouth.scale.set(0.78, 1.12, 0.24);
 faceGroup.add(surpriseMouth);
 
-// Quiet external orbit elements keep the AI motif without recoloring the body.
+// --- Strong outer orbit system ----------------------------------------------
 const orbitGroup = new THREE.Group();
 slimeRoot.add(orbitGroup);
-const orbitLineMaterial = new THREE.MeshBasicMaterial({ color: 0x9fb4c8, transparent: true, opacity: 0.20, depthWrite: false });
-const orbitRingA = new THREE.Mesh(new THREE.TorusGeometry(1.42, 0.007, 6, 96), orbitLineMaterial);
-orbitRingA.scale.y = 0.56;
-orbitRingA.rotation.x = Math.PI / 2.5;
+const orbitMatA = new THREE.MeshBasicMaterial({ color: 0x6fb9ff, transparent: true, opacity: 0.50, blending: THREE.AdditiveBlending, depthWrite: false });
+const orbitMatB = new THREE.MeshBasicMaterial({ color: 0x8edfff, transparent: true, opacity: 0.34, blending: THREE.AdditiveBlending, depthWrite: false });
+const orbitRingA = new THREE.Mesh(new THREE.TorusGeometry(1.50, 0.012, 8, 128), orbitMatA);
+orbitRingA.scale.y = 0.58;
+orbitRingA.rotation.x = Math.PI / 2.55;
 orbitRingA.rotation.z = 0.24;
 orbitGroup.add(orbitRingA);
-const orbitRingB = new THREE.Mesh(new THREE.TorusGeometry(1.22, 0.006, 6, 90), orbitLineMaterial.clone());
+const orbitRingB = new THREE.Mesh(new THREE.TorusGeometry(1.34, 0.010, 8, 120), orbitMatB);
 orbitRingB.scale.y = 0.74;
-orbitRingB.rotation.x = Math.PI / 2.1;
-orbitRingB.rotation.y = 0.8;
+orbitRingB.rotation.x = Math.PI / 2.12;
+orbitRingB.rotation.y = 0.78;
 orbitGroup.add(orbitRingB);
-const orbitNodeMaterial = new THREE.MeshPhysicalMaterial({ color: 0xd7e3eb, emissive: 0x78cfff, emissiveIntensity: 0.30, transparent: true, opacity: 0.72, roughness: 0.12, transmission: 0.25 });
+const orbitRingC = new THREE.Mesh(new THREE.TorusGeometry(1.18, 0.007, 8, 112), orbitMatB.clone());
+orbitRingC.scale.y = 0.82;
+orbitRingC.rotation.x = Math.PI / 2.35;
+orbitRingC.rotation.y = -0.65;
+orbitRingC.rotation.z = 0.48;
+orbitGroup.add(orbitRingC);
+
+const orbitNodeMat = new THREE.MeshPhysicalMaterial({ color: 0xd6f5ff, emissive: 0x4c8eff, emissiveIntensity: 1.15, transparent: true, opacity: 0.98, roughness: 0.05, transmission: 0.12 });
 const orbitNodes = [];
-[[1.24,0.52,0.06,0.065],[-1.26,0.26,0.10,0.050],[0.82,-1.00,0.16,0.045],[-0.72,1.02,0,0.042]].forEach(([x,y,z,r]) => {
-  const node = new THREE.Mesh(new THREE.SphereGeometry(r, 16, 12), orbitNodeMaterial);
-  node.position.set(x,y,z);
-  orbitNodes.push(node);
-  orbitGroup.add(node);
+[
+  [1.30,0.58,0.10,0.082],[-1.38,0.24,0.10,0.066],[0.90,-1.04,0.17,0.060],[-0.78,1.10,0,0.056],
+  [1.40,-0.16,-0.12,0.050],[-1.10,-0.76,-0.06,0.048],[0.18,1.27,-0.14,0.046],[-0.20,-1.22,0.10,0.044],
+].forEach(([x,y,z,r]) => {
+  const n = new THREE.Mesh(new THREE.SphereGeometry(r, 18, 14), orbitNodeMat);
+  n.position.set(x,y,z);
+  orbitNodes.push(n);
+  orbitGroup.add(n);
 });
 
-const shadow = new THREE.Mesh(new THREE.CircleGeometry(0.82, 48), new THREE.MeshBasicMaterial({ color: 0x626a73, transparent: true, opacity: 0.065, depthWrite: false }));
+const outerCount = 64;
+const outerArray = new Float32Array(outerCount * 3);
+for (let i = 0; i < outerCount; i += 1) {
+  const a = Math.random() * Math.PI * 2;
+  const r = 1.22 + Math.random() * 0.65;
+  outerArray[i*3] = Math.cos(a) * r;
+  outerArray[i*3+1] = (Math.random() - 0.5) * 2.36;
+  outerArray[i*3+2] = (Math.random() - 0.5) * 1.0 - 0.12;
+}
+const outerParticles = new THREE.Points(
+  new THREE.BufferGeometry().setAttribute("position", new THREE.BufferAttribute(outerArray, 3)),
+  new THREE.PointsMaterial({ color: 0xa9e5ff, size: 0.03, transparent: true, opacity: 0.60, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true }),
+);
+slimeRoot.add(outerParticles);
+
+const shadow = new THREE.Mesh(new THREE.CircleGeometry(0.88, 48), new THREE.MeshBasicMaterial({ color: 0x566276, transparent: true, opacity: 0.08, depthWrite: false }));
 shadow.rotation.x = -Math.PI / 2;
-shadow.scale.y = 0.34;
-shadow.position.set(0, -1.19, -0.12);
+shadow.scale.y = 0.32;
+shadow.position.set(0, -1.22, -0.12);
 scene.add(shadow);
 
-let targetRotX = 0;
-let targetRotY = 0;
-let currentRotX = 0;
-let currentRotY = 0;
-let pointerX = 0;
-let pointerY = 0;
-let hoverAmount = 0;
-let targetHover = 0;
-let bounceStartedAt = -10000;
-let surpriseStartedAt = -10000;
-let blinkStartedAt = -10000;
-let nextBlinkAt = performance.now() + 1800 + Math.random() * 1500;
-let lastTime = performance.now();
-let frame = 0;
+let targetRotX = 0, targetRotY = 0, currentRotX = 0, currentRotY = 0;
+let hoverAmount = 0, targetHover = 0, pointerX = 0, pointerY = 0;
+let bounceStartedAt = -10000, surpriseStartedAt = -10000, blinkStartedAt = -10000;
+let nextBlinkAt = performance.now() + 1800 + Math.random() * 1800;
+let lastTime = performance.now(), frame = 0;
 
 stage.addEventListener("pointermove", (event) => {
   const rect = stage.getBoundingClientRect();
   pointerX = THREE.MathUtils.clamp(((event.clientX - rect.left) / rect.width - 0.5) * 2, -1, 1);
   pointerY = THREE.MathUtils.clamp(((event.clientY - rect.top) / rect.height - 0.5) * 2, -1, 1);
-  targetRotY = pointerX * 0.12;
-  targetRotX = -pointerY * 0.07;
+  targetRotY = pointerX * 0.14;
+  targetRotX = -pointerY * 0.08;
 }, { passive: true });
 stage.addEventListener("pointerenter", () => { targetHover = 1; }, { passive: true });
-stage.addEventListener("pointerleave", () => {
-  targetHover = 0;
-  targetRotX = 0;
-  targetRotY = 0;
-  pointerX = 0;
-  pointerY = 0;
-}, { passive: true });
-stage.addEventListener("click", () => {
-  bounceStartedAt = performance.now();
-  surpriseStartedAt = performance.now();
-});
+stage.addEventListener("pointerleave", () => { targetHover = 0; targetRotX = 0; targetRotY = 0; pointerX = 0; pointerY = 0; }, { passive: true });
+stage.addEventListener("click", () => { bounceStartedAt = performance.now(); surpriseStartedAt = performance.now(); });
 
 const resize = () => {
   const rect = stage.getBoundingClientRect();
@@ -291,34 +297,19 @@ const resize = () => {
 new ResizeObserver(resize).observe(stage);
 resize();
 
-function deformBody(time, pulse, bounceStretch) {
+function deformBody(t, pulse, stretch) {
   if (reducedMotion) return;
-  const array = bodyPos.array;
-  const wobble = 0.018 + hoverAmount * 0.007;
-  const skirtWave = 0.026 + pulse * 0.009;
-  const squashXZ = 1 - bounceStretch * 0.07;
-  const stretchY = 1 + bounceStretch * 0.10;
-  for (let i = 0; i < array.length; i += 3) {
-    const x = basePositions[i];
-    const y = basePositions[i + 1];
-    const z = basePositions[i + 2];
-    const angle = Math.atan2(z, x);
-    const radiusWave = Math.sin(time * 1.45 + y * 4.0 + x * 1.8) * wobble + Math.cos(time * 1.1 + z * 4.4) * wobble * 0.55;
-    let px = x * (1 + radiusWave + pulse * 0.012) * squashXZ;
-    let py = y * stretchY + Math.sin(time * 1.2 + x * 4.0) * 0.012;
-    let pz = z * (1 + radiusWave + pulse * 0.012) * squashXZ;
-    if (y < -0.34) {
-      const wave = Math.sin(angle * 3 + time * 1.15) * skirtWave + Math.cos(angle * 5 - time * 0.85) * skirtWave * 0.50;
-      px *= 1 + wave;
-      pz *= 1 + wave;
-      py -= 0.02 + Math.abs(wave) * 0.02;
-    }
-    array[i] = px;
-    array[i + 1] = py;
-    array[i + 2] = pz;
+  const arr = bodyPos.array;
+  for (let i = 0; i < arr.length; i += 3) {
+    const x = basePositions[i], y = basePositions[i+1], z = basePositions[i+2];
+    const wave = Math.sin(t*1.45 + y*4.0 + x*2.0) * 0.018 + Math.cos(t*1.08 + z*4.4) * 0.012;
+    const skirt = y < -0.36 ? Math.sin(Math.atan2(z,x)*3 + t*1.15) * 0.028 : 0;
+    arr[i] = x * (1 + wave + skirt + pulse*0.012) * (1 - stretch*0.06);
+    arr[i+1] = y * (1 + stretch*0.10) + Math.sin(t*1.25 + x*4.0) * 0.012;
+    arr[i+2] = z * (1 + wave + skirt + pulse*0.012) * (1 - stretch*0.06);
   }
   bodyPos.needsUpdate = true;
-  if (frame % 2 === 0) bodyGeometry.computeVertexNormals();
+  if (frame % 3 === 0) bodyGeometry.computeVertexNormals();
 }
 
 function animate(now) {
@@ -326,74 +317,67 @@ function animate(now) {
   lastTime = now;
   const t = now / 1000;
   frame += 1;
+  currentRotX += (targetRotX - currentRotX) * Math.min(1, dt*5);
+  currentRotY += (targetRotY - currentRotY) * Math.min(1, dt*5);
+  hoverAmount += (targetHover - hoverAmount) * Math.min(1, dt*4.5);
 
-  currentRotX += (targetRotX - currentRotX) * Math.min(1, dt * 5);
-  currentRotY += (targetRotY - currentRotY) * Math.min(1, dt * 5);
-  hoverAmount += (targetHover - hoverAmount) * Math.min(1, dt * 4.5);
-
-  if (now > nextBlinkAt) {
-    blinkStartedAt = now;
-    nextBlinkAt = now + 2200 + Math.random() * 1900;
-  }
+  if (now > nextBlinkAt) { blinkStartedAt = now; nextBlinkAt = now + 2300 + Math.random()*1900; }
   const blinkAge = (now - blinkStartedAt) / 1000;
-  const blinkAmount = blinkAge >= 0 && blinkAge < 0.18 ? Math.sin((blinkAge / 0.18) * Math.PI) : 0;
-
+  const blink = blinkAge >= 0 && blinkAge < 0.18 ? Math.sin((blinkAge/0.18)*Math.PI) : 0;
   const bounceAge = (now - bounceStartedAt) / 1000;
-  const bounceActive = bounceAge >= 0 && bounceAge < 0.82;
-  const bounceEnvelope = bounceActive ? Math.sin((bounceAge / 0.82) * Math.PI) : 0;
-  const bounceY = bounceActive ? Math.sin((bounceAge / 0.82) * Math.PI * 2.05) * 0.13 * bounceEnvelope : 0;
-  const bounceStretch = bounceActive ? Math.sin((bounceAge / 0.82) * Math.PI * 2.05 + Math.PI / 2) * 0.20 * bounceEnvelope : 0;
+  const bounceEnv = bounceAge >= 0 && bounceAge < 0.82 ? Math.sin((bounceAge/0.82)*Math.PI) : 0;
+  const bounceY = bounceEnv ? Math.sin((bounceAge/0.82)*Math.PI*2.05) * 0.14 * bounceEnv : 0;
+  const stretch = bounceEnv ? Math.sin((bounceAge/0.82)*Math.PI*2.05 + Math.PI/2) * 0.20 * bounceEnv : 0;
   const surpriseAge = (now - surpriseStartedAt) / 1000;
-  const surpriseAmount = surpriseAge >= 0 && surpriseAge < 0.62 ? Math.sin((surpriseAge / 0.62) * Math.PI) : 0;
-
-  const idleY = reducedMotion ? 0 : Math.sin(t * 1.28) * 0.055;
-  const pulse = reducedMotion ? 0.35 : (Math.sin(t * 2.0) + 1) * 0.5;
-  const breath = reducedMotion ? 1 : 1 + Math.sin(t * 1.5) * 0.012;
+  const surprise = surpriseAge >= 0 && surpriseAge < 0.65 ? Math.sin((surpriseAge/0.65)*Math.PI) : 0;
+  const idleY = reducedMotion ? 0 : Math.sin(t*1.34) * 0.055;
+  const pulse = reducedMotion ? 0.4 : (Math.sin(t*2.05)+1)*0.5;
 
   slimeRoot.position.y = -0.04 + idleY + Math.max(0, bounceY);
   slimeRoot.rotation.x = currentRotX;
   slimeRoot.rotation.y = currentRotY;
-  slimeRoot.rotation.z = reducedMotion ? 0 : Math.sin(t * 0.82) * 0.020;
-  slimeRoot.scale.set(1 - bounceStretch * 0.07, breath + bounceStretch * 0.07, 1 - bounceStretch * 0.05);
+  slimeRoot.rotation.z = reducedMotion ? 0 : Math.sin(t*0.82) * 0.02;
 
-  coreGroup.scale.setScalar(0.98 + pulse * 0.075 + hoverAmount * 0.04);
-  coreGroup.rotation.y += reducedMotion ? 0 : dt * (0.27 + hoverAmount * 0.20);
-  coreGroup.rotation.z -= reducedMotion ? 0 : dt * 0.10;
-  coreHalo.material.opacity = 0.07 + pulse * 0.09 + hoverAmount * 0.04;
-  coreGlow.material.opacity = 0.16 + pulse * 0.15;
-  coreLight.intensity = 9 + pulse * 5 + hoverAmount * 2;
-  neuralNodes.forEach((node, index) => node.scale.setScalar(0.90 + Math.sin(t * 2.2 + index * 0.75) * 0.14));
-  edgeLines.material.opacity = 0.25 + pulse * 0.12;
-  innerMotes.rotation.y += reducedMotion ? 0 : dt * 0.025;
-  innerMotes.rotation.z -= reducedMotion ? 0 : dt * 0.018;
-  orbitGroup.rotation.z += reducedMotion ? 0 : dt * (0.11 + hoverAmount * 0.10);
-  orbitGroup.rotation.y += reducedMotion ? 0 : dt * 0.035;
-  orbitNodes.forEach((node, index) => node.scale.setScalar(0.90 + Math.sin(t * 1.8 + index) * 0.10));
+  leftArm.pivot.rotation.z = 0.08 + Math.sin(t*1.25)*0.16 - hoverAmount*0.12;
+  rightArm.pivot.rotation.z = -0.08 - Math.sin(t*1.18+0.8)*0.16 + hoverAmount*0.12;
+  leftArm.pivot.position.x = -0.89 - hoverAmount*0.04;
+  rightArm.pivot.position.x = 0.89 + hoverAmount*0.04;
 
-  // Single black eyes track subtly as whole shapes.
-  const eyeX = THREE.MathUtils.clamp(pointerX * 0.020, -0.016, 0.016);
-  const eyeY = THREE.MathUtils.clamp(pointerY * 0.012, -0.010, 0.010);
-  const baseEyeY = 0.25;
-  leftEye.position.x = -0.235 + eyeX;
-  rightEye.position.x = 0.235 + eyeX;
-  leftEye.position.y = baseEyeY - eyeY;
-  rightEye.position.y = baseEyeY - eyeY;
-  const blinkScale = Math.max(0.10, 1 - blinkAmount * 0.92);
-  const surpriseBoost = 1 + surpriseAmount * 0.22;
-  const happySquint = 1 - hoverAmount * 0.10;
-  leftEye.scale.set(0.72, 1.26 * blinkScale * surpriseBoost * happySquint, 0.30);
-  rightEye.scale.set(0.72, 1.26 * blinkScale * surpriseBoost * happySquint, 0.30);
+  coreGroup.scale.setScalar(0.98 + pulse*0.12 + hoverAmount*0.08);
+  coreGroup.rotation.y += reducedMotion ? 0 : dt * (0.38 + hoverAmount*0.28);
+  coreGroup.rotation.z -= reducedMotion ? 0 : dt * 0.14;
+  coreHalo.material.opacity = 0.14 + pulse*0.18 + hoverAmount*0.06;
+  coreGlow.material.opacity = 0.28 + pulse*0.22;
+  coreLight.intensity = 15 + pulse*8 + hoverAmount*5;
+  coreRings.forEach((ring, i) => { ring.rotation.z += reducedMotion ? 0 : dt*(0.10 + i*0.015); ring.material.opacity = 0.40 + pulse*0.18; });
+  neuralNodes.forEach((node, i) => node.scale.setScalar(0.88 + Math.sin(t*2.4 + i*0.65)*0.16 + hoverAmount*0.08));
+  edgeLines.material.opacity = 0.42 + pulse*0.16 + hoverAmount*0.08;
+  innerMotes.rotation.y += reducedMotion ? 0 : dt*0.05;
+  innerMotes.rotation.z -= reducedMotion ? 0 : dt*0.03;
 
-  smile.scale.x = 1 + hoverAmount * 0.15;
-  smile.scale.y = 1 + hoverAmount * 0.10;
-  smile.material.opacity = 1 - surpriseAmount;
-  surpriseMouth.material.opacity = surpriseAmount * 0.95;
+  orbitGroup.rotation.z += reducedMotion ? 0 : dt*(0.18 + hoverAmount*0.14);
+  orbitGroup.rotation.y += reducedMotion ? 0 : dt*0.07;
+  orbitRingA.material.opacity = 0.42 + pulse*0.14 + hoverAmount*0.10;
+  orbitRingB.material.opacity = 0.28 + pulse*0.12 + hoverAmount*0.08;
+  orbitRingC.material.opacity = 0.22 + pulse*0.10 + hoverAmount*0.06;
+  orbitNodes.forEach((node, i) => node.scale.setScalar(0.92 + Math.sin(t*2.1+i)*0.13 + hoverAmount*0.08));
+  outerParticles.rotation.z -= reducedMotion ? 0 : dt*0.055;
+  outerParticles.rotation.y += reducedMotion ? 0 : dt*0.035;
 
-  bodyMaterial.opacity = 0.68 + hoverAmount * 0.025;
-  shadow.scale.x = 1 - idleY * 1.5 - Math.max(0, bounceY) * 1.1;
-  shadow.material.opacity = Math.max(0.025, 0.060 - Math.max(0, bounceY) * 0.16);
+  const eyeOffsetX = pointerX * 0.012;
+  const eyeOffsetY = -pointerY * 0.010;
+  const eyeScaleY = Math.max(0.08, 1 - blink*0.92) * (1 + surprise*0.16);
+  leftEye.position.x = -0.235 + eyeOffsetX; rightEye.position.x = 0.235 + eyeOffsetX;
+  leftEye.position.y = 0.24 + eyeOffsetY; rightEye.position.y = 0.24 + eyeOffsetY;
+  leftEye.scale.y = 1.26 * eyeScaleY; rightEye.scale.y = 1.26 * eyeScaleY;
+  smile.material.opacity = 1 - surprise;
+  surpriseMouth.material.opacity = surprise * 0.96;
 
-  deformBody(t, pulse, bounceStretch);
+  bodyMaterial.emissiveIntensity = 0.025 + pulse*0.025;
+  shadow.scale.x = 1 - idleY*1.6 - Math.max(0,bounceY)*1.0;
+  shadow.material.opacity = Math.max(0.025, 0.08 - Math.max(0,bounceY)*0.18);
+
+  deformBody(t, pulse, stretch);
   renderer.render(scene, camera);
   if (!stage.classList.contains("webgl-ready")) stage.classList.add("webgl-ready");
   requestAnimationFrame(animate);
