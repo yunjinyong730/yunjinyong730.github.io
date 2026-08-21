@@ -1,0 +1,144 @@
+/* Readability scale — increase supporting text without overpowering display headings. */
+
+:root {
+  --body-readable: 15.5px;
+  --body-readable-lg: 16px;
+  --meta-readable: 11px;
+}
+
+/* Header and navigation */
+.brand strong { font-size: 15px; }
+.brand small { font-size: 10.5px; }
+.site-header nav a { font-size: 13px; }
+
+/* Landing */
+.hero-title p { font-size: clamp(17px, 1.45vw, 22px); }
+.guided-hint { font-size: 12.5px; }
+.menu-grid strong { font-size: 14.5px; }
+.menu-grid small { font-size: 11.5px; }
+
+/* Chat / long-form reading */
+.sidebar-profile p { font-size: 12.5px; }
+.sidebar-copy { font-size: 14px; line-height: 1.75; }
+.sidebar-nav > span { font-size: 10.5px; }
+.sidebar-nav button { font-size: 14px; }
+.sidebar-links a { font-size: 11.5px; }
+.reset-button { font-size: 12.5px; }
+.conversation-head,
+.conversation-head button { font-size: 10.5px; }
+
+.user-message span { font-size: 9.5px; }
+.user-message p { font-size: 15.5px; }
+.answer-kicker { font-size: 11.5px; }
+.answer-lead { font-size: 16px; line-height: 1.78; }
+.section-no,
+.card-topline { font-size: 10.5px; }
+.answer-panel h3 { font-size: 18.5px; }
+.answer-panel p { font-size: 14.5px; line-height: 1.75; }
+
+/* Stats and cards */
+.process-flow span { font-size: 12px; }
+.process-flow b { font-size: 10px; }
+.card-subtitle { font-size: 14px; }
+.card-copy { font-size: 15px; line-height: 1.76; }
+.metric strong { font-size: 18px; }
+.metric span { font-size: 9.5px; }
+.tag-row span { font-size: 9.5px; }
+.card-link { font-size: 11.5px; }
+.project-media > span,
+.result-open { font-size: 10px; }
+.result-visual-copy span { font-size: 10px; }
+.result-visual-copy strong { font-size: 17px; }
+.result-visual-copy p { font-size: 13.5px; }
+.mini-chart b,
+.compression-chart b,
+.compare-chart b { font-size: 12px; }
+.mini-chart em,
+.compression-chart em,
+.compare-chart em { font-size: 11px; }
+.detail-actions a { font-size: 11.5px; }
+.education-card span { font-size: 14px; }
+.education-card strong { font-size: 12.5px; }
+.contact-grid span { font-size: 10px; }
+.contact-grid strong { font-size: 14.5px; }
+.suggestion-grid button { font-size: 12.5px; }
+.quick-prompts button { min-height: 34px; font-size: 11.5px; padding-inline: 12px; }
+
+/* Resume / timeline / papers */
+.resume-identity-copy .eyeline,
+.timeline-meta,
+.publication-meta,
+.grant-meta,
+.application-meta,
+.award-meta { font-size: 10.5px; }
+.resume-identity-copy p { font-size: 15px; }
+.resume-identity-side span { font-size: 12.5px; }
+.resume-stat span { font-size: 10.5px; }
+.timeline-item h3,
+.publication-card h3,
+.grant-card h3,
+.application-card h3,
+.account-card h3 { font-size: 18.5px; }
+.timeline-item p,
+.publication-card p,
+.grant-card p,
+.application-card p,
+.account-card p,
+.award-card p { font-size: 14px; line-height: 1.72; }
+.timeline-item .timeline-role { font-size: 14px; }
+.grant-card .grant-source { font-size: 10px; }
+.application-actions a { font-size: 11.5px; }
+.system-flow span { font-size: 11.5px; }
+.account-card .account-icon { font-size: 10.5px; }
+.resume-actions button,
+.inline-actions button,
+.inline-actions a { font-size: 11.5px; }
+.evidence-note { font-size: 13px; }
+
+#app .publication-card-linked .publication-meta { font-size: 11px !important; }
+#app .publication-card-linked .publication-rank { font-size: 10px !important; }
+#app .publication-card-linked .paper-badge { font-size: 9px !important; }
+#app .publication-card-linked p { font-size: 14.5px !important; line-height: 1.72 !important; }
+#app .publication-card-linked .paper-pdf-button { font-size: 11px !important; }
+
+/* Keep form text comfortably readable. */
+.guided-composer input,
+.chat-composer input { font-size: 16.5px; }
+
+@media (max-width: 700px) {
+  .brand strong { font-size: 14px; }
+  .brand small { font-size: 10px; }
+  .site-header nav a { font-size: 11px; }
+  .hero-title p { font-size: 16px; }
+  .guided-hint { font-size: 11.5px; }
+  .menu-grid strong { font-size: 12px; }
+  .menu-grid small { font-size: 10px; }
+
+  .conversation-head,
+  .conversation-head button { font-size: 9.5px; }
+  .answer-kicker { font-size: 10px; }
+  .answer-lead { font-size: 15px; }
+  .answer-panel h3 { font-size: 17px; }
+  .answer-panel p { font-size: 14px; }
+  .section-no,
+  .card-topline { font-size: 9.5px; }
+  .card-subtitle { font-size: 13px; }
+  .card-copy { font-size: 14px; }
+  .metric span,
+  .tag-row span { font-size: 9px; }
+
+  .resume-identity-copy p { font-size: 14px; }
+  .resume-identity-side span { font-size: 12px; }
+  .timeline-item h3,
+  .publication-card h3,
+  .grant-card h3,
+  .application-card h3 { font-size: 17px; }
+  .timeline-item p,
+  .publication-card p,
+  .grant-card p,
+  .application-card p,
+  .award-card p { font-size: 13.5px; }
+  .quick-prompts button { font-size: 10.5px; }
+  .guided-composer input,
+  .chat-composer input { font-size: 16px; }
+}
