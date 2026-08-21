@@ -11,6 +11,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.portfolio-shell {
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
 button,
 a,
 input {
@@ -42,6 +47,8 @@ input:focus-visible {
   line-height: 1.035;
   letter-spacing: -.048em;
 }
+
+.mascot-caption { font-size: 9.5px; }
 
 .guided-composer input,
 .chat-composer input {
@@ -81,7 +88,7 @@ input:focus-visible {
 
 .message-list {
   padding-top: 36px;
-  padding-bottom: 112px;
+  padding-bottom: 48px;
 }
 
 .user-message span { font-size: 8.5px; }
@@ -137,6 +144,11 @@ input:focus-visible {
 .card-copy {
   font-size: 13.5px;
   line-height: 1.72;
+}
+
+.project-media img {
+  object-fit: contain;
+  background: #f3f5f7;
 }
 
 .metric { padding: 13px; }
@@ -217,7 +229,7 @@ input:focus-visible {
   line-height: 1.45;
 }
 
-.resume-stat span { font-size: 8.5px; }
+.resume-stat span { font-size: 9.5px; }
 
 .timeline-item { padding-top: 20px; padding-bottom: 20px; }
 .timeline-item h3,
@@ -241,6 +253,11 @@ input:focus-visible {
 .timeline-item .timeline-role { font-size: 12.5px; }
 
 .grant-card .grant-source { font-size: 9px; }
+.application-media img {
+  object-fit: contain;
+  background: linear-gradient(145deg, #eef4ff, #f8fbff);
+  padding: 8px;
+}
 .application-actions a {
   min-height: 40px;
   padding-inline: 12px;
@@ -310,6 +327,10 @@ input:focus-visible {
   .chat-sidebar { padding-inline: 20px; }
 }
 
+@media (max-width: 1000px) {
+  .grant-card { min-height: 0; }
+}
+
 @media (max-width: 900px) {
   .is-chatting .chat-view { grid-template-columns: 1fr; }
   .message-list { padding-inline: 20px; }
@@ -371,7 +392,7 @@ input:focus-visible {
   .menu-grid strong { font-size: 11px; }
   .menu-grid small {
     display: block;
-    font-size: 8.5px;
+    font-size: 9px;
     line-height: 1.2;
   }
 
@@ -387,7 +408,7 @@ input:focus-visible {
   .conversation-head button { font-size: 8.5px; }
 
   .message-list {
-    padding: 22px 12px 96px;
+    padding: 22px 12px 36px;
   }
   .assistant-message {
     grid-template-columns: 27px minmax(0, 1fr);
@@ -499,7 +520,7 @@ input:focus-visible {
 @media (max-width: 390px) {
   .hero-title h1 { font-size: 35px; }
   .menu-grid strong { font-size: 10.5px; }
-  .menu-grid small { font-size: 8px; }
+  .menu-grid small { font-size: 8.5px; }
   .assistant-mark { display: none; }
   .assistant-message { grid-template-columns: 1fr; }
   .user-message span { display: none; }
