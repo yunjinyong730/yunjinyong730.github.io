@@ -1,227 +1,40 @@
-/* neon — persistent portfolio guide */
+@import url("./neon-guide-base.css?v=20260821-neon1");
 
-.neon-guide-bar {
-  position: sticky;
-  top: 0;
-  z-index: 72;
-  min-height: 72px;
-  padding: 10px clamp(18px, 3vw, 34px);
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid rgba(73, 104, 158, .10);
-  background: rgba(250, 251, 249, .88);
-  box-shadow: 0 10px 32px rgba(43, 63, 101, .055);
-  backdrop-filter: blur(18px) saturate(1.08);
-  -webkit-backdrop-filter: blur(18px) saturate(1.08);
-}
-
+/* Approved Neon profile image — shared by the persistent guide and answer avatars. */
 .neon-guide-avatar,
 .neon-inline-avatar,
 .neon-assistant-mark .neon-mini-avatar {
-  --neon-size: 44px;
-  width: var(--neon-size);
-  height: var(--neon-size);
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  flex: 0 0 auto;
-}
-
-.neon-guide-avatar {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  border-radius: 14px;
+  background-image: url("./assets/neon-profile.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 7px 20px rgba(68, 103, 174, .12);
 }
 
 .neon-guide-avatar::after,
 .neon-inline-avatar::after,
 .neon-assistant-mark .neon-mini-avatar::after {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border-radius: 45% 45% 48% 48%;
-  background:
-    radial-gradient(circle at 36% 30%, rgba(255,255,255,.96), transparent 21%),
-    linear-gradient(145deg, rgba(234,246,255,.98), rgba(221,232,255,.96) 52%, rgba(229,220,255,.96));
-  border: 1px solid rgba(92, 126, 222, .18);
-  box-shadow: 0 8px 22px rgba(64, 104, 190, .14), inset 0 -7px 13px rgba(105, 110, 215, .08);
+  display: none;
 }
 
-.neon-mini-antenna {
-  position: absolute;
-  z-index: 3;
-  width: 2px;
-  height: 9px;
-  top: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 99px;
-  background: #7097f8;
+.neon-guide-avatar .neon-mini-antenna,
+.neon-guide-avatar .neon-mini-face,
+.neon-inline-avatar .neon-mini-antenna,
+.neon-inline-avatar .neon-mini-face,
+.neon-assistant-mark .neon-mini-antenna,
+.neon-assistant-mark .neon-mini-face {
+  display: none;
 }
 
-.neon-mini-antenna::after {
-  content: "";
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  top: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: #75dcff;
-  box-shadow: 0 0 10px rgba(89, 206, 255, .72);
+.neon-guide-avatar {
+  border: 1px solid rgba(93, 126, 192, .10);
+  background-color: #fff;
 }
 
-.neon-mini-face {
-  position: absolute;
-  z-index: 4;
-  inset: 0;
-}
-
-.neon-mini-eye {
-  position: absolute;
-  width: 4px;
-  height: 5px;
-  top: 19px;
-  border-radius: 50%;
-  background: #25314f;
-}
-.neon-mini-eye.left { left: 15px; }
-.neon-mini-eye.right { right: 15px; }
-
-.neon-mini-mouth {
-  position: absolute;
-  left: 50%;
-  top: 27px;
-  width: 8px;
-  height: 4px;
-  transform: translateX(-50%);
-  border-bottom: 1.5px solid #516284;
-  border-radius: 0 0 9px 9px;
-}
-
-.neon-guide-copy { min-width: 0; }
-.neon-guide-copy > span {
-  display: block;
-  color: #4778db;
-  font: 600 8.5px/1.2 var(--mono, "DM Mono", monospace);
-  letter-spacing: .12em;
-}
-.neon-guide-copy p {
-  margin: 4px 0 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #536073;
-  font-size: 11.5px;
-  line-height: 1.4;
-}
-.neon-guide-copy strong { color: #1c273d; font-weight: 650; }
-
-.neon-guide-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #8a95a7;
-  font: 600 8px/1 var(--mono, "DM Mono", monospace);
-  letter-spacing: .09em;
-}
-.neon-guide-status::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #76d6ad;
-  box-shadow: 0 0 0 4px rgba(93, 203, 157, .09);
-}
-
-.neon-guide-bar.is-talking .neon-guide-avatar,
-.neon-inline-intro.is-entering .neon-inline-avatar {
-  animation: neonGuideNod .46s cubic-bezier(.2,.8,.2,1);
-}
-
-.neon-inline-intro {
-  width: min(760px, 100%);
-  margin: 0 0 22px;
-  padding: 10px 13px 10px 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid rgba(77, 118, 211, .11);
-  border-radius: 16px;
-  background: linear-gradient(110deg, rgba(242,247,255,.92), rgba(249,248,255,.76));
-  box-shadow: 0 8px 28px rgba(58, 88, 151, .055);
-}
-
-.neon-inline-avatar { --neon-size: 34px; }
-.neon-inline-avatar .neon-mini-eye { top: 15px; width: 3px; height: 4px; }
-.neon-inline-avatar .neon-mini-eye.left { left: 12px; }
-.neon-inline-avatar .neon-mini-eye.right { right: 12px; }
-.neon-inline-avatar .neon-mini-mouth { top: 21px; width: 6px; }
-.neon-inline-avatar .neon-mini-antenna { height: 7px; }
-
-.neon-inline-copy { min-width: 0; }
-.neon-inline-copy b {
-  display: block;
-  margin-bottom: 3px;
-  color: #316be0;
-  font: 650 9px/1.2 var(--mono, "DM Mono", monospace);
-  letter-spacing: .08em;
-  text-transform: lowercase;
-}
-.neon-inline-copy p {
-  margin: 0;
-  color: #59677d;
-  font-size: 11.5px;
-  line-height: 1.55;
-}
-
-.assistant-mark.neon-assistant-mark {
-  width: 38px;
-  height: 38px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  overflow: visible;
-}
-.neon-assistant-mark .neon-mini-avatar { --neon-size: 34px; }
-.neon-assistant-mark .neon-mini-eye { top: 15px; width: 3px; height: 4px; }
-.neon-assistant-mark .neon-mini-eye.left { left: 12px; }
-.neon-assistant-mark .neon-mini-eye.right { right: 12px; }
-.neon-assistant-mark .neon-mini-mouth { top: 21px; width: 6px; }
-.neon-assistant-mark .neon-mini-antenna { height: 7px; }
-
-/* The large landing character remains the hero; make its role explicit. */
-.mascot-caption {
-  letter-spacing: .08em;
-}
-
-@keyframes neonGuideNod {
-  0%,100% { transform: translateY(0) rotate(0); }
-  42% { transform: translateY(-3px) rotate(-3deg); }
-  72% { transform: translateY(1px) rotate(2deg); }
-}
-
-@media (max-width: 760px) {
-  .neon-guide-bar {
-    min-height: 64px;
-    padding: 9px 13px;
-    grid-template-columns: auto minmax(0,1fr);
-    gap: 9px;
-  }
-  .neon-guide-status { display: none; }
-  .neon-guide-avatar { --neon-size: 40px; }
-  .neon-guide-copy p { font-size: 10.5px; }
-  .neon-inline-intro { margin-bottom: 16px; padding: 9px; }
-  .neon-inline-copy p { font-size: 10.5px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .neon-guide-bar.is-talking .neon-guide-avatar,
-  .neon-inline-intro.is-entering .neon-inline-avatar { animation: none; }
+.neon-inline-avatar,
+.neon-assistant-mark .neon-mini-avatar {
+  border: 1px solid rgba(93, 126, 192, .08);
+  background-color: #fff;
 }
