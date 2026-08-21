@@ -1,0 +1,519 @@
+/* Final UX polish — typography, spacing, responsive layout, accessibility */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* Header */
+.brand strong { font-size: 14px; line-height: 1.2; }
+.brand small { font-size: 9.5px; line-height: 1.25; }
+.site-header nav a { font-size: 12px; }
+
+/* Landing */
+.hero-title p {
+  font-size: clamp(16px, 1.35vw, 21px);
+  line-height: 1.4;
+  letter-spacing: -.025em;
+}
+
+.hero-title h1 {
+  max-width: 980px;
+  font-size: clamp(44px, 5vw, 78px);
+  line-height: 1.035;
+  letter-spacing: -.048em;
+}
+
+.guided-composer input,
+.chat-composer input {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.guided-hint {
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.menu-grid strong { font-size: 13px; line-height: 1.2; }
+.menu-grid small { font-size: 10px; line-height: 1.3; }
+
+/* Chat shell */
+.chat-view { height: 100dvh; }
+.is-chatting .chat-view { grid-template-columns: 288px minmax(0, 1fr); }
+
+.sidebar-profile h2 { font-size: 17px; }
+.sidebar-profile p { font-size: 11.5px; }
+.sidebar-copy { font-size: 12.5px; line-height: 1.7; }
+.sidebar-nav > span { font-size: 9.5px; }
+.sidebar-nav button {
+  min-height: 42px;
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+.sidebar-links a { font-size: 10.5px; }
+.reset-button { min-height: 42px; font-size: 11.5px; }
+
+.conversation-head {
+  font-size: 9.5px;
+  line-height: 1.2;
+}
+.conversation-head button { font-size: 9.5px; }
+
+.message-list {
+  padding-top: 36px;
+  padding-bottom: 112px;
+}
+
+.user-message span { font-size: 8.5px; }
+.user-message p {
+  font-size: 14px;
+  line-height: 1.55;
+  padding: 11px 15px;
+}
+
+.answer-kicker {
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+.answer-document h2 {
+  font-size: clamp(30px, 2.6vw, 42px);
+  line-height: 1.16;
+  letter-spacing: -.038em;
+}
+
+.answer-lead {
+  max-width: 820px;
+  font-size: 14.5px;
+  line-height: 1.78;
+}
+
+.answer-panel { padding: 20px; }
+.section-no,
+.card-topline {
+  font-size: 9.5px;
+  line-height: 1.25;
+}
+.answer-panel h3 { font-size: 17px; line-height: 1.3; }
+.answer-panel p { font-size: 13px; line-height: 1.72; }
+
+.process-flow span {
+  min-height: 78px;
+  font-size: 11px;
+}
+.process-flow b { font-size: 9px; }
+
+/* Project cards */
+.paper-card h3,
+.project-card h3 {
+  margin-top: 22px;
+  font-size: clamp(25px, 2.65vw, 37px);
+  line-height: 1.13;
+  letter-spacing: -.035em;
+  overflow-wrap: anywhere;
+}
+
+.card-subtitle { font-size: 12.5px; line-height: 1.55; }
+.card-copy {
+  font-size: 13.5px;
+  line-height: 1.72;
+}
+
+.metric { padding: 13px; }
+.metric strong { font-size: 17px; }
+.metric span { font-size: 8.5px; line-height: 1.4; }
+
+.tag-row span {
+  padding: 6px 8px;
+  font-size: 8.5px;
+  line-height: 1.15;
+}
+.card-link { font-size: 10.5px; line-height: 1.3; }
+.project-media > span,
+.result-open { font-size: 9px; }
+
+.result-visual-copy { padding: 16px 18px; }
+.result-visual-copy span { font-size: 9px; }
+.result-visual-copy strong { font-size: 16px; line-height: 1.35; }
+.result-visual-copy p { font-size: 12px; line-height: 1.6; }
+
+.mini-chart b,
+.compression-chart b,
+.compare-chart b { font-size: 11px; }
+.mini-chart em,
+.compression-chart em,
+.compare-chart em { font-size: 10px; }
+
+.detail-actions a {
+  min-height: 40px;
+  align-items: center;
+  font-size: 10.5px;
+}
+
+.education-card span { font-size: 12.5px; line-height: 1.6; }
+.education-card strong { font-size: 11.5px; line-height: 1.4; }
+
+.contact-grid span { font-size: 9px; }
+.contact-grid strong {
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.suggestion-grid button {
+  min-height: 42px;
+  font-size: 11.5px;
+  line-height: 1.35;
+}
+
+.quick-prompts button {
+  min-height: 32px;
+  padding-inline: 11px;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+/* Resume / timeline / publications / products */
+.resume-identity-copy .eyeline,
+.timeline-meta,
+.publication-meta,
+.grant-meta,
+.application-meta,
+.award-meta {
+  font-size: 9.5px;
+  line-height: 1.35;
+}
+
+.resume-identity-copy h3 {
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+.resume-identity-copy p {
+  font-size: 13.5px;
+  line-height: 1.72;
+}
+.resume-identity-side span {
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.resume-stat span { font-size: 8.5px; }
+
+.timeline-item { padding-top: 20px; padding-bottom: 20px; }
+.timeline-item h3,
+.publication-card h3,
+.grant-card h3,
+.application-card h3,
+.account-card h3 {
+  font-size: 17px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.timeline-item p,
+.publication-card p,
+.grant-card p,
+.application-card p,
+.account-card p,
+.award-card p {
+  font-size: 12.5px;
+  line-height: 1.68;
+}
+.timeline-item .timeline-role { font-size: 12.5px; }
+
+.grant-card .grant-source { font-size: 9px; }
+.application-actions a {
+  min-height: 40px;
+  padding-inline: 12px;
+  font-size: 10px;
+}
+.system-flow span { font-size: 10px; }
+.award-card strong { font-size: 19px; line-height: 1.25; }
+
+.account-card .account-icon { font-size: 9.5px; }
+.resume-actions button,
+.inline-actions button,
+.inline-actions a {
+  min-height: 40px;
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+.evidence-note { font-size: 11.5px; line-height: 1.65; }
+
+/* Publication cards injected by paper-links.js */
+#app .publication-card-linked {
+  padding: 22px !important;
+}
+#app .publication-card-linked .publication-meta {
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+}
+#app .publication-card-linked .publication-rank {
+  min-width: 52px !important;
+  padding: 8px 10px !important;
+  font-size: 9px !important;
+}
+#app .publication-card-linked .paper-badge {
+  min-height: 25px !important;
+  padding-inline: 10px !important;
+  font-size: 8px !important;
+}
+#app .publication-card-linked h3 {
+  font-size: clamp(19px, 1.65vw, 25px) !important;
+  line-height: 1.28 !important;
+  letter-spacing: -.028em !important;
+  overflow-wrap: anywhere;
+}
+#app .publication-card-linked p {
+  max-width: 1150px;
+  font-size: 13px !important;
+  line-height: 1.68 !important;
+}
+#app .publication-card-linked .paper-pdf-button {
+  min-height: 40px !important;
+  padding-inline: 14px !important;
+  font-size: 10px !important;
+}
+
+/* Avoid layout breakage from long technical strings */
+.publication-card h3,
+.grant-card h3,
+.application-card h3,
+.project-card h3,
+.resume-identity-copy h3,
+.contact-grid strong,
+.answer-document h2 {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1100px) {
+  .is-chatting .chat-view { grid-template-columns: 260px minmax(0, 1fr); }
+  .chat-sidebar { padding-inline: 20px; }
+}
+
+@media (max-width: 900px) {
+  .is-chatting .chat-view { grid-template-columns: 1fr; }
+  .message-list { padding-inline: 20px; }
+  .conversation-bottom { padding-inline: 20px; }
+  .answer-grid.two { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .site-header {
+    height: 64px;
+    padding-inline: 14px;
+  }
+  .brand > span { width: 36px; height: 36px; }
+  .brand strong { font-size: 13px; }
+  .site-header nav a { font-size: 10px; }
+
+  .landing-view {
+    min-height: 100dvh;
+    padding: 86px 14px 28px;
+    justify-content: flex-start;
+  }
+  .hero-title p {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .hero-title h1 {
+    font-size: clamp(36px, 10.8vw, 52px);
+    line-height: 1.06;
+    letter-spacing: -.04em;
+  }
+
+  .mascot-stage {
+    width: min(270px, 78vw);
+    height: 238px;
+    margin-top: 6px;
+  }
+
+  .guided-composer,
+  .chat-composer {
+    grid-template-columns: 34px 1fr 42px;
+  }
+  .guided-hint { font-size: 10px; }
+
+  /* 3 + 2 layout: large enough touch targets, no cramped five-column row */
+  .menu-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 13px;
+  }
+  .menu-grid button {
+    grid-column: span 2;
+    height: 82px;
+    border-radius: 14px;
+    gap: 4px;
+  }
+  .menu-grid button:nth-child(4) { grid-column: 2 / span 2; }
+  .menu-grid button:nth-child(5) { grid-column: 4 / span 2; }
+  .menu-grid span { font-size: 18px; }
+  .menu-grid strong { font-size: 11px; }
+  .menu-grid small {
+    display: block;
+    font-size: 8.5px;
+    line-height: 1.2;
+  }
+
+  .chat-view {
+    height: 100dvh;
+    padding-top: 64px;
+  }
+  .conversation { grid-template-rows: 44px minmax(0, 1fr) auto; }
+  .conversation-head {
+    padding-inline: 14px;
+    font-size: 8.5px;
+  }
+  .conversation-head button { font-size: 8.5px; }
+
+  .message-list {
+    padding: 22px 12px 96px;
+  }
+  .assistant-message {
+    grid-template-columns: 27px minmax(0, 1fr);
+    gap: 9px;
+    margin-bottom: 38px;
+  }
+
+  .answer-kicker { font-size: 9px; }
+  .answer-document h2 {
+    font-size: clamp(27px, 8vw, 34px);
+    line-height: 1.19;
+    letter-spacing: -.035em;
+  }
+  .answer-lead {
+    margin-top: 13px;
+    font-size: 14px;
+    line-height: 1.72;
+  }
+
+  .answer-panel { padding: 16px; }
+  .section-no,
+  .card-topline { font-size: 9px; }
+  .answer-panel h3 { font-size: 16px; }
+  .answer-panel p { font-size: 13px; }
+
+  .paper-card h3,
+  .project-card h3 {
+    font-size: clamp(22px, 6.7vw, 29px);
+    line-height: 1.17;
+  }
+  .card-subtitle { font-size: 12px; }
+  .card-copy { font-size: 13px; }
+
+  .project-media { height: 205px; }
+  .metric-grid { gap: 7px; }
+  .metric strong { font-size: 16px; }
+  .metric span { font-size: 8px; }
+  .tag-row span { font-size: 8px; }
+
+  .mini-chart > div,
+  .compression-chart > div {
+    grid-template-columns: 92px minmax(0, 1fr) 42px;
+  }
+  .compare-chart > div {
+    grid-template-columns: 62px minmax(0, 1fr) 29px minmax(0, 1fr) 29px;
+  }
+
+  .resume-identity-copy { padding: 18px; }
+  .resume-identity-copy h3 { font-size: 25px; }
+  .resume-identity-copy p { font-size: 13px; }
+  .resume-identity-side span { font-size: 11px; }
+
+  .timeline-item { padding-right: 16px; }
+  .timeline-item h3,
+  .grant-card h3,
+  .application-card h3 { font-size: 16px; }
+  .timeline-item p,
+  .grant-card p,
+  .application-card p,
+  .award-card p { font-size: 12.5px; }
+
+  #app .publication-card-linked { padding: 17px !important; }
+  #app .publication-card-linked .publication-top {
+    gap: 8px !important;
+    margin-bottom: 11px !important;
+  }
+  #app .publication-card-linked .publication-id {
+    gap: 6px !important;
+  }
+  #app .publication-card-linked .publication-rank {
+    min-width: 44px !important;
+    padding: 7px 8px !important;
+    font-size: 8px !important;
+  }
+  #app .publication-card-linked .paper-badge {
+    min-height: 23px !important;
+    font-size: 7px !important;
+  }
+  #app .publication-card-linked h3 {
+    font-size: 18px !important;
+    line-height: 1.34 !important;
+  }
+  #app .publication-card-linked p {
+    font-size: 12.5px !important;
+  }
+  #app .publication-card-linked .paper-pdf-button {
+    width: 100%;
+    min-height: 42px !important;
+    font-size: 10px !important;
+  }
+
+  .application-media { height: 200px; }
+  .application-actions a,
+  .resume-actions button,
+  .inline-actions button,
+  .inline-actions a {
+    min-height: 42px;
+    font-size: 10px;
+  }
+
+  .quick-prompts button {
+    min-height: 34px;
+    font-size: 9.5px;
+  }
+  .conversation-bottom { padding: 7px 9px max(10px, env(safe-area-inset-bottom)); }
+  .chat-composer input { font-size: 16px; }
+}
+
+@media (max-width: 390px) {
+  .hero-title h1 { font-size: 35px; }
+  .menu-grid strong { font-size: 10.5px; }
+  .menu-grid small { font-size: 8px; }
+  .assistant-mark { display: none; }
+  .assistant-message { grid-template-columns: 1fr; }
+  .user-message span { display: none; }
+  .answer-document h2 { font-size: 26px; }
+  .metric-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-field,
+  .soft-bot,
+  .bot-shadow,
+  .bot-antenna i,
+  .bot-arm,
+  .bot-body {
+    animation: none !important;
+  }
+}
