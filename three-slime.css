@@ -1,8 +1,9 @@
-/* Splinee v2 — translucent AI slime inspired by the approved concept sheet. */
+/* Ghost AI slime — translucent, fluid, neural-core mascot. */
 .mascot-stage {
-  width: min(400px, 82vw);
-  height: 338px;
-  margin: 4px auto 0;
+  position: relative;
+  width: min(390px, 80vw);
+  height: 330px;
+  margin: 4px auto 2px;
   overflow: visible;
   isolation: isolate;
 }
@@ -18,9 +19,9 @@
   pointer-events: none;
   transition: opacity .45s ease, filter .28s ease, transform .28s ease;
   filter:
-    saturate(1.07)
-    contrast(1.015)
-    drop-shadow(0 20px 34px rgba(76, 111, 224, .13));
+    saturate(1.05)
+    contrast(1.02)
+    drop-shadow(0 20px 38px rgba(94, 127, 232, .15));
 }
 
 .mascot-stage::before {
@@ -28,17 +29,17 @@
   position: absolute;
   z-index: 0;
   left: 50%;
-  top: 52%;
-  width: 74%;
+  top: 47%;
+  width: 78%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 49% 57%, rgba(87, 222, 255, .18), transparent 34%),
-    radial-gradient(circle at 55% 45%, rgba(91, 124, 255, .12), transparent 52%),
-    radial-gradient(circle at 42% 38%, rgba(179, 141, 255, .08), transparent 58%);
+    radial-gradient(circle at 50% 50%, rgba(125, 194, 255, .22), transparent 38%),
+    radial-gradient(circle at 64% 35%, rgba(183, 141, 255, .14), transparent 48%),
+    radial-gradient(circle at 35% 70%, rgba(255, 255, 255, .18), transparent 42%);
   filter: blur(24px);
-  opacity: .80;
+  opacity: .86;
   pointer-events: none;
 }
 
@@ -49,7 +50,7 @@
   left: 50%;
   bottom: 24px;
   transform: translateX(-50%);
-  color: rgba(67, 103, 174, .52);
+  color: rgba(67, 103, 174, .50);
   font: 500 7px/1 var(--mono, "DM Mono", monospace);
   letter-spacing: .15em;
   white-space: nowrap;
@@ -59,13 +60,15 @@
 }
 
 .mascot-stage.webgl-ready .three-slime-canvas { opacity: 1; }
+
 .mascot-stage.webgl-ready:hover .three-slime-canvas {
   filter:
-    saturate(1.10)
-    contrast(1.02)
-    drop-shadow(0 23px 40px rgba(76, 111, 224, .17));
+    saturate(1.08)
+    contrast(1.025)
+    drop-shadow(0 23px 42px rgba(94, 127, 232, .19));
   transform: translateY(-1px);
 }
+
 .mascot-stage.webgl-ready:hover::after {
   opacity: 1;
   transform: translateX(-50%) translateY(-2px);
@@ -83,9 +86,9 @@
 .mascot-stage.webgl-ready .mascot-caption {
   z-index: 8;
   bottom: 3px;
-  color: #7f8791;
-  font-size: 9.5px;
-  letter-spacing: .11em;
+  color: #7484a8;
+  font-size: 10px;
+  letter-spacing: .10em;
   transition: color .2s ease, transform .2s ease;
 }
 
@@ -96,13 +99,12 @@
 
 @media (max-width: 700px) {
   .mascot-stage {
-    width: min(316px, 86vw);
+    width: min(310px, 84vw);
     height: 270px;
-    margin-top: 2px;
   }
 
   .mascot-stage::before {
-    width: 78%;
+    width: 82%;
     filter: blur(18px);
   }
 
@@ -114,8 +116,8 @@
 
 @media (max-width: 390px) {
   .mascot-stage {
-    width: min(292px, 88vw);
-    height: 248px;
+    width: min(284px, 86vw);
+    height: 244px;
   }
 
   .mascot-stage.webgl-ready .mascot-caption {
