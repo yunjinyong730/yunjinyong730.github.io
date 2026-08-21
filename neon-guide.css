@@ -38,3 +38,9 @@
   border: 1px solid rgba(93, 126, 192, .08);
   background-color: #fff;
 }
+
+/* One Neon avatar per answer: keep the inline narrator and collapse the old assistant-mark column. */
+.assistant-message.neon-single-avatar {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
