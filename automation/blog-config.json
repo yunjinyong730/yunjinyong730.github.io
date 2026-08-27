@@ -1,0 +1,30 @@
+{
+  "site": {
+    "name": "Yun's AI Engineering Notes",
+    "baseUrl": "https://yunjinyong730.github.io",
+    "author": "Yun Jinyong",
+    "language": "ko-KR",
+    "description": "실무 AI 엔지니어링, 머신러닝 도구, 개발 생산성을 다루는 데이터 기반 블로그"
+  },
+  "content": {
+    "niche": "AI engineering, practical machine learning, developer productivity, AI tools and automation",
+    "audience": "한국어를 사용하는 개발자, AI/ML 엔지니어, 기술 의사결정자",
+    "minimumQualityScore": 82,
+    "recentTitleWindow": 30,
+    "disallowedTopics": [
+      "개인별 의료 진단 또는 치료 조언",
+      "개인별 투자 추천 또는 수익 보장",
+      "개인별 법률 자문",
+      "불법 행위 또는 안전을 해치는 방법"
+    ]
+  },
+  "openai": {
+    "model": "gpt-5.4-mini",
+    "searchContextSize": "medium",
+    "maxOutputTokens": 12000
+  },
+  "publishing": {
+    "postsPerRun": 1,
+    "maxPostsOnIndex": 50
+  }
+}

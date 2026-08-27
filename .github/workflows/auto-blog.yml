@@ -1,0 +1,55 @@
+name: Automated Blog Publisher
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: Optional topic override
+        required: false
+        type: string
+  schedule:
+    # 07:30 Asia/Seoul every day (22:30 UTC on the previous date)
+    - cron: '30 22 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: automated-blog-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate secret
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::error::Add OPENAI_API_KEY in Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+      - name: Generate, research, fact-check, and render one article
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          BLOG_TOPIC: ${{ inputs.topic }}
+        run: node automation/generate-blog.mjs
+      - name: Commit generated site changes
+        run: |
+          if git diff --quiet; then
+            echo "No content changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add blog automation/topic-queue.json sitemap.xml feed.xml
+          git commit -m "chore(blog): publish automated article [skip ci]"
+          git push
