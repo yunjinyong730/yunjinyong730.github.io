@@ -1,6 +1,9 @@
 (() => {
   "use strict";
 
+  const isEnglish = new URLSearchParams(window.location.search).get("lang") === "en";
+  const englishDescription = "Yun Jinyong · AI/ML Engineer — Sensor Calibration, Edge AI, Autonomous Perception. A portfolio connecting research to systems that work in real-world environments.";
+
   const replacements = new Map([
     ["경력이 따로 떨어진 점이 아니라,", "제품 개발에서 AI 연구로,"],
     ["하나의 Research-to-System 흐름입니다.", "연구에서 Edge deployment로 이어졌습니다."],
@@ -44,22 +47,35 @@
     if (next) target.placeholder = next;
   }
 
+  function enforceEnglishMeta() {
+    if (!isEnglish) return;
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta && meta.getAttribute("content") !== englishDescription) {
+      meta.setAttribute("content", englishDescription);
+    }
+  }
+
   function init() {
     scan(document);
     polishPlaceholder(document.querySelector("#landingInput"));
+    enforceEnglishMeta();
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         if (mutation.type === "characterData") rewriteText(mutation.target);
-        if (mutation.type === "attributes") polishPlaceholder(mutation.target);
+        if (mutation.type === "attributes") {
+          polishPlaceholder(mutation.target);
+          enforceEnglishMeta();
+        }
         mutation.addedNodes?.forEach(scan);
       }
+      enforceEnglishMeta();
     });
     observer.observe(document.documentElement, {
       childList: true,
       subtree: true,
       characterData: true,
       attributes: true,
-      attributeFilter: ["placeholder"],
+      attributeFilter: ["placeholder", "content"],
     });
   }
 
