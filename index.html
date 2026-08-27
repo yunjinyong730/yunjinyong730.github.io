@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="./orb.css" />
   <link rel="stylesheet" href="./upgrade.css" />
   <link rel="stylesheet" href="./ux-polish.css?v=20260821-final" />
-  <link rel="stylesheet" href="./three-slime.css?v=20260821-ghost-ai-v7" />
+  <link rel="stylesheet" href="./three-slime.css?v=20260827-no-flash1" />
   <link rel="stylesheet" href="./recruiter-suite.css?v=20260821-rs3" />
   <link rel="stylesheet" href="./background-polish.css?v=20260821-bg1" />
   <link rel="stylesheet" href="./neon-guide.css?v=20260822-neon3" />
@@ -168,5 +168,17 @@
       </div>
     </section>
   </main>
+
+  <script>
+    (() => {
+      const stage = document.getElementById("mascotStage");
+      if (!stage) return;
+      window.setTimeout(() => {
+        if (!stage.classList.contains("webgl-ready")) {
+          stage.classList.add("webgl-failed");
+        }
+      }, 4500);
+    })();
+  </script>
 </body>
 </html>
