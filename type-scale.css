@@ -1,68 +1,94 @@
-/* Readability scale — increase supporting text without overpowering display headings. */
+/* Readability scale v2 — final typography and contrast pass. */
 
 :root {
-  --body-readable: 15.5px;
-  --body-readable-lg: 16px;
-  --meta-readable: 11px;
+  --readable-muted: #68707a;
+  --readable-muted-strong: #5f6770;
+  --readable-meta: #626a74;
 }
 
-/* Header and navigation */
+/* Header and global navigation */
 .brand strong { font-size: 15px; }
-.brand small { font-size: 10.5px; }
-.site-header nav a { font-size: 13px; }
+.brand small { font-size: 11px; color: var(--readable-muted); }
+.site-header nav a { font-size: 13px; color: var(--readable-muted); }
+.site-header nav .language-switch a {
+  min-width: 38px !important;
+  height: 30px !important;
+  padding-inline: 10px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
 
 /* Landing */
 .hero-title p { font-size: clamp(17px, 1.45vw, 22px); }
-.guided-hint { font-size: 12.5px; }
+.mascot-caption {
+  font-size: 11.5px !important;
+  color: var(--readable-muted) !important;
+  font-weight: 500;
+}
+.mascot-speech { font-size: 13px; line-height: 1.5; }
+.guided-hint {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--readable-muted-strong);
+}
 .menu-grid strong { font-size: 14.5px; }
-.menu-grid small { font-size: 11.5px; }
+.menu-grid small {
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--readable-muted);
+}
+.guided-composer input,
+.chat-composer input { font-size: 16.5px; }
+.guided-composer input::placeholder,
+.chat-composer input::placeholder { color: #747c86; opacity: 1; }
 
-/* Chat / long-form reading */
-.sidebar-profile p { font-size: 12.5px; }
-.sidebar-copy { font-size: 14px; line-height: 1.75; }
-.sidebar-nav > span { font-size: 10.5px; }
-.sidebar-nav button { font-size: 14px; }
-.sidebar-links a { font-size: 11.5px; }
-.reset-button { font-size: 12.5px; }
+/* Chat shell */
+.sidebar-profile h2 { font-size: 17px; }
+.sidebar-profile p { font-size: 13px; color: var(--readable-muted); }
+.sidebar-copy { font-size: 14px; line-height: 1.75; color: var(--readable-muted-strong); }
+.sidebar-nav > span { font-size: 11px; color: var(--readable-muted); }
+.sidebar-nav button { font-size: 14px; line-height: 1.4; }
+.sidebar-links a { font-size: 12px; color: var(--readable-muted-strong); }
+.reset-button { font-size: 13px; }
 .conversation-head,
-.conversation-head button { font-size: 10.5px; }
+.conversation-head button { font-size: 11px; }
+.user-message span { font-size: 10.5px; color: var(--readable-muted); }
+.user-message p { font-size: 15.5px; line-height: 1.6; }
 
-.user-message span { font-size: 9.5px; }
-.user-message p { font-size: 15.5px; }
-.answer-kicker { font-size: 11.5px; }
-.answer-lead { font-size: 16px; line-height: 1.78; }
+.answer-kicker { font-size: 12px; }
+.answer-lead { font-size: 16px; line-height: 1.78; color: var(--readable-muted-strong); }
 .section-no,
-.card-topline { font-size: 10.5px; }
+.card-topline { font-size: 11px; }
 .answer-panel h3 { font-size: 18.5px; }
-.answer-panel p { font-size: 14.5px; line-height: 1.75; }
+.answer-panel p { font-size: 14.5px; line-height: 1.75; color: var(--readable-muted-strong); }
 
-/* Stats and cards */
-.process-flow span { font-size: 12px; }
-.process-flow b { font-size: 10px; }
-.card-subtitle { font-size: 14px; }
-.card-copy { font-size: 15px; line-height: 1.76; }
+/* Stats, cards, project details */
+.process-flow span { font-size: 12.5px; }
+.process-flow b { font-size: 11px; }
+.card-subtitle { font-size: 14px; color: var(--readable-muted-strong); }
+.card-copy { font-size: 15px; line-height: 1.76; color: var(--readable-muted-strong); }
 .metric strong { font-size: 18px; }
-.metric span { font-size: 9.5px; }
-.tag-row span { font-size: 9.5px; }
-.card-link { font-size: 11.5px; }
+.metric span { font-size: 10.5px; color: var(--readable-muted); }
+.tag-row span { font-size: 10.5px; }
+.card-link { font-size: 12px; }
 .project-media > span,
-.result-open { font-size: 10px; }
-.result-visual-copy span { font-size: 10px; }
+.result-open { font-size: 11px; }
+.result-visual-copy span { font-size: 11px; }
 .result-visual-copy strong { font-size: 17px; }
-.result-visual-copy p { font-size: 13.5px; }
+.result-visual-copy p { font-size: 14px; line-height: 1.65; }
 .mini-chart b,
 .compression-chart b,
 .compare-chart b { font-size: 12px; }
 .mini-chart em,
 .compression-chart em,
 .compare-chart em { font-size: 11px; }
-.detail-actions a { font-size: 11.5px; }
+.detail-actions a { font-size: 12px; }
 .education-card span { font-size: 14px; }
-.education-card strong { font-size: 12.5px; }
-.contact-grid span { font-size: 10px; }
+.education-card strong { font-size: 13px; }
+.contact-grid span { font-size: 11px; color: var(--readable-muted); }
 .contact-grid strong { font-size: 14.5px; }
 .suggestion-grid button { font-size: 12.5px; }
-.quick-prompts button { min-height: 34px; font-size: 11.5px; padding-inline: 12px; }
+.quick-prompts button { min-height: 36px; font-size: 12px; padding-inline: 12px; }
 
 /* Resume / timeline / papers */
 .resume-identity-copy .eyeline,
@@ -70,10 +96,10 @@
 .publication-meta,
 .grant-meta,
 .application-meta,
-.award-meta { font-size: 10.5px; }
-.resume-identity-copy p { font-size: 15px; }
+.award-meta { font-size: 11px; }
+.resume-identity-copy p { font-size: 15px; line-height: 1.75; }
 .resume-identity-side span { font-size: 12.5px; }
-.resume-stat span { font-size: 10.5px; }
+.resume-stat span { font-size: 11px; color: var(--readable-muted); }
 .timeline-item h3,
 .publication-card h3,
 .grant-card h3,
@@ -84,48 +110,96 @@
 .grant-card p,
 .application-card p,
 .account-card p,
-.award-card p { font-size: 14px; line-height: 1.72; }
+.award-card p { font-size: 14px; line-height: 1.72; color: var(--readable-muted-strong); }
 .timeline-item .timeline-role { font-size: 14px; }
-.grant-card .grant-source { font-size: 10px; }
-.application-actions a { font-size: 11.5px; }
-.system-flow span { font-size: 11.5px; }
-.account-card .account-icon { font-size: 10.5px; }
+.grant-card .grant-source { font-size: 11px; }
+.application-actions a { font-size: 12px; }
+.system-flow span { font-size: 12px; }
+.account-card .account-icon { font-size: 11px; }
 .resume-actions button,
 .inline-actions button,
-.inline-actions a { font-size: 11.5px; }
-.evidence-note { font-size: 13px; }
+.inline-actions a { font-size: 12px; }
+.evidence-note { font-size: 13px; color: var(--readable-muted-strong); }
 
-#app .publication-card-linked .publication-meta { font-size: 11px !important; }
-#app .publication-card-linked .publication-rank { font-size: 10px !important; }
-#app .publication-card-linked .paper-badge { font-size: 9px !important; }
+#app .publication-card-linked .publication-meta { font-size: 11.5px !important; }
+#app .publication-card-linked .publication-rank { font-size: 10.5px !important; }
+#app .publication-card-linked .paper-badge { font-size: 10px !important; }
 #app .publication-card-linked p { font-size: 14.5px !important; line-height: 1.72 !important; }
-#app .publication-card-linked .paper-pdf-button { font-size: 11px !important; }
+#app .publication-card-linked .paper-pdf-button { font-size: 12px !important; }
 
-/* Keep form text comfortably readable. */
-.guided-composer input,
-.chat-composer input { font-size: 16.5px; }
+/* Neon guide */
+.neon-guide-copy > span { font-size: 10.5px; }
+.neon-guide-copy p { font-size: 13.5px; line-height: 1.5; color: #536073; }
+.neon-guide-status { font-size: 10px; color: var(--readable-muted); }
+.neon-inline-copy b { font-size: 10.5px; }
+.neon-inline-copy p { font-size: 13.5px; line-height: 1.6; color: #536073; }
+
+/* Recruiter suite */
+.rs-entry button,
+.rs-floating-toggle,
+.rs-floating-menu button,
+.rs-button { font-size: 12.5px; }
+.rs-floating-menu button span { font-size: 11px; color: var(--readable-muted); }
+.rs-dialog-title strong { font-size: 15px; }
+.rs-dialog-title small { font-size: 11px; color: var(--readable-muted); }
+.rs-tour-status { font-size: 11px; }
+.rs-tour-clock { font-size: 12px; }
+.rs-kicker { font-size: 11px; }
+.rs-tour-copy { font-size: 16px; }
+.rs-tour-metric span { font-size: 11px; color: var(--readable-muted); }
+.rs-proof-row button,
+.rs-proof-row a,
+.rs-action-row button { font-size: 12px; }
+.rs-neon-line { font-size: 13.5px; }
+.rs-panel h3 { font-size: 18px; }
+.rs-panel > p { font-size: 14px; line-height: 1.65; }
+.rs-jd-textarea { font-size: 15px; }
+.rs-privacy { font-size: 11px; color: var(--readable-muted); }
+.rs-score-label span { font-size: 12px; color: var(--readable-muted); }
+.rs-category b { font-size: 11.5px; }
+.rs-category em { font-size: 11px; }
+.rs-match-section > span { font-size: 11px; color: var(--readable-muted); }
+.rs-chip { font-size: 11.5px; }
+.rs-match-empty { font-size: 13.5px; }
+.rs-career-intro { font-size: 14.5px; }
+.rs-career-node span { font-size: 10.5px; }
+.rs-career-node strong { font-size: 14px; }
+.rs-career-node small { font-size: 12px; color: var(--readable-muted); }
+.rs-career-detail .meta { font-size: 10.5px; }
+.rs-career-detail p { font-size: 14.5px; color: var(--readable-muted-strong); }
+.rs-career-tags span { font-size: 11px; }
 
 @media (max-width: 700px) {
   .brand strong { font-size: 14px; }
-  .brand small { font-size: 10px; }
+  .brand small { font-size: 10.5px; }
   .site-header nav a { font-size: 11px; }
+  .site-header nav .language-switch a {
+    min-width: 35px !important;
+    height: 28px !important;
+    padding-inline: 8px !important;
+    font-size: 10.5px !important;
+  }
+
   .hero-title p { font-size: 16px; }
-  .guided-hint { font-size: 11.5px; }
-  .menu-grid strong { font-size: 12px; }
-  .menu-grid small { font-size: 10px; }
+  .mascot-caption { font-size: 10.5px !important; }
+  .mascot-speech { font-size: 12px; }
+  .guided-hint { font-size: 12px; }
+  .menu-grid strong { font-size: 12.5px; }
+  .menu-grid small { font-size: 10.5px; }
 
   .conversation-head,
-  .conversation-head button { font-size: 9.5px; }
-  .answer-kicker { font-size: 10px; }
+  .conversation-head button { font-size: 10px; letter-spacing: .06em; }
+  .answer-kicker { font-size: 10.5px; }
   .answer-lead { font-size: 15px; }
   .answer-panel h3 { font-size: 17px; }
   .answer-panel p { font-size: 14px; }
   .section-no,
-  .card-topline { font-size: 9.5px; }
-  .card-subtitle { font-size: 13px; }
+  .card-topline { font-size: 10px; }
+  .card-subtitle { font-size: 13.5px; }
   .card-copy { font-size: 14px; }
   .metric span,
-  .tag-row span { font-size: 9px; }
+  .tag-row span { font-size: 10px; }
+  .quick-prompts button { font-size: 11px; }
 
   .resume-identity-copy p { font-size: 14px; }
   .resume-identity-side span { font-size: 12px; }
@@ -138,7 +212,22 @@
   .grant-card p,
   .application-card p,
   .award-card p { font-size: 13.5px; }
-  .quick-prompts button { font-size: 10.5px; }
-  .guided-composer input,
-  .chat-composer input { font-size: 16px; }
+
+  #app .publication-card-linked .publication-rank { font-size: 10px !important; }
+  #app .publication-card-linked .paper-badge { font-size: 9.5px !important; }
+  #app .publication-card-linked p { font-size: 13.5px !important; }
+  #app .publication-card-linked .paper-pdf-button { font-size: 11.5px !important; }
+
+  .neon-guide-copy > span { font-size: 9.5px; }
+  .neon-guide-copy p { font-size: 12.5px; }
+  .neon-inline-copy p { font-size: 12.5px; }
+
+  .rs-entry button { font-size: 11.5px; }
+  .rs-floating-toggle { font-size: 11.5px; }
+  .rs-tour-copy { font-size: 14.5px; }
+  .rs-tour-metric span { font-size: 10.5px; }
+  .rs-panel > p { font-size: 13.5px; }
+  .rs-jd-textarea { font-size: 14px; }
+  .rs-career-node span { font-size: 10px; }
+  .rs-career-node small { font-size: 11.5px; }
 }
