@@ -1,0 +1,11 @@
+{
+  "name": "yunjinyong730-portfolio-rag",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "ai": "^7.0.79"
+  }
+}
