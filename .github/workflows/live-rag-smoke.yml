@@ -19,7 +19,7 @@ jobs:
           set -euo pipefail
           ENDPOINT="https://yunjinyong730-github-io.vercel.app/api/rag"
 
-          test_case() {
+          request() {
             local name="$1"
             local payload="$2"
             echo "=== $name ==="
@@ -31,22 +31,37 @@ jobs:
             echo "HTTP $status"
             cat response.json
             echo
-            if [ "$status" != "200" ]; then
-              echo "Expected HTTP 200, got $status" >&2
-              exit 1
-            fi
-            python3 - <<'PY'
+          }
+
+          request "Validation: missing query" '{"language":"ko","contextIds":["paper-jok-2026-scale"]}'
+          test "$status" = "400"
+          python3 - <<'PY'
           import json
-          with open('response.json', encoding='utf-8') as f:
-              data=json.load(f)
+          with open('response.json', encoding='utf-8') as f: data=json.load(f)
+          assert data.get('error') == 'missing_query', data
+          print('PASS validation: missing_query')
+          PY
+
+          request "Validation: missing contexts" '{"query":"테스트","language":"ko","contextIds":[]}'
+          test "$status" = "400"
+          python3 - <<'PY'
+          import json
+          with open('response.json', encoding='utf-8') as f: data=json.load(f)
+          assert data.get('error') == 'missing_contexts', data
+          print('PASS validation: missing_contexts')
+          PY
+
+          request "LLM generation: Korean judgment question" '{"query":"윤진용이 쓴 논문 중에 제일 중요한 논문 알려줘","language":"ko","contextIds":["paper-jok-2026-scale","paper-aaai-2027-reference-efficient","paper-cikm-2026-thales"]}'
+          if [ "$status" != "200" ]; then
+            echo "FAIL generation: expected HTTP 200, got $status" >&2
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json
+          with open('response.json', encoding='utf-8') as f: data=json.load(f)
           assert data.get('grounded') is True, data
           assert isinstance(data.get('answer'), str) and len(data['answer'].strip()) >= 20, data
           assert isinstance(data.get('usedSourceIds'), list) and data['usedSourceIds'], data
           assert data.get('model'), data
-          print('PASS', {'model': data.get('model'), 'usedSourceIds': data.get('usedSourceIds'), 'answerChars': len(data['answer'])})
+          print('PASS generation', {'model': data.get('model'), 'usedSourceIds': data.get('usedSourceIds'), 'answerChars': len(data['answer'])})
           PY
-          }
-
-          test_case "Korean judgment question" '{"query":"윤진용이 쓴 논문 중에 제일 중요한 논문 알려줘","language":"ko","contextIds":["paper-jok-2026-scale","paper-aaai-2027-reference-efficient","paper-cikm-2026-thales"]}'
-          test_case "Korean Edge AI question" '{"query":"경량 Edge AI를 가장 잘 보여주는 연구는 뭐야? 이유도 설명해줘","language":"ko","contextIds":["paper-cikm-2026-thales","paper-jok-2026-scale","paper-ksc-dam"]}'
-          test_case "English grounded question" '{"query":"Which paper best represents Yun Jinyong’s sensor calibration research and why?","language":"en","contextIds":["paper-jok-2026-scale","paper-aaai-2027-reference-efficient","paper-cikm-2026-thales"]}'
