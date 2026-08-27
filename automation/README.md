@@ -1,3 +1,3 @@
-# Automated Blog (deprecated branch)
+# Automated Blog
 
-This feature branch was created in the wrong repository and is intentionally not intended for merge.
+This automation belongs on a dedicated repository. Do not merge this branch into the portfolio repository.
