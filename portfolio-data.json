@@ -1,0 +1,339 @@
+{
+  "version": 2,
+  "updated": "2026-08-27",
+  "items": [
+    {
+      "id": "about-ai-ml-engineer",
+      "type": "profile",
+      "route": "me",
+      "title": {
+        "ko": "AI/ML Engineer 소개",
+        "en": "AI/ML Engineer Profile"
+      },
+      "summary": {
+        "ko": "Sensor Calibration, Anomaly Detection, Model Compression을 중심으로 연구하고 Edge deployment와 Application 구현까지 연결한 경험입니다.",
+        "en": "AI/ML engineering focused on sensor calibration, anomaly detection, model compression, edge deployment, and application delivery."
+      },
+      "keywords": ["AI/ML Engineer", "research to system", "sensor calibration", "edge AI", "deployment", "application engineering"],
+      "aliases": ["어떤 엔지니어", "연구와 구현", "AI 엔지니어", "연구자 소개", "about Yun Jinyong"]
+    },
+    {
+      "id": "resume",
+      "type": "resume",
+      "route": "resume",
+      "title": {
+        "ko": "Resume · 전체 이력 요약",
+        "en": "Resume · Career Overview"
+      },
+      "summary": {
+        "ko": "연구경력, 논문, AI 프로젝트, 출시 앱, 기술 스택과 수상을 한눈에 확인할 수 있는 이력 요약입니다.",
+        "en": "A compact overview of research experience, publications, AI projects, released apps, skills, and awards."
+      },
+      "keywords": ["resume", "CV", "career", "experience", "education", "GPA", "OPIc", "이력서", "경력", "학력"],
+      "aliases": ["이력서 원문", "resume pdf", "전체 이력", "CV 보여줘"],
+      "href": "https://drive.google.com/file/d/15InrWUK8xsacOwnMGnNIofElaiE5Yzg2/view?usp=sharing"
+    },
+    {
+      "id": "research-experience",
+      "type": "experience",
+      "route": "experience",
+      "title": {
+        "ko": "인하대학교 AI 연구경력",
+        "en": "AI Research Experience at Inha University"
+      },
+      "summary": {
+        "ko": "지식기반데이터분석 연구실에서 Sensor Calibration, Model Compression, On-Device AI를 연구하며 논문과 연구과제를 수행했습니다.",
+        "en": "Research at the Knowledge-Based Data Analytics Lab on sensor calibration, model compression, and on-device AI, including papers and funded projects."
+      },
+      "keywords": ["research experience", "Inha University", "M.S. researcher", "undergraduate researcher", "연구실", "석사과정", "학부연구생"],
+      "aliases": ["연구 경력", "대학원 연구", "랩실 경험", "research lab"]
+    },
+    {
+      "id": "research-focus",
+      "type": "research",
+      "route": "research",
+      "title": {
+        "ko": "핵심 연구 · Calibration & Edge AI",
+        "en": "Core Research · Calibration & Edge AI"
+      },
+      "summary": {
+        "ko": "정확도뿐 아니라 latency, memory, runtime resource를 실제 배포 제약으로 함께 평가하는 Sensor Calibration · On-Device AI 연구입니다.",
+        "en": "Research on sensor calibration and on-device AI that evaluates latency, memory, and runtime resources alongside model accuracy."
+      },
+      "keywords": ["sensor calibration", "on-device AI", "edge AI", "latency", "memory", "runtime resource", "time series", "anomaly detection", "autonomous perception"],
+      "aliases": ["배포 제약", "센서 연구", "edge 연구", "실제 장치 AI", "resource aware"]
+    },
+    {
+      "id": "paper-jok-2026",
+      "type": "publication",
+      "route": "publications",
+      "title": {
+        "ko": "정확도·지연시간·리소스 효율 균형 센서 Calibration 모델",
+        "en": "Sensor Calibration Balancing Accuracy, Latency, and Resource Efficiency"
+      },
+      "summary": {
+        "ko": "센서 Calibration 모델에서 정확도뿐 아니라 latency와 resource efficiency를 함께 고려한 1저자 연구입니다.",
+        "en": "First-author work on sensor calibration that jointly considers accuracy, latency, and resource efficiency."
+      },
+      "keywords": ["JOK 2026", "first author", "sensor calibration", "latency", "resource efficiency", "경량 센서 보정"],
+      "aliases": ["정확도 지연시간 논문", "센서 보정 1저자", "JOK 논문"]
+    },
+    {
+      "id": "paper-ksc-2026",
+      "type": "publication",
+      "route": "publications",
+      "title": {
+        "ko": "IoT 센서 Drift-Adaptive 실시간 보정",
+        "en": "Drift-Adaptive Real-Time Calibration for IoT Sensors"
+      },
+      "summary": {
+        "ko": "IoT 센서 drift에 적응하는 경량 신경망 모듈 기반 실시간 보정 프레임워크 연구입니다.",
+        "en": "A lightweight neural-module framework for real-time calibration that adapts to IoT sensor drift."
+      },
+      "keywords": ["KSC 2026", "IoT sensor", "drift adaptive", "real-time calibration", "lightweight neural module"],
+      "aliases": ["센서 드리프트", "실시간 보정", "IoT calibration"]
+    },
+    {
+      "id": "paper-kcc-2026",
+      "type": "publication",
+      "route": "publications",
+      "title": {
+        "ko": "모바일 On-Device Agent 최적화",
+        "en": "Mobile On-Device Agent Optimization"
+      },
+      "summary": {
+        "ko": "적응형 tool schema를 활용해 모바일 환경의 On-Device AI Agent 도구 사용 효율을 최적화한 연구입니다.",
+        "en": "Research optimizing tool-use efficiency for mobile on-device AI agents with adaptive tool schemas."
+      },
+      "keywords": ["KCC 2026", "on-device agent", "mobile AI", "adaptive tool schema", "LLM agent"],
+      "aliases": ["모바일 에이전트", "온디바이스 LLM", "tool schema"]
+    },
+    {
+      "id": "paper-sac-2026",
+      "type": "publication",
+      "route": "publications",
+      "title": {
+        "ko": "한국어 작문 평가와 LLM 피드백",
+        "en": "Korean Writing Assessment with LLM-Constrained Feedback"
+      },
+      "summary": {
+        "ko": "한국어 작문 특성 기반 평가와 LLM 제약 피드백 생성을 연결한 텍스트 분석 연구입니다.",
+        "en": "A text-analysis study connecting feature-based Korean writing assessment with constrained LLM feedback."
+      },
+      "keywords": ["SAC 2026", "LLM", "Korean writing assessment", "feedback", "text analysis", "UKTA"],
+      "aliases": ["한국어 LLM", "작문 평가", "텍스트 분석"]
+    },
+    {
+      "id": "paper-kiit-2024",
+      "type": "publication",
+      "route": "publications",
+      "title": {
+        "ko": "미세먼지 보간 모델 지역배치 정규화",
+        "en": "Regional Batch Normalization for Fine-Dust Interpolation"
+      },
+      "summary": {
+        "ko": "지역별 분포 차이를 고려한 미세먼지 보간 모델 정규화 연구로 KIIT 2024 우수논문상 금상을 수상했습니다.",
+        "en": "Fine-dust interpolation research using regional batch normalization, awarded the KIIT 2024 Best Paper Gold Award."
+      },
+      "keywords": ["KIIT 2024", "fine dust", "interpolation", "regional batch normalization", "best paper gold"],
+      "aliases": ["미세먼지 논문", "우수논문상", "지역배치 정규화"]
+    },
+    {
+      "id": "project-realtime-sensor",
+      "type": "project",
+      "route": "realtime",
+      "title": {
+        "ko": "멀티센서 실시간 Calibration & 이상 탐지",
+        "en": "Real-Time Multi-Sensor Calibration & Anomaly Detection"
+      },
+      "summary": {
+        "ko": "PM1·습도·온도·CO·CO₂ 센서를 Reference 기반으로 보정하고 Robust Z-Score 이상 탐지와 Online Monitoring까지 연결한 파이프라인입니다.",
+        "en": "A real-time pipeline for reference-based calibration of five sensor types, Robust Z-Score anomaly detection, and online monitoring."
+      },
+      "keywords": ["multi-sensor", "real-time calibration", "anomaly detection", "Robust Z-Score", "time series", "online monitoring", "PM1", "CO2"],
+      "aliases": ["실시간 센서", "이상 탐지", "센서 모니터링", "시계열 파이프라인"]
+    },
+    {
+      "id": "project-camera-lidar",
+      "type": "project",
+      "route": "lidar",
+      "title": {
+        "ko": "Camera–LiDAR 6DoF Calibration Drift 복구",
+        "en": "Camera–LiDAR 6DoF Calibration Drift Recovery"
+      },
+      "summary": {
+        "ko": "RGB·Depth·Edge·Residual 특징을 융합해 Camera–LiDAR extrinsic drift의 6DoF 보정값과 confidence를 추정하고 perception failure를 모니터링합니다.",
+        "en": "Fuses RGB, depth, edge, and residual features to estimate 6DoF correction and confidence for Camera–LiDAR extrinsic drift and monitor perception failures."
+      },
+      "keywords": ["Camera LiDAR", "6DoF", "extrinsic calibration", "sensor fusion", "KITTI", "SE3", "TFLite", "perception failure"],
+      "aliases": ["라이다 보정", "카메라 라이다", "센서 퓨전", "자율주행 calibration", "extrinsic drift"]
+    },
+    {
+      "id": "project-camera-drift",
+      "type": "project",
+      "route": "camera",
+      "title": {
+        "ko": "Camera Calibration Drift 자동 감지·복구",
+        "en": "Automatic Camera Calibration Drift Detection & Recovery"
+      },
+      "summary": {
+        "ko": "Calibration drift를 탐지하고 8D Homography를 추정해 영상 정합을 자동 복구하며 TFLite INT8 Edge 배포 구조까지 구현했습니다.",
+        "en": "Detects camera calibration drift, estimates an 8D homography for automatic image alignment recovery, and includes a TFLite INT8 edge deployment path."
+      },
+      "keywords": ["camera calibration", "homography", "drift detection", "HomoMamba", "ECC", "OpenCV", "TFLite INT8", "image alignment"],
+      "aliases": ["카메라 드리프트", "영상 정합", "homography recovery", "camera recovery"]
+    },
+    {
+      "id": "project-distillation",
+      "type": "project",
+      "route": "distill",
+      "title": {
+        "ko": "Knowledge Distillation 경량 Vision · Raspberry Pi",
+        "en": "Knowledge Distillation for Lightweight Vision on Raspberry Pi"
+      },
+      "summary": {
+        "ko": "Teacher–Student CNN에 Knowledge Distillation을 적용해 Student 파라미터를 약 44.1% 줄이고 Raspberry Pi 실제 추론 benchmark까지 구축했습니다.",
+        "en": "Uses teacher–student knowledge distillation to reduce the student CNN by about 44.1% and benchmarks real inference on Raspberry Pi."
+      },
+      "keywords": ["knowledge distillation", "model compression", "lightweight CNN", "Raspberry Pi", "edge AI", "TFLite", "teacher student", "44.1%"],
+      "aliases": ["경량화", "모델 압축", "작은 CNN", "라즈베리파이", "edge device", "온디바이스 비전"]
+    },
+    {
+      "id": "app-money",
+      "type": "product",
+      "route": "applications",
+      "title": {
+        "ko": "머니뭐니 · 목표 기반 자산관리 iOS 앱",
+        "en": "Money Mwo-ni · Goal-Based Asset Management iOS App"
+      },
+      "summary": {
+        "ko": "서비스 기획과 iOS 개발을 리드해 Swift/UIKit 기반 목표 자산관리 앱을 App Store에 출시했습니다.",
+        "en": "Led product planning and iOS development for a Swift/UIKit goal-based asset-management app released on the App Store."
+      },
+      "keywords": ["iOS", "Swift", "UIKit", "App Store", "product planning", "asset management"],
+      "aliases": ["머니뭐니", "출시 앱", "iOS 리드", "모바일 제품"],
+      "href": "https://github.com/jinyongyun/WHAT_IS_MONEY_IOS"
+    },
+    {
+      "id": "app-eodiyeo",
+      "type": "product",
+      "route": "applications",
+      "title": {
+        "ko": "어디여 · 위치 기반 Reminder iOS 앱",
+        "en": "Eodiyeo · Location-Based Reminder iOS App"
+      },
+      "summary": {
+        "ko": "MapKit·CoreLocation·Geofencing 기반 위치 알림 앱을 End-to-End로 개발해 App Store에 출시했습니다.",
+        "en": "Built and released an end-to-end location reminder app using MapKit, CoreLocation, and geofencing."
+      },
+      "keywords": ["iOS", "Swift", "MapKit", "CoreLocation", "Geofencing", "App Store", "location"],
+      "aliases": ["어디여", "위치 알림", "지오펜싱", "location reminder"],
+      "href": "https://github.com/jinyongyun/Eodiyeo"
+    },
+    {
+      "id": "app-realwear",
+      "type": "product",
+      "route": "applications",
+      "title": {
+        "ko": "RealWear 산업용 원격 협업 Android",
+        "en": "RealWear Industrial Remote Collaboration Android"
+      },
+      "summary": {
+        "ko": "Kotlin/Android와 WebRTC/WebSocket을 이용해 산업 현장 작업자와 원격 전문가의 N:M 영상·음성 협업 기능을 구현했습니다.",
+        "en": "Implemented N:M video/audio collaboration between field workers and remote experts using Kotlin/Android, WebRTC, and WebSocket."
+      },
+      "keywords": ["Android", "Kotlin", "WebRTC", "WebSocket", "RealWear", "industrial IoT", "remote collaboration"],
+      "aliases": ["산업용 안드로이드", "원격 협업", "실시간 통화", "RealWear"]
+    },
+    {
+      "id": "grant-sensor-calibration",
+      "type": "grant",
+      "route": "grants",
+      "title": {
+        "ko": "NRF · 초경량 센서 보정 시스템",
+        "en": "NRF · Ultra-Lightweight Sensor Calibration System"
+      },
+      "summary": {
+        "ko": "장기간 다종센서 데이터를 수집하고 초소형 임베디드에서 동작 가능한 저비용·고효율 경량 센서 보정 모델을 개발하는 단독과제입니다.",
+        "en": "A funded project developing low-cost, efficient lightweight sensor calibration models for tiny embedded devices using long-term multi-sensor data."
+      },
+      "keywords": ["NRF", "sensor calibration", "lightweight", "embedded", "long-term multi-sensor", "funded project"],
+      "aliases": ["센서 보정 과제", "초경량 딥러닝", "임베디드 연구과제"]
+    },
+    {
+      "id": "grant-continual-learning",
+      "type": "grant",
+      "route": "grants",
+      "title": {
+        "ko": "IITP · 회상 가능한 지속학습 플랫폼",
+        "en": "IITP · Continual-Learning Platform with Recall"
+      },
+      "summary": {
+        "ko": "치매 환자의 회상을 유도하는 대화와 기억 이미지 생성을 포함한 지속학습 인공신경망 플랫폼 연구입니다.",
+        "en": "A continual-learning neural platform involving conversational memory recall and image generation for dementia-support scenarios."
+      },
+      "keywords": ["IITP", "continual learning", "memory recall", "chatbot", "image generation", "neural network"],
+      "aliases": ["지속학습", "회상 AI", "기억 챗봇", "치매 연구"]
+    },
+    {
+      "id": "grant-ukta",
+      "type": "grant",
+      "route": "grants",
+      "title": {
+        "ko": "NRF · 사용자 중심 한국어 텍스트 분석 U-KTA",
+        "en": "NRF · User-Centered Korean Text Analysis U-KTA"
+      },
+      "summary": {
+        "ko": "학생 작문을 국어학적 근거로 자동 평가하고 LLM 피드백을 제공하는 한국어 텍스트 분석 프레임워크 연구입니다.",
+        "en": "A Korean text-analysis framework that evaluates student writing using linguistic evidence and provides LLM-based feedback."
+      },
+      "keywords": ["NRF", "UKTA", "Korean NLP", "text analysis", "LLM feedback", "writing assessment"],
+      "aliases": ["한국어 분석", "U-KTA", "작문 자동 평가", "NLP 연구과제"]
+    },
+    {
+      "id": "skills",
+      "type": "skills",
+      "route": "skills",
+      "title": {
+        "ko": "기술 스택 · AI / Edge / Application",
+        "en": "Technical Stack · AI / Edge / Application"
+      },
+      "summary": {
+        "ko": "Python·C·C++·SQL, PyTorch·TensorFlow·CUDA, TFLite·ONNX·Linux, Swift/UIKit·Kotlin/Android를 연구와 제품 구현에 사용했습니다.",
+        "en": "Technical stack spanning Python/C/C++/SQL, PyTorch/TensorFlow/CUDA, TFLite/ONNX/Linux, and Swift/UIKit/Kotlin/Android."
+      },
+      "keywords": ["Python", "C++", "SQL", "PyTorch", "TensorFlow", "CUDA", "TFLite", "ONNX", "Linux", "Swift", "UIKit", "Kotlin", "Android"],
+      "aliases": ["기술 스택", "프로그래밍 언어", "프레임워크", "배포 기술"]
+    },
+    {
+      "id": "awards",
+      "type": "awards",
+      "route": "awards",
+      "title": {
+        "ko": "수상 · 자격 · 영어",
+        "en": "Awards · Certifications · English"
+      },
+      "summary": {
+        "ko": "KIIT 우수논문상 금상, 인하대학교 공과대학장상 우수상, SQLD, OPIc IH를 보유하고 있습니다.",
+        "en": "Includes a KIIT Best Paper Gold Award, Inha Engineering Dean's Award, SQLD certification, and OPIc IH."
+      },
+      "keywords": ["award", "KIIT", "gold", "SQLD", "OPIc IH", "English", "certification", "수상", "자격"],
+      "aliases": ["영어 실력", "자격증", "우수논문상", "OPIc"]
+    },
+    {
+      "id": "contact",
+      "type": "contact",
+      "route": "contact",
+      "title": {
+        "ko": "Contact · Email / GitHub / LinkedIn",
+        "en": "Contact · Email / GitHub / LinkedIn"
+      },
+      "summary": {
+        "ko": "이메일, Product GitHub, AI/Research GitHub, LinkedIn 공개 연락처로 바로 연결할 수 있습니다.",
+        "en": "Direct access to public email, Product GitHub, AI/Research GitHub, and LinkedIn contact channels."
+      },
+      "keywords": ["contact", "email", "GitHub", "LinkedIn", "연락", "메일", "깃허브", "링크드인"],
+      "aliases": ["연락처", "채용 연락", "프로필 링크"]
+    }
+  ]
+}
