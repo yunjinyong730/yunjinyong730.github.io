@@ -1,6 +1,6 @@
 @import url("./type-scale.css?v=20260821-type1");
 
-/* Ghost AI slime v7 — expressive holographic mascot with speech bubble. */
+/* Ghost AI slime v8 — hide the legacy CSS mascot until WebGL truly fails. */
 .mascot-stage {
   position: relative;
   width: min(418px, 84vw);
@@ -8,6 +8,28 @@
   margin: 4px auto 0;
   overflow: visible;
   isolation: isolate;
+}
+
+/*
+ * The old CSS robot remains in the markup only as a last-resort fallback.
+ * Keep it fully hidden during normal startup so it never flashes before the
+ * Three.js mascot finishes its first render. A small timeout in index.html
+ * adds .webgl-failed only when the WebGL mascot never becomes ready.
+ */
+.mascot-stage .soft-bot,
+.mascot-stage .bot-shadow,
+.mascot-stage > .orbit {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.mascot-stage.webgl-failed:not(.webgl-ready) .soft-bot,
+.mascot-stage.webgl-failed:not(.webgl-ready) .bot-shadow,
+.mascot-stage.webgl-failed:not(.webgl-ready) > .orbit {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
 }
 
 .three-slime-canvas {
