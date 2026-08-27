@@ -26,6 +26,20 @@ const slugify = (value) => String(value || '')
   .toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
 const safeUrl = (value) => { try { const u = new URL(value); return /^https?:$/.test(u.protocol) ? u.toString() : ''; } catch { return ''; } };
 
+function sanitizeGeneratedHtml(value = '') {
+  const allowed = new Set(['h2','h3','p','ul','ol','li','table','thead','tbody','tr','th','td','pre','code','blockquote','strong','em','a','br','hr']);
+  return String(value).replace(/<\/?([a-zA-Z0-9:-]+)([^>]*)>/g, (full, rawName, rawAttrs) => {
+    const name = rawName.toLowerCase();
+    if (!allowed.has(name)) return '';
+    if (full.startsWith('</')) return `</${name}>`;
+    if (name === 'br' || name === 'hr') return `<${name}>`;
+    if (name !== 'a') return `<${name}>`;
+    const match = rawAttrs.match(/\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i);
+    const href = safeUrl(match?.[1] || match?.[2] || match?.[3] || '');
+    return href ? `<a href="${esc(href)}" rel="noopener noreferrer">` : '<a>';
+  });
+}
+
 async function openaiJson({ name, schema, instructions, input, webSearch = true }) {
   const body = {
     model: config.openai.model,
@@ -134,7 +148,7 @@ function renderArticle(topic, article, qa, slug) {
   const affiliateHtml = affiliate.length ? `<aside class="notice"><strong>관련 도구</strong><ul>${affiliate.map(a => `<li><a rel="sponsored nofollow" href="${esc(a.url)}">${esc(a.label || a.url)}</a></li>`).join('')}</ul><small>${esc(monetization.affiliateDisclosure)}</small></aside>` : '';
   const faqJson = article.faq.map(x => ({ '@type':'Question', name:x.question, acceptedAnswer:{ '@type':'Answer', text:x.answer } }));
   const schema = { '@context':'https://schema.org', '@type':'Article', headline:article.title, description:article.description, datePublished:today, dateModified:today, author:{'@type':'Person',name:config.site.author}, mainEntityOfPage:url };
-  return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(article.title)} | ${esc(config.site.name)}</title><meta name="description" content="${esc(article.description)}"><link rel="canonical" href="${esc(url)}"><meta property="og:type" content="article"><meta property="og:title" content="${esc(article.title)}"><meta property="og:description" content="${esc(article.description)}"><meta property="og:url" content="${esc(url)}"><link rel="stylesheet" href="../styles.css"><script type="application/ld+json">${JSON.stringify(schema).replace(/</g,'\\u003c')}</script><script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqJson}).replace(/</g,'\\u003c')}</script></head><body><header><a class="brand" href="../">${esc(config.site.name)}</a><nav><a href="../../">Portfolio</a><a href="../../feed.xml">RSS</a></nav></header><main><article><p class="meta">${today} · ${esc(article.category)} · 품질검증 ${qa.score}/100</p><h1>${esc(article.title)}</h1><p class="lede">${esc(article.description)}</p>${renderAd()}${qa.revisedHtml}${affiliateHtml}<h2>자주 묻는 질문</h2>${article.faq.map(x => `<h3>${esc(x.question)}</h3><p>${esc(x.answer)}</p>`).join('')}<h2>출처</h2><ol class="sources">${sources.map(s => `<li><a href="${esc(s.url)}" rel="noopener noreferrer">${esc(s.title)}</a></li>`).join('')}</ol><p class="notice">이 글은 자동화된 리서치·작성 파이프라인으로 생성된 뒤 별도 사실검증 단계를 통과했습니다. 중요한 의사결정에는 원문 출처를 함께 확인하세요.</p></article></main><footer>© ${esc(config.site.author)} · <a href="../">모든 글</a></footer>${monetization.adsense?.client ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(monetization.adsense.client)}" crossorigin="anonymous"></script><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>` : ''}</body></html>`;
+  return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(article.title)} | ${esc(config.site.name)}</title><meta name="description" content="${esc(article.description)}"><link rel="canonical" href="${esc(url)}"><meta property="og:type" content="article"><meta property="og:title" content="${esc(article.title)}"><meta property="og:description" content="${esc(article.description)}"><meta property="og:url" content="${esc(url)}"><link rel="stylesheet" href="../styles.css"><script type="application/ld+json">${JSON.stringify(schema).replace(/</g,'\\u003c')}</script><script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqJson}).replace(/</g,'\\u003c')}</script></head><body><header><a class="brand" href="../">${esc(config.site.name)}</a><nav><a href="../../">Portfolio</a><a href="../../feed.xml">RSS</a></nav></header><main><article><p class="meta">${today} · ${esc(article.category)} · 품질검증 ${qa.score}/100</p><h1>${esc(article.title)}</h1><p class="lede">${esc(article.description)}</p>${renderAd()}${sanitizeGeneratedHtml(qa.revisedHtml)}${affiliateHtml}<h2>자주 묻는 질문</h2>${article.faq.map(x => `<h3>${esc(x.question)}</h3><p>${esc(x.answer)}</p>`).join('')}<h2>출처</h2><ol class="sources">${sources.map(s => `<li><a href="${esc(s.url)}" rel="noopener noreferrer">${esc(s.title)}</a></li>`).join('')}</ol><p class="notice">이 글은 자동화된 리서치·작성 파이프라인으로 생성된 뒤 별도 사실검증 단계를 통과했습니다. 중요한 의사결정에는 원문 출처를 함께 확인하세요.</p></article></main><footer>© ${esc(config.site.author)} · <a href="../">모든 글</a></footer>${monetization.adsense?.client ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(monetization.adsense.client)}" crossorigin="anonymous"></script><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>` : ''}</body></html>`;
 }
 
 function renderIndex(allPosts) {
