@@ -39,4 +39,8 @@
     childList: true,
     subtree: true,
   });
+
+  import("./semantic-search.js?v=20260827-ai2").catch((error) => {
+    console.warn("[semantic-search] bootstrap unavailable.", error);
+  });
 })();
