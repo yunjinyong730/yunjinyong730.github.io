@@ -5,7 +5,8 @@
   "engines": {
     "node": ">=22"
   },
-  "dependencies": {
-    "ai": "^7.0.79"
+  "scripts": {
+    "rag:serve": "node server/local-rag-server.mjs",
+    "rag:check": "node server/check-local-rag.mjs"
   }
 }
