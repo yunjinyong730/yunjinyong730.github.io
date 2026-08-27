@@ -3,6 +3,7 @@
 
   const DATA_URL = "./rag-context.json?v=20260827-rag1";
   const MAX_CONTEXTS = 6;
+  const REQUEST_TIMEOUT_MS = 32_000;
   const SUPERLATIVE = /제일|가장|대표|중요|추천|우선|먼저|강점|best|most important|strongest|recommend|top choice|which.*best/i;
   const COMPARATIVE = /비교|차이|왜|이유|어떤.*더|어느.*더|관련.*높|적합|compare|versus|\bvs\b|why|reason|more relevant|better fit/i;
   const SYNTHESIS = /정리|요약|골라|선택|평가|판단|연결|관점|면접|채용|summarize|choose|select|evaluate|judge|connect|recruiter/i;
@@ -19,7 +20,7 @@
     if (!dataPromise) {
       dataPromise = fetch(DATA_URL, { cache: "force-cache" })
         .then((response) => {
-          if (!response.ok) throw new Error(`rag context ${response.status}`);
+          if (!response.ok) throw new Error(`rag_context_${response.status}`);
           return response.json();
         })
         .then((payload) => Array.isArray(payload?.items) ? payload.items : []);
@@ -96,25 +97,28 @@
     const sources = intentFilter(query, allSources);
     const queryTokens = tokens(query);
     const isSuperlative = SUPERLATIVE.test(query);
+    const normalizedQuery = normalize(query);
 
     return sources
       .map((source) => {
-        const searchTokens = tokens(sourceSearchText(source));
+        const searchText = sourceSearchText(source);
+        const searchTokens = tokens(searchText);
         let overlap = 0;
         for (const token of queryTokens) {
           if (searchTokens.has(token)) overlap += token.length >= 5 ? 1.25 : 1;
         }
 
-        const phraseHaystack = normalize(sourceSearchText(source));
         let phraseBonus = 0;
         for (const alias of source.aliases || []) {
           const phrase = normalize(alias);
-          if (phrase && normalize(query).includes(phrase)) phraseBonus += 2.4;
+          if (phrase && normalizedQuery.includes(phrase)) phraseBonus += 2.4;
         }
 
         const importance = Number(source.importance || 0);
-        const score = overlap + phraseBonus + importance * (isSuperlative ? 4.2 : 0.55);
-        return { source, score };
+        return {
+          source,
+          score: overlap + phraseBonus + importance * (isSuperlative ? 4.2 : 0.55)
+        };
       })
       .sort((a, b) => b.score - a.score)
       .slice(0, MAX_CONTEXTS);
@@ -138,11 +142,6 @@
     const meta = document.querySelector('meta[name="portfolio-rag-endpoint"]')?.content?.trim();
     if (meta) return meta;
 
-    const host = window.location.hostname;
-    if (host.endsWith(".vercel.app") || host === "localhost" || host === "127.0.0.1") {
-      return `${window.location.origin}/api/rag`;
-    }
-
     return "";
   }
 
@@ -156,8 +155,8 @@
   }
 
   function localized(source, field) {
-    const english = isEnglish();
-    return source?.[field]?.[english ? "en" : "ko"] || source?.[field]?.en || source?.[field]?.ko || "";
+    const language = isEnglish() ? "en" : "ko";
+    return source?.[field]?.[language] || source?.[field]?.en || source?.[field]?.ko || "";
   }
 
   function sourceLabel(source) {
@@ -166,36 +165,44 @@
 
   function sourceChips(sources, usedIds) {
     const ids = new Set(usedIds?.length ? usedIds : sources.slice(0, 3).map((source) => source.id));
-    const chosen = sources.filter((source) => ids.has(source.id));
-    return chosen.map((source) => {
-      const label = escapeHtml(sourceLabel(source));
-      if (source.href) {
-        return `<a class="rag-source-chip" href="${escapeHtml(source.href)}" target="_blank" rel="noreferrer">${label} ↗</a>`;
-      }
-      return `<span class="rag-source-chip">${label}</span>`;
-    }).join("");
+    return sources
+      .filter((source) => ids.has(source.id))
+      .map((source) => {
+        const label = escapeHtml(sourceLabel(source));
+        if (source.href) {
+          return `<a class="rag-source-chip" href="${escapeHtml(source.href)}" target="_blank" rel="noreferrer">${label} ↗</a>`;
+        }
+        return `<span class="rag-source-chip">${label}</span>`;
+      })
+      .join("");
   }
 
   function answerMarkup(answer) {
     const safe = escapeHtml(answer);
-    const blocks = safe.split(/\n{2,}/).filter(Boolean);
-    return blocks.map((block) => {
-      const lines = block.split("\n").filter(Boolean);
-      if (lines.length > 1 && lines.every((line) => /^[-•*]\s*/.test(line))) {
-        return `<ul>${lines.map((line) => `<li>${line.replace(/^[-•*]\s*/, "")}</li>`).join("")}</ul>`;
-      }
-      return `<p>${lines.join("<br>")}</p>`;
-    }).join("");
+    return safe
+      .split(/\n{2,}/)
+      .filter(Boolean)
+      .map((block) => {
+        const lines = block.split("\n").filter(Boolean);
+        if (lines.length > 1 && lines.every((line) => /^[-•*]\s*/.test(line))) {
+          return `<ul>${lines.map((line) => `<li>${line.replace(/^[-•*]\s*/, "")}</li>`).join("")}</ul>`;
+        }
+        return `<p>${lines.join("<br>")}</p>`;
+      })
+      .join("");
   }
 
-  function renderShell(doc, query, ranked, statusText) {
+  function renderShell(doc, query, ranked) {
     const english = isEnglish();
     const sources = ranked.map(({ source }) => source);
+    const endpointReady = Boolean(resolveEndpoint());
+    const status = endpointReady ? "LOCAL LLM RAG" : "GROUNDING READY · LLM OFFLINE";
+
     doc.innerHTML = `
       <p class="answer-kicker">NEON · GROUNDED RAG</p>
       <h2>${english ? "Searching the portfolio first,<br><span>then reasoning only from those results.</span>" : "포트폴리오에서 근거를 먼저 찾고,<br><span>찾은 내용만으로 답변을 만들고 있습니다.</span>"}</h2>
       <p class="answer-lead">${english ? `Question: “${escapeHtml(query)}”` : `질문: “${escapeHtml(query)}”`}</p>
-      <div class="rag-status"><span>${english ? "RETRIEVE → GROUND → ANSWER" : "검색 → 근거 제한 → 답변 생성"}</span><strong>${escapeHtml(statusText)}</strong></div>
+      <div class="rag-status"><span>${english ? "RETRIEVE → GROUND → ANSWER" : "검색 → 근거 제한 → 답변 생성"}</span><strong>${status}</strong></div>
       <div class="rag-loading" aria-live="polite"><i></i><span>${english ? "Preparing a grounded answer…" : "근거 기반 답변을 준비하고 있습니다…"}</span></div>
       <div class="rag-based-on"><b>Based on:</b>${sourceChips(sources, sources.slice(0, 3).map((source) => source.id))}</div>
     `;
@@ -205,9 +212,9 @@
     if (!doc?.isConnected) return;
     const english = isEnglish();
     const sources = ranked.map(({ source }) => source);
-    const modeLabel = mode === "server"
-      ? (english ? "SERVERLESS LLM · GROUNDED" : "SERVERLESS LLM · GROUNDED")
-      : (english ? "LOCAL GROUNDED FALLBACK" : "LOCAL GROUNDED FALLBACK");
+    const modeLabel = mode === "ollama"
+      ? "LOCAL LLM · GROUNDED"
+      : "LOCAL GROUNDED FALLBACK";
 
     doc.innerHTML = `
       <p class="answer-kicker">NEON · GROUNDED RAG</p>
@@ -243,24 +250,34 @@
     return `${title}\n\n${summary}`;
   }
 
-  async function callServer(query, ranked) {
+  async function callLocalServer(query, ranked) {
     const endpoint = resolveEndpoint();
     if (!endpoint) throw new Error("rag_endpoint_not_configured");
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query,
-        language: isEnglish() ? "en" : "ko",
-        contextIds: ranked.map(({ source }) => source.id)
-      })
-    });
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({
+          query,
+          language: isEnglish() ? "en" : "ko",
+          contextIds: ranked.map(({ source }) => source.id)
+        })
+      });
 
-    if (!response.ok) throw new Error(`rag_api_${response.status}`);
-    const payload = await response.json();
-    if (!payload?.answer) throw new Error("rag_empty_answer");
-    return payload;
+      if (!response.ok) throw new Error(`rag_api_${response.status}`);
+      const payload = await response.json();
+      if (!payload?.answer) throw new Error("rag_empty_answer");
+      if (payload?.grounded !== true || payload?.backend !== "ollama") {
+        throw new Error("rag_untrusted_backend");
+      }
+      return payload;
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   async function answerWithRag(doc, query) {
@@ -273,18 +290,22 @@
       const sources = await loadData();
       const ranked = rankSources(query, sources);
       if (!ranked.length) return;
-
-      renderShell(doc, query, ranked, resolveEndpoint() ? "SERVERLESS RAG" : "GROUNDING READY");
+      renderShell(doc, query, ranked);
 
       try {
-        const result = await callServer(query, ranked);
+        const result = await callLocalServer(query, ranked);
         if (requestId !== requestSequence || !doc.isConnected) return;
-        renderAnswer(doc, result.answer, ranked, result.usedSourceIds, "server");
+        renderAnswer(doc, result.answer, ranked, result.usedSourceIds, "ollama");
       } catch (error) {
-        console.warn("[rag-client] serverless answer unavailable; using grounded local fallback.", error);
+        console.warn("[rag-client] local Ollama answer unavailable; using grounded fallback.", error);
         if (requestId !== requestSequence || !doc.isConnected) return;
-        const fallback = localGroundedFallback(query, ranked);
-        renderAnswer(doc, fallback, ranked, ranked.slice(0, 3).map(({ source }) => source.id), "local");
+        renderAnswer(
+          doc,
+          localGroundedFallback(query, ranked),
+          ranked,
+          ranked.slice(0, 3).map(({ source }) => source.id),
+          "fallback"
+        );
       }
     } catch (error) {
       console.warn("[rag-client] retrieval unavailable.", error);
@@ -306,9 +327,8 @@
     if (node.matches(".answer-document")) docs.push(node);
     docs.push(...node.querySelectorAll(".answer-document"));
     for (const doc of docs) {
-      const query = pendingQuery;
-      if (shouldUseRag(query, doc)) {
-        requestAnimationFrame(() => answerWithRag(doc, query));
+      if (shouldUseRag(pendingQuery, doc)) {
+        requestAnimationFrame(() => answerWithRag(doc, pendingQuery));
       }
     }
   }

@@ -1,0 +1,115 @@
+name: local RAG CI
+
+on:
+  pull_request:
+    paths:
+      - "server/**"
+      - "rag-client.js"
+      - "rag-config.js"
+      - "rag-context.json"
+      - "package.json"
+      - ".github/workflows/local-rag-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "server/**"
+      - "rag-client.js"
+      - "rag-config.js"
+      - "rag-context.json"
+      - "package.json"
+      - ".github/workflows/local-rag-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Syntax and data checks
+        run: |
+          node --check server/local-rag-server.mjs
+          node --check server/check-local-rag.mjs
+          node --check rag-client.js
+          node -e 'JSON.parse(require("node:fs").readFileSync("rag-context.json", "utf8")); console.log("rag-context.json OK")'
+
+      - name: Start mock Ollama
+        run: |
+          python3 - <<'PY' >/tmp/mock-ollama.log 2>&1 &
+          import json
+          from http.server import BaseHTTPRequestHandler, HTTPServer
+
+          class Handler(BaseHTTPRequestHandler):
+              def log_message(self, *_):
+                  pass
+
+              def _json(self, status, payload):
+                  raw = json.dumps(payload).encode()
+                  self.send_response(status)
+                  self.send_header("Content-Type", "application/json")
+                  self.send_header("Content-Length", str(len(raw)))
+                  self.end_headers()
+                  self.wfile.write(raw)
+
+              def do_GET(self):
+                  if self.path == "/api/tags":
+                      return self._json(200, {"models": [{"name": "qwen3:1.7b"}]})
+                  return self._json(404, {"error": "not_found"})
+
+              def do_POST(self):
+                  if self.path != "/api/chat":
+                      return self._json(404, {"error": "not_found"})
+                  size = int(self.headers.get("Content-Length", "0"))
+                  body = json.loads(self.rfile.read(size) or b"{}")
+                  assert body.get("model") == "qwen3:1.7b"
+                  assert body.get("stream") is False
+                  assert body.get("think") is False
+                  messages = body.get("messages") or []
+                  assert any("Retrieved portfolio sources" in m.get("content", "") for m in messages)
+                  return self._json(200, {
+                      "model": "qwen3:1.7b",
+                      "message": {"role": "assistant", "content": "검색된 근거에서는 SCALE 논문이 가장 대표적인 후보입니다. [S1] 경량 Edge AI 연구와도 연결됩니다. [S3]"},
+                      "done": True,
+                      "done_reason": "stop",
+                      "prompt_eval_count": 120,
+                      "eval_count": 32
+                  })
+
+          HTTPServer(("127.0.0.1", 11434), Handler).serve_forever()
+          PY
+          echo $! >/tmp/mock-ollama.pid
+          sleep 1
+
+      - name: Start local RAG server
+        run: |
+          node server/local-rag-server.mjs >/tmp/local-rag.log 2>&1 &
+          echo $! >/tmp/local-rag.pid
+          sleep 1
+
+      - name: End-to-end local RAG smoke test
+        run: npm run rag:check
+
+      - name: Reject untrusted browser origins
+        run: |
+          status=$(curl -sS -o /tmp/origin.json -w "%{http_code}" \
+            -X POST http://127.0.0.1:3000/api/rag \
+            -H 'Content-Type: application/json' \
+            -H 'Origin: https://evil.example' \
+            -d '{"query":"test","contextIds":["paper-jok-2026-scale"]}')
+          test "$status" = "403"
+          grep -q 'origin_not_allowed' /tmp/origin.json
+
+      - name: Logs on failure
+        if: failure()
+        run: |
+          echo '--- local RAG ---'
+          cat /tmp/local-rag.log || true
+          echo '--- mock Ollama ---'
+          cat /tmp/mock-ollama.log || true
