@@ -1,0 +1,16 @@
+# Replace ai.example.com with a hostname that points to your home public IP.
+# Forward TCP 80 and 443 on your router to the machine running Caddy.
+# The Node RAG server remains private on 127.0.0.1:3000.
+
+ai.example.com {
+  encode zstd gzip
+
+  reverse_proxy 127.0.0.1:3000
+
+  header {
+    -Server
+    X-Content-Type-Options "nosniff"
+    Referrer-Policy "no-referrer"
+    Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  }
+}
