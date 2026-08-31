@@ -1,0 +1,745 @@
+/* Final layout / typography pass — 2026-08-31 */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  line-height: 1.62;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/* The persistent Neon bar is a real grid row. Keep the conversation layout
+   explicit instead of relying on an implicit fourth row. */
+.conversation {
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+}
+
+/* Softer tracking: the earlier display rules were tuned very tightly for
+   English and made Korean headings feel compressed. */
+.hero-title h1 {
+  line-height: 1.08;
+  letter-spacing: -.03em;
+}
+
+.answer-document h2,
+.resume-identity-copy h3,
+.paper-card h3,
+.project-card h3,
+.rs-tour-card h2,
+.rs-section-title,
+.rs-career-detail h3 {
+  letter-spacing: -.024em;
+}
+
+html[lang="ko"] .hero-title h1 {
+  line-height: 1.11;
+  letter-spacing: -.018em;
+}
+
+html[lang="ko"] .answer-document h2,
+html[lang="ko"] .resume-identity-copy h3,
+html[lang="ko"] .paper-card h3,
+html[lang="ko"] .project-card h3,
+html[lang="ko"] .publication-card h3,
+html[lang="ko"] .grant-card h3,
+html[lang="ko"] .application-card h3,
+html[lang="ko"] .rs-tour-card h2,
+html[lang="ko"] .rs-section-title,
+html[lang="ko"] .rs-career-detail h3 {
+  letter-spacing: -.012em;
+}
+
+.answer-lead,
+.answer-panel p,
+.card-copy,
+.result-visual-copy p,
+.resume-identity-copy p,
+.timeline-item p,
+.publication-card p,
+.grant-card p,
+.application-card p,
+.account-card p,
+.award-card p,
+.rs-tour-copy,
+.rs-panel > p,
+.rs-career-intro,
+.rs-career-detail p,
+.rag-answer-copy p {
+  line-height: 1.78;
+  word-spacing: .025em;
+}
+
+/* Landing entry: keep one clear primary brief CTA. JD Match and Career Graph
+   remain available from the floating Recruiter tools menu. */
+.rs-entry {
+  width: auto;
+  max-width: calc(100vw - 32px);
+}
+
+.rs-entry > button:not(.rs-primary) {
+  display: none !important;
+}
+
+.rs-entry .rs-primary {
+  min-height: 42px;
+  padding-inline: 18px;
+}
+
+.rs-entry .rs-primary::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Keep long technical strings from creating horizontal page scroll. */
+.answer-document,
+.assistant-content,
+.project-card,
+.publication-card,
+.grant-card,
+.application-card,
+.resume-identity,
+.contact-grid,
+.rag-answer-copy {
+  min-width: 0;
+}
+
+.answer-document h2,
+.answer-document h3,
+.answer-document p,
+.contact-grid strong,
+.rag-answer-copy,
+.rag-source-chip {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .is-chatting .chat-view {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .chat-sidebar {
+    display: none !important;
+  }
+
+  .chat-view {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .conversation {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .message-list {
+    min-width: 0;
+    min-height: 0;
+    overscroll-behavior: contain;
+  }
+
+  .answer-grid,
+  .answer-grid.two,
+  .answer-grid.three,
+  .project-grid,
+  .publication-grid,
+  .grant-grid,
+  .application-grid,
+  .award-grid,
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .resume-identity {
+    grid-template-columns: 1fr !important;
+  }
+
+  .resume-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --mobile-header-height: 64px;
+  }
+
+  body {
+    min-width: 0;
+  }
+
+  button,
+  a,
+  input,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  .site-header {
+    height: calc(var(--mobile-header-height) + env(safe-area-inset-top));
+    min-height: var(--mobile-header-height);
+    padding: env(safe-area-inset-top) 12px 0;
+    gap: 10px;
+  }
+
+  .brand {
+    min-width: 0;
+    gap: 8px;
+  }
+
+  .brand > span {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+  }
+
+  .brand div {
+    min-width: 0;
+  }
+
+  .brand strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .site-header nav {
+    min-width: 0;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .site-header nav > a {
+    white-space: nowrap;
+  }
+
+  .landing-view {
+    min-height: 100dvh;
+    padding: calc(var(--mobile-header-height) + env(safe-area-inset-top) + 22px) 14px max(28px, env(safe-area-inset-bottom));
+  }
+
+  .identity-stage,
+  .hero-title {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hero-title p {
+    max-width: 92vw;
+    margin-inline: auto;
+    font-size: clamp(14px, 4vw, 16px);
+    line-height: 1.5;
+    letter-spacing: -.01em;
+  }
+
+  .hero-title h1,
+  html[lang="ko"] .hero-title h1 {
+    max-width: 94vw;
+    margin-inline: auto;
+    font-size: clamp(32px, 10.4vw, 46px);
+    line-height: 1.13;
+    letter-spacing: -.012em;
+  }
+
+  .mascot-stage {
+    width: min(250px, 72vw);
+    height: 220px;
+    margin-block: 4px 2px;
+  }
+
+  .guided-composer,
+  .chat-composer {
+    width: 100%;
+    max-width: 100%;
+    min-height: 56px;
+    grid-template-columns: 32px minmax(0, 1fr) 44px;
+    padding: 5px 6px 5px 12px;
+  }
+
+  .guided-composer input,
+  .chat-composer input {
+    width: 100%;
+    min-width: 0;
+    font-size: 16px;
+  }
+
+  .guided-composer button,
+  .chat-composer button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .guided-hint {
+    margin-top: 10px;
+    padding-inline: 8px;
+    text-align: center;
+  }
+
+  .rs-entry {
+    width: min(100%, 430px);
+    max-width: 100%;
+    margin-top: 10px;
+  }
+
+  .rs-entry .rs-primary {
+    width: auto;
+    max-width: 100%;
+    min-height: 44px;
+    padding: 0 17px;
+    white-space: normal;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .menu-grid {
+    width: 100%;
+    max-width: 520px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .menu-grid button,
+  .menu-grid button:nth-child(4),
+  .menu-grid button:nth-child(5) {
+    grid-column: auto;
+    width: 100%;
+    min-width: 0;
+    height: 80px;
+    min-height: 80px;
+    padding-inline: 8px;
+  }
+
+  .menu-grid button:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .menu-grid strong {
+    font-size: 12.5px;
+  }
+
+  .menu-grid small {
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+
+  .chat-view {
+    height: 100dvh;
+    padding-top: calc(var(--mobile-header-height) + env(safe-area-inset-top));
+  }
+
+  .conversation {
+    height: calc(100dvh - var(--mobile-header-height) - env(safe-area-inset-top));
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+  }
+
+  .neon-guide-bar {
+    position: relative;
+    top: auto;
+    min-height: 58px;
+    padding: 8px 11px;
+  }
+
+  .neon-guide-copy p {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    line-height: 1.45;
+  }
+
+  .conversation-head {
+    min-height: 42px;
+    padding-inline: 12px;
+    gap: 8px;
+  }
+
+  .conversation-head > div {
+    min-width: 0;
+  }
+
+  .conversation-head > div > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .conversation-head button {
+    flex: 0 0 auto;
+    min-height: 36px;
+    padding-inline: 4px;
+  }
+
+  .message-list {
+    padding: 18px 11px 24px;
+    scroll-padding-bottom: 22px;
+  }
+
+  .user-message {
+    max-width: 92%;
+    margin-bottom: 18px;
+  }
+
+  .user-message p {
+    max-width: 100%;
+    padding: 10px 13px;
+    font-size: 14px;
+  }
+
+  .assistant-message,
+  .assistant-message.neon-single-avatar {
+    max-width: 100%;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 34px;
+  }
+
+  .assistant-mark {
+    display: none;
+  }
+
+  .answer-document h2,
+  html[lang="ko"] .answer-document h2 {
+    font-size: clamp(25px, 7.5vw, 32px);
+    line-height: 1.24;
+    letter-spacing: -.008em;
+  }
+
+  .answer-lead {
+    font-size: 14px;
+    line-height: 1.78;
+  }
+
+  .answer-panel,
+  .publication-card,
+  .grant-card,
+  .application-card,
+  .award-card,
+  .account-card,
+  .rag-answer-copy {
+    padding: 16px;
+  }
+
+  .paper-card h3,
+  .project-card h3,
+  html[lang="ko"] .paper-card h3,
+  html[lang="ko"] .project-card h3 {
+    font-size: clamp(21px, 6.3vw, 27px);
+    line-height: 1.25;
+    letter-spacing: -.008em;
+  }
+
+  .project-media,
+  .application-media {
+    height: auto !important;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+
+  .project-media img,
+  .application-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .resume-overview,
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px;
+  }
+
+  .process-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px;
+  }
+
+  .process-flow span {
+    min-width: 0;
+    min-height: 64px;
+  }
+
+  .contact-grid a {
+    min-width: 0;
+  }
+
+  .contact-grid strong {
+    font-size: 13px;
+  }
+
+  .inline-actions,
+  .application-actions,
+  .detail-actions,
+  .resume-actions,
+  .rag-based-on {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .inline-actions button,
+  .inline-actions a,
+  .application-actions a,
+  .detail-actions a,
+  .resume-actions button,
+  .rag-source-chip {
+    min-height: 42px;
+  }
+
+  .quick-prompts {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    gap: 7px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .quick-prompts::-webkit-scrollbar {
+    display: none;
+  }
+
+  .quick-prompts button {
+    flex: 0 0 auto;
+    min-height: 36px;
+    white-space: nowrap;
+  }
+
+  .conversation-bottom {
+    width: 100%;
+    min-width: 0;
+    padding: 7px 9px max(10px, env(safe-area-inset-bottom));
+  }
+
+  .mini-chart,
+  .compression-chart,
+  .compare-chart {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mini-chart > div,
+  .compression-chart > div {
+    min-width: 330px;
+  }
+
+  .compare-chart > div {
+    min-width: 390px;
+  }
+
+  /* Recruiter suite mobile: full-width usable dialog without off-screen nodes. */
+  .rs-floating {
+    right: 8px;
+    bottom: calc(78px + env(safe-area-inset-bottom));
+  }
+
+  .rs-floating-toggle {
+    min-height: 42px;
+  }
+
+  .rs-modal {
+    padding: 6px;
+  }
+
+  .rs-dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100dvh - 12px);
+    border-radius: 18px;
+  }
+
+  .rs-dialog-head {
+    min-height: 54px;
+    padding: 10px 10px 10px 12px;
+  }
+
+  .rs-dialog-title {
+    min-width: 0;
+  }
+
+  .rs-dialog-title > div {
+    min-width: 0;
+  }
+
+  .rs-dialog-title strong,
+  .rs-dialog-title small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .rs-content {
+    padding: 12px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .rs-tour-card {
+    min-height: 0;
+    padding: 19px 15px;
+  }
+
+  .rs-tour-card h2,
+  .rs-section-title,
+  html[lang="ko"] .rs-tour-card h2,
+  html[lang="ko"] .rs-section-title {
+    font-size: clamp(25px, 8vw, 35px);
+    line-height: 1.18;
+    letter-spacing: -.008em;
+  }
+
+  .rs-tour-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rs-grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .rs-jd-textarea {
+    min-height: 190px;
+  }
+
+  .rs-career-graph {
+    margin-top: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-header nav > a {
+    display: none;
+  }
+
+  .site-header nav .language-switch,
+  .site-header nav .language-switch a {
+    display: flex !important;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .hero-title h1,
+  html[lang="ko"] .hero-title h1 {
+    font-size: clamp(30px, 9.7vw, 40px);
+  }
+
+  .mascot-stage {
+    width: min(225px, 68vw);
+    height: 202px;
+  }
+
+  .menu-grid button {
+    height: 76px;
+    min-height: 76px;
+  }
+
+  .neon-guide-status {
+    display: none;
+  }
+
+  .resume-overview,
+  .metric-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .rs-score-head {
+    align-items: flex-start;
+  }
+
+  .rs-category {
+    grid-template-columns: 86px minmax(0, 1fr) 32px;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-header {
+    padding-inline: 9px;
+  }
+
+  .brand > span {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .brand strong {
+    font-size: 13px;
+  }
+
+  .landing-view {
+    padding-inline: 10px;
+  }
+
+  .hero-title h1,
+  html[lang="ko"] .hero-title h1 {
+    font-size: 29px;
+  }
+
+  .menu-grid {
+    gap: 6px;
+  }
+
+  .menu-grid button {
+    min-height: 72px;
+    height: 72px;
+  }
+
+  .message-list {
+    padding-inline: 9px;
+  }
+
+  .answer-document h2,
+  html[lang="ko"] .answer-document h2 {
+    font-size: 24px;
+  }
+
+  .resume-overview,
+  .metric-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .process-flow {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 520px) {
+  .landing-view {
+    justify-content: flex-start;
+  }
+
+  .mascot-stage {
+    height: 170px;
+    transform: scale(.86);
+    margin-block: -8px -12px;
+  }
+
+  .menu-grid button {
+    min-height: 66px;
+    height: 66px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
