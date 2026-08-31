@@ -28,7 +28,7 @@ jobs:
           sleep 1
       - name: Run responsive and history smoke test
         run: |
-          cat > /tmp/ui-smoke.mjs <<'EOF'
+          cat > ./ui-smoke-temp.mjs <<'EOF'
           import { chromium } from 'playwright';
 
           const browser = await chromium.launch({ headless: true });
@@ -82,4 +82,4 @@ jobs:
 
           await browser.close();
           EOF
-          node /tmp/ui-smoke.mjs
+          node ./ui-smoke-temp.mjs
