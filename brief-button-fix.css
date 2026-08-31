@@ -1,0 +1,25 @@
+/* Recruiter brief CTA — remove the dark edge/shadow artifact completely. */
+.rs-entry .rs-primary,
+.rs-entry .rs-primary:hover,
+.rs-entry .rs-primary:active,
+.rs-entry .rs-primary:focus,
+.rs-entry .rs-primary:focus-visible,
+.rs-entry .rs-primary.rs-highlight {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+.rs-entry .rs-primary::before,
+.rs-entry .rs-primary::after,
+.rs-entry .rs-primary:hover::before,
+.rs-entry .rs-primary:hover::after,
+.rs-entry .rs-primary:active::before,
+.rs-entry .rs-primary:active::after,
+.rs-entry .rs-primary:focus::before,
+.rs-entry .rs-primary:focus::after {
+  content: none !important;
+  display: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
